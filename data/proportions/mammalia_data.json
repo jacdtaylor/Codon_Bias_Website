@@ -2,7 +2,7 @@
     {
         "Species": "GCF_004664715.2",
         "ID": "10041",
-        "Name": "peromyscus_leucopus",
+        "Name": "Peromyscus leucopus",
         "AUU": "0.3441198883494412",
         "AUC": "0.4882272559478964",
         "AUA": "0.1676528557026624",
@@ -71,7 +71,7 @@
     {
         "Species": "GCF_016881025.1",
         "ID": "43179",
-        "Name": "ictidomys_tridecemlineatus",
+        "Name": "Ictidomys tridecemlineatus",
         "AUU": "0.3674954325833467",
         "AUC": "0.4554511103325554",
         "AUA": "0.17705345708409786",
@@ -140,7 +140,7 @@
     {
         "Species": "GCF_002007445.2",
         "ID": "9646",
-        "Name": "ailuropoda_melanoleuca",
+        "Name": "Ailuropoda melanoleuca",
         "AUU": "0.3527122540902021",
         "AUC": "0.4781188679781856",
         "AUA": "0.1691688779316123",
@@ -209,7 +209,7 @@
     {
         "Species": "GCF_000164845.4",
         "ID": "30538",
-        "Name": "vicugna_pacos",
+        "Name": "Vicugna pacos",
         "AUU": "0.34753721613718225",
         "AUC": "0.4873441808275818",
         "AUA": "0.16511860303523593",
@@ -278,7 +278,7 @@
     {
         "Species": "GCF_902686445.1",
         "ID": "30640",
-        "Name": "sciurus_carolinensis",
+        "Name": "Sciurus carolinensis",
         "AUU": "0.3575833821069799",
         "AUC": "0.4745422393664772",
         "AUA": "0.16787437852654294",
@@ -347,7 +347,7 @@
     {
         "Species": "GCF_000003025.6",
         "ID": "9823",
-        "Name": "sus_scrofa",
+        "Name": "Sus scrofa",
         "AUU": "0.33927950858935463",
         "AUC": "0.49554799988729115",
         "AUA": "0.16517249152335423",
@@ -416,7 +416,7 @@
     {
         "Species": "GCF_012274545.1",
         "ID": "885580",
-        "Name": "fukomys_damarensis",
+        "Name": "Fukomys damarensis",
         "AUU": "0.3529785530255553",
         "AUC": "0.47608105285147273",
         "AUA": "0.17094039412297193",
@@ -485,7 +485,7 @@
     {
         "Species": "GCF_006229205.1",
         "ID": "37032",
-        "Name": "suricata_suricatta",
+        "Name": "Suricata suricatta",
         "AUU": "0.34613935887384645",
         "AUC": "0.48813272774256844",
         "AUA": "0.1657279133835851",
@@ -554,7 +554,7 @@
     {
         "Species": "GCF_015252025.1",
         "ID": "60711",
-        "Name": "chlorocebus_sabaeus",
+        "Name": "Chlorocebus sabaeus",
         "AUU": "0.3713336531832458",
         "AUC": "0.4530969669358513",
         "AUA": "0.17556937988090293",
@@ -623,7 +623,7 @@
     {
         "Species": "GCF_017591425.1",
         "ID": "130825",
-        "Name": "ochotona_curzoniae",
+        "Name": "Ochotona curzoniae",
         "AUU": "0.32774432069663717",
         "AUC": "0.5271903595540273",
         "AUA": "0.1450653197493356",
@@ -692,7 +692,7 @@
     {
         "Species": "GCF_021234165.1",
         "ID": "1884717",
-        "Name": "pteronotus_parnellii_mesoamericanus",
+        "Name": "Pteronotus parnellii_mesoamericanus",
         "AUU": "0.35138676229173155",
         "AUC": "0.48046734320074413",
         "AUA": "0.1681458945075243",
@@ -761,7 +761,7 @@
     {
         "Species": "GCF_949987515.1",
         "ID": "9728",
-        "Name": "delphinus_delphis",
+        "Name": "Delphinus delphis",
         "AUU": "0.3465496125539391",
         "AUC": "0.48517403596323555",
         "AUA": "0.16827635148282533",
@@ -830,7 +830,7 @@
     {
         "Species": "GCF_000247795.1",
         "ID": "9915",
-        "Name": "bos_indicus",
+        "Name": "Bos indicus",
         "AUU": "0.34014791199071",
         "AUC": "0.4958670258432095",
         "AUA": "0.16398506216608053",
@@ -899,7 +899,7 @@
     {
         "Species": "GCF_003254725.2",
         "ID": "286419",
-        "Name": "canis_lupus_dingo",
+        "Name": "Canis lupus_dingo",
         "AUU": "0.3549445389871407",
         "AUC": "0.4723507188436691",
         "AUA": "0.17270474216919027",
@@ -968,7 +968,7 @@
     {
         "Species": "GCF_002102435.1",
         "ID": "9880",
-        "Name": "odocoileus_virginianus_texanus",
+        "Name": "Odocoileus virginianus_texanus",
         "AUU": "0.3367369925919508",
         "AUC": "0.4998440410691851",
         "AUA": "0.1634189663388641",
@@ -1037,7 +1037,7 @@
     {
         "Species": "GCF_029834395.1",
         "ID": "62283",
-        "Name": "sorex_fumeus",
+        "Name": "Sorex fumeus",
         "AUU": "0.31992048995379824",
         "AUC": "0.5323756312452992",
         "AUA": "0.14770387880090255",
@@ -1106,7 +1106,7 @@
     {
         "Species": "GCF_900095145.1",
         "ID": "10093",
-        "Name": "mus_pahari",
+        "Name": "Mus pahari",
         "AUU": "0.3456212582294091",
         "AUC": "0.4848877220200091",
         "AUA": "0.16949101975058178",
@@ -1175,7 +1175,7 @@
     {
         "Species": "GCF_004126475.2",
         "ID": "89673",
-        "Name": "phyllostomus_discolor",
+        "Name": "Phyllostomus discolor",
         "AUU": "0.32967012902239234",
         "AUC": "0.5082701687356354",
         "AUA": "0.16205970224197233",
@@ -1244,7 +1244,7 @@
     {
         "Species": "GCF_021234435.1",
         "ID": "9417",
-        "Name": "artibeus_jamaicensis",
+        "Name": "Artibeus jamaicensis",
         "AUU": "0.3406859559275916",
         "AUC": "0.4947812410637689",
         "AUA": "0.16453280300863943",
@@ -1313,7 +1313,7 @@
     {
         "Species": "GCF_022682495.1",
         "ID": "9430",
-        "Name": "desmodus_rotundus",
+        "Name": "Desmodus rotundus",
         "AUU": "0.3410557778161874",
         "AUC": "0.49326332474737467",
         "AUA": "0.1656808974364379",
@@ -1382,7 +1382,7 @@
     {
         "Species": "GCF_000803125.2",
         "ID": "9838",
-        "Name": "camelus_dromedarius",
+        "Name": "Camelus dromedarius",
         "AUU": "0.3468324817694722",
         "AUC": "0.48877846829027927",
         "AUA": "0.16438904994024853",
@@ -1451,7 +1451,7 @@
     {
         "Species": "GCF_000349705.1",
         "ID": "9713",
-        "Name": "leptonychotes_weddellii",
+        "Name": "Leptonychotes weddellii",
         "AUU": "0.3548360414451805",
         "AUC": "0.4749385109804427",
         "AUA": "0.17022544757437677",
@@ -1520,7 +1520,7 @@
     {
         "Species": "GCF_014824575.3",
         "ID": "192404",
-        "Name": "sturnira_hondurensis",
+        "Name": "Sturnira hondurensis",
         "AUU": "0.34313466262590653",
         "AUC": "0.4927829040590656",
         "AUA": "0.16408243331502786",
@@ -1589,7 +1589,7 @@
     {
         "Species": "GCF_027574615.1",
         "ID": "29078",
-        "Name": "eptesicus_fuscus",
+        "Name": "Eptesicus fuscus",
         "AUU": "0.3341884978248615",
         "AUC": "0.5048321048321048",
         "AUA": "0.1609793973430337",
@@ -1658,7 +1658,7 @@
     {
         "Species": "GCF_022079265.1",
         "ID": "61384",
-        "Name": "lynx_rufus",
+        "Name": "Lynx rufus",
         "AUU": "0.34925831969108107",
         "AUC": "0.4807675485185139",
         "AUA": "0.16997413179040502",
@@ -1727,7 +1727,7 @@
     {
         "Species": "GCF_011762505.1",
         "ID": "61156",
-        "Name": "arvicanthis_niloticus",
+        "Name": "Arvicanthis niloticus",
         "AUU": "0.3540349092486695",
         "AUC": "0.47223229947004064",
         "AUA": "0.17373279128128985",
@@ -1796,7 +1796,7 @@
     {
         "Species": "GCF_018350155.1",
         "ID": "46844",
-        "Name": "leopardus_geoffroyi",
+        "Name": "Leopardus geoffroyi",
         "AUU": "0.34799059004119354",
         "AUC": "0.48141892904755146",
         "AUA": "0.17059048091125498",
@@ -1865,7 +1865,7 @@
     {
         "Species": "GCF_900497805.2",
         "ID": "29139",
-        "Name": "vombatus_ursinus",
+        "Name": "Vombatus ursinus",
         "AUU": "0.39419888962566196",
         "AUC": "0.4200880690757369",
         "AUA": "0.1857130412986011",
@@ -1934,7 +1934,7 @@
     {
         "Species": "GCF_009829155.1",
         "ID": "36723",
-        "Name": "mustela_erminea",
+        "Name": "Mustela erminea",
         "AUU": "0.3458249402145331",
         "AUC": "0.48708137769530746",
         "AUA": "0.16709368209015946",
@@ -2003,7 +2003,7 @@
     {
         "Species": "GCF_028533385.1",
         "ID": "9690",
-        "Name": "panthera_onca",
+        "Name": "Panthera onca",
         "AUU": "0.35061545149012413",
         "AUC": "0.47676763393093796",
         "AUA": "0.17261691457893788",
@@ -2072,7 +2072,7 @@
     {
         "Species": "GCF_000296735.1",
         "ID": "185453",
-        "Name": "chrysochloris_asiatica",
+        "Name": "Chrysochloris asiatica",
         "AUU": "0.3723821822180172",
         "AUC": "0.4570238917158906",
         "AUA": "0.17059392606609217",
@@ -2141,7 +2141,7 @@
     {
         "Species": "GCF_002776525.5",
         "ID": "591936",
-        "Name": "piliocolobus_tephrosceles",
+        "Name": "Piliocolobus tephrosceles",
         "AUU": "0.37169174883238193",
         "AUC": "0.45076543850544887",
         "AUA": "0.17754281266216917",
@@ -2210,7 +2210,7 @@
     {
         "Species": "GCF_024139225.1",
         "ID": "109475",
-        "Name": "suncus_etruscus",
+        "Name": "Suncus etruscus",
         "AUU": "0.3521135524550948",
         "AUC": "0.48874431338928914",
         "AUA": "0.1591421341556161",
@@ -2279,7 +2279,7 @@
     {
         "Species": "GCF_018350215.1",
         "ID": "9689",
-        "Name": "panthera_leo",
+        "Name": "Panthera leo",
         "AUU": "0.3472821461531476",
         "AUC": "0.4810534785445929",
         "AUA": "0.17166437530225948",
@@ -2348,7 +2348,7 @@
     {
         "Species": "GCF_015220235.1",
         "ID": "27675",
-        "Name": "choloepus_didactylus",
+        "Name": "Choloepus didactylus",
         "AUU": "0.3651551814432123",
         "AUC": "0.4583252101514926",
         "AUA": "0.17651960840529518",
@@ -2417,7 +2417,7 @@
     {
         "Species": "GCF_000001635.27",
         "ID": "10090",
-        "Name": "mus_musculus",
+        "Name": "Mus musculus",
         "AUU": "0.34748765134166504",
         "AUC": "0.47566723831626945",
         "AUA": "0.17684511034206554",
@@ -2486,7 +2486,7 @@
     {
         "Species": "GCF_030435805.1",
         "ID": "9666",
-        "Name": "mustela_lutreola",
+        "Name": "Mustela lutreola",
         "AUU": "0.34703909162850943",
         "AUC": "0.4858755949967125",
         "AUA": "0.16708531337477806",
@@ -2555,7 +2555,7 @@
     {
         "Species": "GCF_011800145.1",
         "ID": "9715",
-        "Name": "mirounga_leonina",
+        "Name": "Mirounga leonina",
         "AUU": "0.3553444240729319",
         "AUC": "0.47478814096335664",
         "AUA": "0.16986743496371148",
@@ -2624,7 +2624,7 @@
     {
         "Species": "GCF_014570535.1",
         "ID": "9974",
-        "Name": "manis_javanica",
+        "Name": "Manis javanica",
         "AUU": "0.3577109565150731",
         "AUC": "0.47039783991431205",
         "AUA": "0.17189120357061483",
@@ -2693,7 +2693,7 @@
     {
         "Species": "GCF_023159225.1",
         "ID": "214514",
-        "Name": "perognathus_longimembris_pacificus",
+        "Name": "Perognathus longimembris_pacificus",
         "AUU": "0.353862566246942",
         "AUC": "0.483545909077277",
         "AUA": "0.16259152467578092",
@@ -2762,7 +2762,7 @@
     {
         "Species": "GCF_007474595.2",
         "ID": "61383",
-        "Name": "lynx_canadensis",
+        "Name": "Lynx canadensis",
         "AUU": "0.34794473818864063",
         "AUC": "0.48251517763712887",
         "AUA": "0.16954008417423053",
@@ -2831,7 +2831,7 @@
     {
         "Species": "GCF_008728515.1",
         "ID": "9555",
-        "Name": "papio_anubis",
+        "Name": "Papio anubis",
         "AUU": "0.374496544082109",
         "AUC": "0.4453536667308471",
         "AUA": "0.18014978918704394",
@@ -2900,7 +2900,7 @@
     {
         "Species": "GCF_030028045.1",
         "ID": "575201",
-        "Name": "hippopotamus_amphibius_kiboko",
+        "Name": "Hippopotamus amphibius_kiboko",
         "AUU": "0.3429725145522532",
         "AUC": "0.489736324736903",
         "AUA": "0.16729116071084385",
@@ -2969,7 +2969,7 @@
     {
         "Species": "GCF_000147115.1",
         "ID": "59463",
-        "Name": "myotis_lucifugus",
+        "Name": "Myotis lucifugus",
         "AUU": "0.3554358307827764",
         "AUC": "0.47105729319525386",
         "AUA": "0.17350687602196974",
@@ -3038,7 +3038,7 @@
     {
         "Species": "GCF_009873245.2",
         "ID": "9771",
-        "Name": "balaenoptera_musculus",
+        "Name": "Balaenoptera musculus",
         "AUU": "0.34511873228417744",
         "AUC": "0.488354276985507",
         "AUA": "0.16652699073031557",
@@ -3107,7 +3107,7 @@
     {
         "Species": "GCF_003369695.1",
         "ID": "30522",
-        "Name": "bos_indicus_x_bos_taurus",
+        "Name": "Bos indicus_x_bos_taurus",
         "AUU": "0.33747758991273685",
         "AUC": "0.49817252548064067",
         "AUA": "0.1643498846066225",
@@ -3176,7 +3176,7 @@
     {
         "Species": "GCF_023065955.2",
         "ID": "9644",
-        "Name": "ursus_arctos",
+        "Name": "Ursus arctos",
         "AUU": "0.3492074592540346",
         "AUC": "0.48119101900379435",
         "AUA": "0.169601521742171",
@@ -3245,7 +3245,7 @@
     {
         "Species": "GCF_017311325.1",
         "ID": "29073",
-        "Name": "ursus_maritimus",
+        "Name": "Ursus maritimus",
         "AUU": "0.34620322391286906",
         "AUC": "0.48741939162052933",
         "AUA": "0.16637738446660164",
@@ -3314,7 +3314,7 @@
     {
         "Species": "GCF_020975775.1",
         "ID": "9643",
-        "Name": "ursus_americanus",
+        "Name": "Ursus americanus",
         "AUU": "0.3491056240557017",
         "AUC": "0.48251291641573424",
         "AUA": "0.16838145952856404",
@@ -3383,7 +3383,7 @@
     {
         "Species": "GCF_014898765.1",
         "ID": "1608482",
-        "Name": "puma_yagouaroundi",
+        "Name": "Puma yagouaroundi",
         "AUU": "0.3519060229738407",
         "AUC": "0.475712529011084",
         "AUA": "0.17238144801507527",
@@ -3452,7 +3452,7 @@
     {
         "Species": "GCF_902655055.1",
         "ID": "9657",
-        "Name": "lutra_lutra",
+        "Name": "Lutra lutra",
         "AUU": "0.3472625656476542",
         "AUC": "0.4858633862953499",
         "AUA": "0.1668740480569959",
@@ -3521,7 +3521,7 @@
     {
         "Species": "GCF_000412655.1",
         "ID": "109478",
-        "Name": "myotis_brandtii",
+        "Name": "Myotis brandtii",
         "AUU": "0.3485451339652213",
         "AUC": "0.48275057840137325",
         "AUA": "0.16870428763340548",
@@ -3590,7 +3590,7 @@
     {
         "Species": "GCF_003009895.1",
         "ID": "95912",
-        "Name": "hyaena_hyaena",
+        "Name": "Hyaena hyaena",
         "AUU": "0.34459405175240315",
         "AUC": "0.4889336190854629",
         "AUA": "0.16647232916213395",
@@ -3659,7 +3659,7 @@
     {
         "Species": "GCF_027406575.1",
         "ID": "9470",
-        "Name": "nycticebus_coucang",
+        "Name": "Nycticebus coucang",
         "AUU": "0.3743212507813618",
         "AUC": "0.447925531514298",
         "AUA": "0.17775321770434022",
@@ -3728,7 +3728,7 @@
     {
         "Species": "GCF_000001905.1",
         "ID": "9785",
-        "Name": "loxodonta_africana",
+        "Name": "Loxodonta africana",
         "AUU": "0.3692195630024802",
         "AUC": "0.45119347204037313",
         "AUA": "0.17958696495714666",
@@ -3797,7 +3797,7 @@
     {
         "Species": "GCF_028564815.1",
         "ID": "27606",
-        "Name": "eubalaena_glacialis",
+        "Name": "Eubalaena glacialis",
         "AUU": "0.3473249286750537",
         "AUC": "0.4859158034915049",
         "AUA": "0.16675926783344136",
@@ -3866,7 +3866,7 @@
     {
         "Species": "GCF_001698545.2",
         "ID": "61621",
-        "Name": "rhinopithecus_bieti",
+        "Name": "Rhinopithecus bieti",
         "AUU": "0.35800380072798965",
         "AUC": "0.47583691134182565",
         "AUA": "0.1661592879301847",
@@ -3935,7 +3935,7 @@
     {
         "Species": "GCF_018167655.1",
         "ID": "111838",
-        "Name": "microtus_oregoni",
+        "Name": "Microtus oregoni",
         "AUU": "0.3473704585812511",
         "AUC": "0.4858722637873139",
         "AUA": "0.166757277631435",
@@ -4004,7 +4004,7 @@
     {
         "Species": "GCF_011764305.1",
         "ID": "9669",
-        "Name": "mustela_putorius_furo",
+        "Name": "Mustela putorius_furo",
         "AUU": "0.3466164842457046",
         "AUC": "0.48695603508238927",
         "AUA": "0.1664274806719061",
@@ -4073,7 +4073,7 @@
     {
         "Species": "GCF_963259705.1",
         "ID": "98922",
-        "Name": "myotis_daubentonii",
+        "Name": "Myotis daubentonii",
         "AUU": "0.3351811730150853",
         "AUC": "0.5025821340531031",
         "AUA": "0.16223669293181148",
@@ -4142,7 +4142,7 @@
     {
         "Species": "GCF_014108415.1",
         "ID": "27622",
-        "Name": "molossus_molossus",
+        "Name": "Molossus molossus",
         "AUU": "0.34825927573089693",
         "AUC": "0.4840413818712516",
         "AUA": "0.16769934239785145",
@@ -4211,7 +4211,7 @@
     {
         "Species": "GCF_028018385.1",
         "ID": "61452",
-        "Name": "neofelis_nebulosa",
+        "Name": "Neofelis nebulosa",
         "AUU": "0.34955206980384324",
         "AUC": "0.47832636901298636",
         "AUA": "0.17212156118317043",
@@ -4280,7 +4280,7 @@
     {
         "Species": "GCF_014885135.2",
         "ID": "100897",
-        "Name": "microtus_fortis",
+        "Name": "Microtus fortis",
         "AUU": "0.34240732371609",
         "AUC": "0.49306302667205254",
         "AUA": "0.16452964961185745",
@@ -4349,7 +4349,7 @@
     {
         "Species": "GCF_012559485.2",
         "ID": "9541",
-        "Name": "macaca_fascicularis",
+        "Name": "Macaca fascicularis",
         "AUU": "0.3695317381732886",
         "AUC": "0.4539092316122396",
         "AUA": "0.1765590302144718",
@@ -4418,7 +4418,7 @@
     {
         "Species": "GCF_016772045.2",
         "ID": "9940",
-        "Name": "ovis_aries",
+        "Name": "Ovis aries",
         "AUU": "0.33769013252955893",
         "AUC": "0.49671006634246384",
         "AUA": "0.16559980112797726",
@@ -4487,7 +4487,7 @@
     {
         "Species": "GCF_002863925.1",
         "ID": "9796",
-        "Name": "equus_caballus",
+        "Name": "Equus caballus",
         "AUU": "0.3529855151607215",
         "AUC": "0.4787630681785406",
         "AUA": "0.16825141666073787",
@@ -4556,7 +4556,7 @@
     {
         "Species": "GCF_000151845.1",
         "ID": "132908",
-        "Name": "pteropus_vampyrus",
+        "Name": "Pteropus vampyrus",
         "AUU": "0.35920500532120414",
         "AUC": "0.46330176763397346",
         "AUA": "0.1774932270448224",
@@ -4625,7 +4625,7 @@
     {
         "Species": "GCF_019186645.2",
         "ID": "9423",
-        "Name": "phyllostomus_hastatus",
+        "Name": "Phyllostomus hastatus",
         "AUU": "0.33179698407961716",
         "AUC": "0.5049869635392956",
         "AUA": "0.16321605238108722",
@@ -4694,7 +4694,7 @@
     {
         "Species": "GCF_004785775.1",
         "ID": "491861",
-        "Name": "grammomys_surdaster",
+        "Name": "Grammomys surdaster",
         "AUU": "0.35249567867134735",
         "AUC": "0.47573026989246675",
         "AUA": "0.1717740514361859",
@@ -4763,7 +4763,7 @@
     {
         "Species": "GCF_010015895.1",
         "ID": "76717",
-        "Name": "lontra_canadensis",
+        "Name": "Lontra canadensis",
         "AUU": "0.34937352574321345",
         "AUC": "0.4823026506849744",
         "AUA": "0.1683238235718121",
@@ -4832,7 +4832,7 @@
     {
         "Species": "GCF_000955945.1",
         "ID": "9531",
-        "Name": "cercocebus_atys",
+        "Name": "Cercocebus atys",
         "AUU": "0.3690636795425105",
         "AUC": "0.45467974291009083",
         "AUA": "0.17625657754739862",
@@ -4901,7 +4901,7 @@
     {
         "Species": "GCF_009761245.1",
         "ID": "9515",
-        "Name": "sapajus_apella",
+        "Name": "Sapajus apella",
         "AUU": "0.3729902823737707",
         "AUC": "0.4504288136994533",
         "AUA": "0.176580903926776",
@@ -4970,7 +4970,7 @@
     {
         "Species": "GCF_001604975.1",
         "ID": "2715852",
-        "Name": "cebus_imitator",
+        "Name": "Cebus imitator",
         "AUU": "0.37046394398877835",
         "AUC": "0.45536201536912996",
         "AUA": "0.1741740406420917",
@@ -5039,7 +5039,7 @@
     {
         "Species": "GCF_004115215.2",
         "ID": "9258",
-        "Name": "ornithorhynchus_anatinus",
+        "Name": "Ornithorhynchus anatinus",
         "AUU": "0.28054038241119517",
         "AUC": "0.5788465319707077",
         "AUA": "0.14061308561809716",
@@ -5108,7 +5108,7 @@
     {
         "Species": "GCF_018345385.1",
         "ID": "494514",
-        "Name": "vulpes_lagopus",
+        "Name": "Vulpes lagopus",
         "AUU": "0.3561017276619111",
         "AUC": "0.473619344932429",
         "AUA": "0.1702789274056599",
@@ -5177,7 +5177,7 @@
     {
         "Species": "GCF_012393455.1",
         "ID": "9711",
-        "Name": "halichoerus_grypus",
+        "Name": "Halichoerus grypus",
         "AUU": "0.34241607226147003",
         "AUC": "0.4963471098824841",
         "AUA": "0.16123681785604588",
@@ -5246,7 +5246,7 @@
     {
         "Species": "GCF_029281585.1",
         "ID": "9595",
-        "Name": "gorilla_gorilla_gorilla",
+        "Name": "Gorilla gorilla_gorilla",
         "AUU": "0.36647187446643276",
         "AUC": "0.4570272984469866",
         "AUA": "0.17650082708658063",
@@ -5315,7 +5315,7 @@
     {
         "Species": "GCF_000247695.1",
         "ID": "10181",
-        "Name": "heterocephalus_glaber",
+        "Name": "Heterocephalus glaber",
         "AUU": "0.3498104273460679",
         "AUC": "0.4838948254316391",
         "AUA": "0.16629474722229307",
@@ -5384,7 +5384,7 @@
     {
         "Species": "GCF_020740605.2",
         "ID": "9447",
-        "Name": "lemur_catta",
+        "Name": "Lemur catta",
         "AUU": "0.3565702414957154",
         "AUC": "0.468040508958712",
         "AUA": "0.17538924954557258",
@@ -5453,7 +5453,7 @@
     {
         "Species": "GCF_000622305.1",
         "ID": "1026970",
-        "Name": "nannospalax_galili",
+        "Name": "Nannospalax galili",
         "AUU": "0.3618209287198103",
         "AUC": "0.4689216694294647",
         "AUA": "0.16925740185072496",
@@ -5522,7 +5522,7 @@
     {
         "Species": "GCF_021218885.2",
         "ID": "9995",
-        "Name": "marmota_monax",
+        "Name": "Marmota monax",
         "AUU": "0.3679450125708724",
         "AUC": "0.4550895444256844",
         "AUA": "0.17696544300344316",
@@ -5591,7 +5591,7 @@
     {
         "Species": "GCF_000151735.1",
         "ID": "10141",
-        "Name": "cavia_porcellus",
+        "Name": "Cavia porcellus",
         "AUU": "0.34338506444220457",
         "AUC": "0.4945637185873234",
         "AUA": "0.16205121697047203",
@@ -5660,7 +5660,7 @@
     {
         "Species": "GCF_001890085.2",
         "ID": "186990",
-        "Name": "hipposideros_armiger",
+        "Name": "Hipposideros armiger",
         "AUU": "0.35396040176413585",
         "AUC": "0.4777921936756608",
         "AUA": "0.16824740456020335",
@@ -5729,7 +5729,7 @@
     {
         "Species": "GCF_024166365.1",
         "ID": "99487",
-        "Name": "elephas_maximus_indicus",
+        "Name": "Elephas maximus_indicus",
         "AUU": "0.3617530425270067",
         "AUC": "0.4636336156951931",
         "AUA": "0.17461334177780016",
@@ -5798,7 +5798,7 @@
     {
         "Species": "GCF_004115265.2",
         "ID": "59479",
-        "Name": "rhinolophus_ferrumequinum",
+        "Name": "Rhinolophus ferrumequinum",
         "AUU": "0.35707419723578926",
         "AUC": "0.4729402646437355",
         "AUA": "0.16998553812047526",
@@ -5867,7 +5867,7 @@
     {
         "Species": "GCF_019320065.1",
         "ID": "1574408",
-        "Name": "cervus_canadensis",
+        "Name": "Cervus canadensis",
         "AUU": "0.3358300774093516",
         "AUC": "0.5013460818988625",
         "AUA": "0.16282384069178582",
@@ -5936,7 +5936,7 @@
     {
         "Species": "GCF_018350175.1",
         "ID": "9685",
-        "Name": "felis_catus",
+        "Name": "Felis catus",
         "AUU": "0.3480285013138064",
         "AUC": "0.47992598496027017",
         "AUA": "0.17204551372592342",
@@ -6005,7 +6005,7 @@
     {
         "Species": "GCF_019054845.1",
         "ID": "105255",
-        "Name": "dipodomys_spectabilis",
+        "Name": "Dipodomys spectabilis",
         "AUU": "0.35377882928752763",
         "AUC": "0.48349258421393887",
         "AUA": "0.1627285864985335",
@@ -6074,7 +6074,7 @@
     {
         "Species": "GCF_000283155.1",
         "ID": "73337",
-        "Name": "ceratotherium_simum_simum",
+        "Name": "Ceratotherium simum_simum",
         "AUU": "0.35668514591474376",
         "AUC": "0.4740650779966901",
         "AUA": "0.16924977608856615",
@@ -6143,7 +6143,7 @@
     {
         "Species": "GCF_907164565.1",
         "ID": "48139",
-        "Name": "psammomys_obesus",
+        "Name": "Psammomys obesus",
         "AUU": "0.3443459145437154",
         "AUC": "0.48952418979754814",
         "AUA": "0.1661298956587365",
@@ -6212,7 +6212,7 @@
     {
         "Species": "GCF_032452875.1",
         "ID": "9906",
-        "Name": "bos_javanicus",
+        "Name": "Bos javanicus",
         "AUU": "0.33828773685331065",
         "AUC": "0.4961430548374342",
         "AUA": "0.16556920830925514",
@@ -6281,7 +6281,7 @@
     {
         "Species": "GCF_902635505.1",
         "ID": "9305",
-        "Name": "sarcophilus_harrisii",
+        "Name": "Sarcophilus harrisii",
         "AUU": "0.3987919373778316",
         "AUC": "0.4104985281344801",
         "AUA": "0.1907095344876883",
@@ -6350,7 +6350,7 @@
     {
         "Species": "GCF_003265705.1",
         "ID": "34884",
-        "Name": "callorhinus_ursinus",
+        "Name": "Callorhinus ursinus",
         "AUU": "0.3556649091974224",
         "AUC": "0.47510251903925016",
         "AUA": "0.16923257176332748",
@@ -6419,7 +6419,7 @@
     {
         "Species": "GCF_020740685.1",
         "ID": "51337",
-        "Name": "jaculus_jaculus",
+        "Name": "Jaculus jaculus",
         "AUU": "0.3549292566044797",
         "AUC": "0.47972280304941056",
         "AUA": "0.16534794034610972",
@@ -6488,7 +6488,7 @@
     {
         "Species": "GCF_000321225.1",
         "ID": "9708",
-        "Name": "odobenus_rosmarus_divergens",
+        "Name": "Odobenus rosmarus_divergens",
         "AUU": "0.3527301885849541",
         "AUC": "0.48185477459304993",
         "AUA": "0.165415036821996",
@@ -6557,7 +6557,7 @@
     {
         "Species": "GCF_000951035.1",
         "ID": "336983",
-        "Name": "colobus_angolensis_palliatus",
+        "Name": "Colobus angolensis_palliatus",
         "AUU": "0.373266469489212",
         "AUC": "0.45081232626720513",
         "AUA": "0.17592120424358287",
@@ -6626,7 +6626,7 @@
     {
         "Species": "GCF_003255815.1",
         "ID": "9565",
-        "Name": "theropithecus_gelada",
+        "Name": "Theropithecus gelada",
         "AUU": "0.3708085691255602",
         "AUC": "0.45407374106062437",
         "AUA": "0.1751176898138154",
@@ -6695,7 +6695,7 @@
     {
         "Species": "GCF_000952055.2",
         "ID": "37293",
-        "Name": "aotus_nancymaae",
+        "Name": "Aotus nancymaae",
         "AUU": "0.3720784199521763",
         "AUC": "0.45167462590807017",
         "AUA": "0.1762469541397535",
@@ -6764,7 +6764,7 @@
     {
         "Species": "GCF_015852505.1",
         "ID": "9261",
-        "Name": "tachyglossus_aculeatus",
+        "Name": "Tachyglossus aculeatus",
         "AUU": "0.28601602196455633",
         "AUC": "0.5758048987225731",
         "AUA": "0.13817907931287055",
@@ -6833,7 +6833,7 @@
     {
         "Species": "GCF_903995425.1",
         "ID": "38674",
-        "Name": "onychomys_torridus",
+        "Name": "Onychomys torridus",
         "AUU": "0.35127341638193055",
         "AUC": "0.48152120856628366",
         "AUA": "0.16720537505178573",
@@ -6902,7 +6902,7 @@
     {
         "Species": "GCF_004028035.1",
         "ID": "34886",
-        "Name": "eumetopias_jubatus",
+        "Name": "Eumetopias jubatus",
         "AUU": "0.35525906520110573",
         "AUC": "0.4768008831917569",
         "AUA": "0.16794005160713738",
@@ -6971,7 +6971,7 @@
     {
         "Species": "GCF_000956065.1",
         "ID": "9545",
-        "Name": "macaca_nemestrina",
+        "Name": "Macaca nemestrina",
         "AUU": "0.369874380498813",
         "AUC": "0.45232491820628284",
         "AUA": "0.1778007012949042",
@@ -7040,7 +7040,7 @@
     {
         "Species": "GCF_033118175.1",
         "ID": "30532",
-        "Name": "dama_dama",
+        "Name": "Dama dama",
         "AUU": "0.33626519607749306",
         "AUC": "0.5009082712984355",
         "AUA": "0.1628265326240714",
@@ -7109,7 +7109,7 @@
     {
         "Species": "GCF_000299155.1",
         "ID": "28737",
-        "Name": "elephantulus_edwardii",
+        "Name": "Elephantulus edwardii",
         "AUU": "0.3554624374392905",
         "AUC": "0.4832213157241361",
         "AUA": "0.16131624683657336",
@@ -7178,7 +7178,7 @@
     {
         "Species": "GCF_028885625.1",
         "ID": "9600",
-        "Name": "pongo_pygmaeus",
+        "Name": "Pongo pygmaeus",
         "AUU": "0.36794771565324497",
         "AUC": "0.45395029162471806",
         "AUA": "0.17810199272203692",
@@ -7247,7 +7247,7 @@
     {
         "Species": "GCF_029289425.1",
         "ID": "9597",
-        "Name": "pan_paniscus",
+        "Name": "Pan paniscus",
         "AUU": "0.36668214774105323",
         "AUC": "0.4566916944035916",
         "AUA": "0.17662615785535515",
@@ -7316,7 +7316,7 @@
     {
         "Species": "GCF_016433145.1",
         "ID": "191870",
-        "Name": "gracilinanus_agilis",
+        "Name": "Gracilinanus agilis",
         "AUU": "0.3945223597476202",
         "AUC": "0.41850540551515303",
         "AUA": "0.1869722347372268",
@@ -7385,7 +7385,7 @@
     {
         "Species": "GCF_949786415.1",
         "ID": "42410",
-        "Name": "peromyscus_eremicus",
+        "Name": "Peromyscus eremicus",
         "AUU": "0.3474330376848784",
         "AUC": "0.4831645174770024",
         "AUA": "0.16940244483811923",
@@ -7454,7 +7454,7 @@
     {
         "Species": "GCF_022376915.1",
         "ID": "68408",
-        "Name": "moschus_berezovskii",
+        "Name": "Moschus berezovskii",
         "AUU": "0.3395035339717282",
         "AUC": "0.49735969969383104",
         "AUA": "0.16313676633444074",
@@ -7523,7 +7523,7 @@
     {
         "Species": "GCF_947179515.1",
         "ID": "10129",
-        "Name": "apodemus_sylvaticus",
+        "Name": "Apodemus sylvaticus",
         "AUU": "0.3448656202613148",
         "AUC": "0.4809556299010238",
         "AUA": "0.17417874983766143",
@@ -7592,7 +7592,7 @@
     {
         "Species": "GCF_963455315.1",
         "ID": "9731",
-        "Name": "globicephala_melas",
+        "Name": "Globicephala melas",
         "AUU": "0.34607338268426135",
         "AUC": "0.48538246969209314",
         "AUA": "0.16854414762364553",
@@ -7661,7 +7661,7 @@
     {
         "Species": "GCF_001458135.2",
         "ID": "9994",
-        "Name": "marmota_marmota_marmota",
+        "Name": "Marmota marmota_marmota",
         "AUU": "0.37234264151548047",
         "AUC": "0.4483469998437732",
         "AUA": "0.17931035864074638",
@@ -7730,7 +7730,7 @@
     {
         "Species": "GCF_000754665.1",
         "ID": "43346",
-        "Name": "bison_bison_bison",
+        "Name": "Bison bison_bison",
         "AUU": "0.34763054380045116",
         "AUC": "0.482998079826998",
         "AUA": "0.16937137637255084",
@@ -7799,7 +7799,7 @@
     {
         "Species": "GCF_014176215.1",
         "ID": "9407",
-        "Name": "rousettus_aegyptiacus",
+        "Name": "Rousettus aegyptiacus",
         "AUU": "0.3498992989377025",
         "AUC": "0.47641059429215155",
         "AUA": "0.17369010677014593",
@@ -7868,7 +7868,7 @@
     {
         "Species": "GCF_900094665.2",
         "ID": "10089",
-        "Name": "mus_caroli",
+        "Name": "Mus caroli",
         "AUU": "0.3473812896590534",
         "AUC": "0.4827139890943667",
         "AUA": "0.16990472124657985",
@@ -7937,7 +7937,7 @@
     {
         "Species": "GCF_022355385.1",
         "ID": "77151",
-        "Name": "mustela_nigripes",
+        "Name": "Mustela nigripes",
         "AUU": "0.347729692855479",
         "AUC": "0.487356909919803",
         "AUA": "0.16491339722471798",
@@ -8006,7 +8006,7 @@
     {
         "Species": "GCF_016509475.1",
         "ID": "37029",
-        "Name": "prionailurus_bengalensis",
+        "Name": "Prionailurus bengalensis",
         "AUU": "0.3459533317092288",
         "AUC": "0.48550486701761447",
         "AUA": "0.16854180127315674",
@@ -8075,7 +8075,7 @@
     {
         "Species": "GCF_009764315.1",
         "ID": "54180",
-        "Name": "trachypithecus_francoisi",
+        "Name": "Trachypithecus francoisi",
         "AUU": "0.37010683586695314",
         "AUC": "0.45371524493745813",
         "AUA": "0.17617791919558876",
@@ -8144,7 +8144,7 @@
     {
         "Species": "GCF_028885655.1",
         "ID": "9601",
-        "Name": "pongo_abelii",
+        "Name": "Pongo abelii",
         "AUU": "0.3673322954295437",
         "AUC": "0.4522475438603169",
         "AUA": "0.18042016071013936",
@@ -8213,7 +8213,7 @@
     {
         "Species": "GCF_002099425.1",
         "ID": "38626",
-        "Name": "phascolarctos_cinereus",
+        "Name": "Phascolarctos cinereus",
         "AUU": "0.39197151720835327",
         "AUC": "0.422696010049484",
         "AUA": "0.18533247274216272",
@@ -8282,7 +8282,7 @@
     {
         "Species": "GCF_000001405.40",
         "ID": "9606",
-        "Name": "homo_sapiens",
+        "Name": "Homo sapiens",
         "AUU": "0.36224117865227456",
         "AUC": "0.46137982632272256",
         "AUA": "0.17637899502500287",
@@ -8351,7 +8351,7 @@
     {
         "Species": "GCF_009762305.2",
         "ID": "9704",
-        "Name": "zalophus_californianus",
+        "Name": "Zalophus californianus",
         "AUU": "0.3548925771728826",
         "AUC": "0.47693785303702596",
         "AUA": "0.16816956979009143",
@@ -8420,7 +8420,7 @@
     {
         "Species": "GCF_001704415.2",
         "ID": "9925",
-        "Name": "capra_hircus",
+        "Name": "Capra hircus",
         "AUU": "0.3375255602167085",
         "AUC": "0.4981027468010203",
         "AUA": "0.16437169298227122",
@@ -8489,7 +8489,7 @@
     {
         "Species": "GCF_027595985.1",
         "ID": "42254",
-        "Name": "sorex_araneus",
+        "Name": "Sorex araneus",
         "AUU": "0.3138193547576835",
         "AUC": "0.5382370856297214",
         "AUA": "0.14794355961259506",
@@ -8558,7 +8558,7 @@
     {
         "Species": "GCF_014898055.3",
         "ID": "50954",
-        "Name": "talpa_occidentalis",
+        "Name": "Talpa occidentalis",
         "AUU": "0.3492662326526986",
         "AUC": "0.4803361094525102",
         "AUA": "0.17039765789479122",
@@ -8627,7 +8627,7 @@
     {
         "Species": "GCF_000317375.1",
         "ID": "79684",
-        "Name": "microtus_ochrogaster",
+        "Name": "Microtus ochrogaster",
         "AUU": "0.3440894834139958",
         "AUC": "0.49134661321479756",
         "AUA": "0.1645639033712066",
@@ -8696,7 +8696,7 @@
     {
         "Species": "GCF_003426925.1",
         "ID": "9999",
-        "Name": "urocitellus_parryii",
+        "Name": "Urocitellus parryii",
         "AUU": "0.36349823594550745",
         "AUC": "0.4651438283845381",
         "AUA": "0.17135793566995441",
@@ -8765,7 +8765,7 @@
     {
         "Species": "GCF_023721935.1",
         "ID": "29064",
-        "Name": "panthera_uncia",
+        "Name": "Panthera uncia",
         "AUU": "0.35267649406812585",
         "AUC": "0.4745542022600462",
         "AUA": "0.17276930367182797",
@@ -8834,7 +8834,7 @@
     {
         "Species": "GCF_000260255.1",
         "ID": "10160",
-        "Name": "octodon_degus",
+        "Name": "Octodon degus",
         "AUU": "0.34706160397475355",
         "AUC": "0.49020534658251186",
         "AUA": "0.1627330494427346",
@@ -8903,7 +8903,7 @@
     {
         "Species": "GCF_011100685.1",
         "ID": "9615",
-        "Name": "canis_lupus_familiaris",
+        "Name": "Canis lupus_familiaris",
         "AUU": "0.35522076517278606",
         "AUC": "0.47023964202640434",
         "AUA": "0.17453959280080958",
@@ -8972,7 +8972,7 @@
     {
         "Species": "GCF_017639785.1",
         "ID": "10036",
-        "Name": "mesocricetus_auratus",
+        "Name": "Mesocricetus auratus",
         "AUU": "0.3505068685579486",
         "AUC": "0.47625492198906644",
         "AUA": "0.17323820945298501",
@@ -9041,7 +9041,7 @@
     {
         "Species": "GCF_006542625.1",
         "ID": "61853",
-        "Name": "nomascus_leucogenys",
+        "Name": "Nomascus leucogenys",
         "AUU": "0.3682031343051577",
         "AUC": "0.456103375949063",
         "AUA": "0.1756934897457793",
@@ -9110,7 +9110,7 @@
     {
         "Species": "GCF_019923935.1",
         "ID": "89462",
-        "Name": "bubalus_bubalis",
+        "Name": "Bubalus bubalis",
         "AUU": "0.3381849101437815",
         "AUC": "0.49617369707043585",
         "AUA": "0.1656413927857827",
@@ -9179,7 +9179,7 @@
     {
         "Species": "GCF_016906955.1",
         "ID": "41426",
-        "Name": "phacochoerus_africanus",
+        "Name": "Phacochoerus africanus",
         "AUU": "0.3348515397839421",
         "AUC": "0.5048177940021649",
         "AUA": "0.16033066621389308",
@@ -9248,7 +9248,7 @@
     {
         "Species": "GCF_002263795.3",
         "ID": "9913",
-        "Name": "bos_taurus",
+        "Name": "Bos taurus",
         "AUU": "0.3380224162021057",
         "AUC": "0.49532203828507765",
         "AUA": "0.1666555455128166",
@@ -9317,7 +9317,7 @@
     {
         "Species": "GCF_016699345.2",
         "ID": "39432",
-        "Name": "saimiri_boliviensis_boliviensis",
+        "Name": "Saimiri boliviensis_boliviensis",
         "AUU": "0.36854428943842543",
         "AUC": "0.4582917756441263",
         "AUA": "0.17316393491744825",
@@ -9386,7 +9386,7 @@
     {
         "Species": "GCF_007827085.1",
         "ID": "564181",
-        "Name": "peromyscus_californicus_insignis",
+        "Name": "Peromyscus californicus_insignis",
         "AUU": "0.34836383533802995",
         "AUC": "0.48181116441769345",
         "AUA": "0.1698250002442766",
@@ -9455,7 +9455,7 @@
     {
         "Species": "GCF_030020395.1",
         "ID": "143292",
-        "Name": "manis_pentadactyla",
+        "Name": "Manis pentadactyla",
         "AUU": "0.3578565500041698",
         "AUC": "0.4678188627094345",
         "AUA": "0.17432458728639563",
@@ -9524,7 +9524,7 @@
     {
         "Species": "GCF_009806435.1",
         "ID": "9986",
-        "Name": "oryctolagus_cuniculus",
+        "Name": "Oryctolagus cuniculus",
         "AUU": "0.3348653000289943",
         "AUC": "0.5019812750486836",
         "AUA": "0.1631534249223221",
@@ -9593,7 +9593,7 @@
     {
         "Species": "GCF_937001465.1",
         "ID": "9733",
-        "Name": "orcinus_orca",
+        "Name": "Orcinus orca",
         "AUU": "0.34889068302922654",
         "AUC": "0.4818623176704882",
         "AUA": "0.16924699930028528",
@@ -9662,7 +9662,7 @@
     {
         "Species": "GCF_000325575.1",
         "ID": "9402",
-        "Name": "pteropus_alecto",
+        "Name": "Pteropus alecto",
         "AUU": "0.3560449347813595",
         "AUC": "0.46730927617843665",
         "AUA": "0.1766457890402038",
@@ -9731,7 +9731,7 @@
     {
         "Species": "GCF_011100555.1",
         "ID": "9483",
-        "Name": "callithrix_jacchus",
+        "Name": "Callithrix jacchus",
         "AUU": "0.3706821061349472",
         "AUC": "0.4521515149788296",
         "AUA": "0.1771663788862232",
@@ -9800,7 +9800,7 @@
     {
         "Species": "GCF_014108235.1",
         "ID": "51298",
-        "Name": "myotis_myotis",
+        "Name": "Myotis myotis",
         "AUU": "0.3375734056518751",
         "AUC": "0.49976748875509774",
         "AUA": "0.16265910559302713",
@@ -9869,7 +9869,7 @@
     {
         "Species": "GCF_020171115.1",
         "ID": "452646",
-        "Name": "neogale_vison",
+        "Name": "Neogale vison",
         "AUU": "0.34770004611487276",
         "AUC": "0.48676584411547813",
         "AUA": "0.1655341097696491",
@@ -9938,7 +9938,7 @@
     {
         "Species": "GCF_001595765.1",
         "ID": "291302",
-        "Name": "miniopterus_natalensis",
+        "Name": "Miniopterus natalensis",
         "AUU": "0.3511485895703485",
         "AUC": "0.48098620196286546",
         "AUA": "0.16786520846678604",
@@ -10007,7 +10007,7 @@
     {
         "Species": "GCF_025265405.1",
         "ID": "48708",
-        "Name": "mesoplodon_densirostris",
+        "Name": "Mesoplodon densirostris",
         "AUU": "0.3490438944406284",
         "AUC": "0.48195032239480623",
         "AUA": "0.16900578316456538",
@@ -10076,7 +10076,7 @@
     {
         "Species": "GCF_905146905.1",
         "ID": "34880",
-        "Name": "nyctereutes_procyonoides",
+        "Name": "Nyctereutes procyonoides",
         "AUU": "0.3557642812464752",
         "AUC": "0.47410354480481526",
         "AUA": "0.17013217394870953",
@@ -10145,7 +10145,7 @@
     {
         "Species": "GCF_027475565.1",
         "ID": "32536",
-        "Name": "acinonyx_jubatus",
+        "Name": "Acinonyx jubatus",
         "AUU": "0.3488625239985407",
         "AUC": "0.4803994473607088",
         "AUA": "0.17073802864075058",
@@ -10214,7 +10214,7 @@
     {
         "Species": "GCF_000956105.1",
         "ID": "379532",
-        "Name": "propithecus_coquereli",
+        "Name": "Propithecus coquereli",
         "AUU": "0.3449217502022998",
         "AUC": "0.4883389028937617",
         "AUA": "0.1667393469039385",
@@ -10283,7 +10283,7 @@
     {
         "Species": "GCF_000165445.2",
         "ID": "30608",
-        "Name": "microcebus_murinus",
+        "Name": "Microcebus murinus",
         "AUU": "0.35032687329926326",
         "AUC": "0.4727446571978496",
         "AUA": "0.1769284695028871",
@@ -10352,7 +10352,7 @@
     {
         "Species": "GCF_000313985.2",
         "ID": "9371",
-        "Name": "echinops_telfairi",
+        "Name": "Echinops telfairi",
         "AUU": "0.32981795499699673",
         "AUC": "0.5233262486716259",
         "AUA": "0.14685579633137735",
@@ -10421,7 +10421,7 @@
     {
         "Species": "GCF_949774975.1",
         "ID": "27610",
-        "Name": "lagenorhynchus_albirostris",
+        "Name": "Lagenorhynchus albirostris",
         "AUU": "0.34666366044755087",
         "AUC": "0.48505946677188433",
         "AUA": "0.1682768727805648",
@@ -10490,7 +10490,7 @@
     {
         "Species": "GCF_021613505.1",
         "ID": "89248",
-        "Name": "equus_quagga",
+        "Name": "Equus quagga",
         "AUU": "0.35358735817581666",
         "AUC": "0.4795658809564185",
         "AUA": "0.16684676086776484",
@@ -10559,7 +10559,7 @@
     {
         "Species": "GCF_902729225.1",
         "ID": "143291",
-        "Name": "pteropus_giganteus",
+        "Name": "Pteropus giganteus",
         "AUU": "0.353567788081297",
         "AUC": "0.47004161395780847",
         "AUA": "0.1763905979608945",
@@ -10628,7 +10628,7 @@
     {
         "Species": "GCF_000243295.1",
         "ID": "127582",
-        "Name": "trichechus_manatus_latirostris",
+        "Name": "Trichechus manatus_latirostris",
         "AUU": "0.36453818360942697",
         "AUC": "0.45936222475848676",
         "AUA": "0.17609959163208624",
@@ -10697,7 +10697,7 @@
     {
         "Species": "GCF_016077325.2",
         "ID": "9793",
-        "Name": "equus_asinus",
+        "Name": "Equus asinus",
         "AUU": "0.3534277770762392",
         "AUC": "0.4780353018982208",
         "AUA": "0.16853692102554005",
@@ -10766,7 +10766,7 @@
     {
         "Species": "GCF_033115175.1",
         "ID": "9983",
-        "Name": "lepus_europaeus",
+        "Name": "Lepus europaeus",
         "AUU": "0.3271731817368171",
         "AUC": "0.5151113004010065",
         "AUA": "0.15771551786217639",
@@ -10835,7 +10835,7 @@
     {
         "Species": "GCF_028023285.1",
         "ID": "2746895",
-        "Name": "balaenoptera_ricei",
+        "Name": "Balaenoptera ricei",
         "AUU": "0.34756441519845305",
         "AUC": "0.48392775225582146",
         "AUA": "0.16850783254572552",
@@ -10904,7 +10904,7 @@
     {
         "Species": "GCF_009828535.3",
         "ID": "81572",
-        "Name": "hylobates_moloch",
+        "Name": "Hylobates moloch",
         "AUU": "0.3694717414076919",
         "AUC": "0.4539232802913154",
         "AUA": "0.17660497830099267",
@@ -10973,7 +10973,7 @@
     {
         "Species": "GCF_003676075.3",
         "ID": "93162",
-        "Name": "marmota_flaviventris",
+        "Name": "Marmota flaviventris",
         "AUU": "0.36564935405626836",
         "AUC": "0.46162274948845133",
         "AUA": "0.17272789645528036",
@@ -11042,7 +11042,7 @@
     {
         "Species": "GCF_028858775.1",
         "ID": "9598",
-        "Name": "pan_troglodytes",
+        "Name": "Pan troglodytes",
         "AUU": "0.3675650016900347",
         "AUC": "0.45448080840916943",
         "AUA": "0.1779541899007959",
@@ -11111,7 +11111,7 @@
     {
         "Species": "GCF_002201575.2",
         "ID": "29088",
-        "Name": "neomonachus_schauinslandi",
+        "Name": "Neomonachus schauinslandi",
         "AUU": "0.3521099021279751",
         "AUC": "0.48199655223548604",
         "AUA": "0.16589354563653888",
@@ -11180,7 +11180,7 @@
     {
         "Species": "GCF_949987535.1",
         "ID": "9767",
-        "Name": "balaenoptera_acutorostrata",
+        "Name": "Balaenoptera acutorostrata",
         "AUU": "0.3478580187129429",
         "AUC": "0.4833776067447339",
         "AUA": "0.16876437454232315",
@@ -11249,7 +11249,7 @@
     {
         "Species": "GCF_022837055.1",
         "ID": "61388",
-        "Name": "prionailurus_viverrinus",
+        "Name": "Prionailurus viverrinus",
         "AUU": "0.346990615140371",
         "AUC": "0.4821667570989329",
         "AUA": "0.17084262776069611",
@@ -11318,7 +11318,7 @@
     {
         "Species": "GCF_023091745.1",
         "ID": "37181",
-        "Name": "budorcas_taxicolor",
+        "Name": "Budorcas taxicolor",
         "AUU": "0.33774834437086093",
         "AUC": "0.5000976956303032",
         "AUA": "0.16215395999883597",
@@ -11387,7 +11387,7 @@
     {
         "Species": "GCF_002837175.3",
         "ID": "9755",
-        "Name": "physeter_catodon",
+        "Name": "Physeter catodon",
         "AUU": "0.3499140097896547",
         "AUC": "0.4783564693377613",
         "AUA": "0.17172952087258395",
@@ -11456,7 +11456,7 @@
     {
         "Species": "GCF_021288785.2",
         "ID": "9716",
-        "Name": "mirounga_angustirostris",
+        "Name": "Mirounga angustirostris",
         "AUU": "0.3538356958720906",
         "AUC": "0.47765777466006154",
         "AUA": "0.16850652946784783",
@@ -11525,7 +11525,7 @@
     {
         "Species": "GCF_008632895.1",
         "ID": "35658",
-        "Name": "mastomys_coucha",
+        "Name": "Mastomys coucha",
         "AUU": "0.3518618393054311",
         "AUC": "0.4754196419290879",
         "AUA": "0.172718518765481",
@@ -11594,7 +11594,7 @@
     {
         "Species": "GCF_910594005.1",
         "ID": "9860",
-        "Name": "cervus_elaphus",
+        "Name": "Cervus elaphus",
         "AUU": "0.3367058982887588",
         "AUC": "0.5002219947925289",
         "AUA": "0.16307210691871227",
@@ -11663,7 +11663,7 @@
     {
         "Species": "GCF_011762595.1",
         "ID": "9739",
-        "Name": "tursiops_truncatus",
+        "Name": "Tursiops truncatus",
         "AUU": "0.34640439960562014",
         "AUC": "0.48434832733528743",
         "AUA": "0.16924727305909243",
@@ -11732,7 +11732,7 @@
     {
         "Species": "GCF_000327345.1",
         "ID": "225400",
-        "Name": "myotis_davidii",
+        "Name": "Myotis davidii",
         "AUU": "0.34480032369868335",
         "AUC": "0.48954368068828563",
         "AUA": "0.16565599561303102",
@@ -11801,7 +11801,7 @@
     {
         "Species": "GCF_016432865.1",
         "ID": "38775",
-        "Name": "antechinus_flavipes",
+        "Name": "Antechinus flavipes",
         "AUU": "0.392265475990383",
         "AUC": "0.4193626179288371",
         "AUA": "0.1883719060807799",
@@ -11870,7 +11870,7 @@
     {
         "Species": "GCF_903992535.2",
         "ID": "1047088",
-        "Name": "arvicola_amphibius",
+        "Name": "Arvicola amphibius",
         "AUU": "0.3453666134202069",
         "AUC": "0.48884658092657235",
         "AUA": "0.1657868056532207",
@@ -11939,7 +11939,7 @@
     {
         "Species": "GCF_002288925.2",
         "ID": "9749",
-        "Name": "delphinapterus_leucas",
+        "Name": "Delphinapterus leucas",
         "AUU": "0.3466805220375599",
         "AUC": "0.484393337571983",
         "AUA": "0.1689261403904571",
@@ -12008,7 +12008,7 @@
     {
         "Species": "GCF_003327715.1",
         "ID": "9696",
-        "Name": "puma_concolor",
+        "Name": "Puma concolor",
         "AUU": "0.36324311899685047",
         "AUC": "0.4595013595727616",
         "AUA": "0.17725552143038792",
@@ -12077,7 +12077,7 @@
     {
         "Species": "GCF_018350195.1",
         "ID": "9694",
-        "Name": "panthera_tigris",
+        "Name": "Panthera tigris",
         "AUU": "0.34748094532420504",
         "AUC": "0.4814617498050646",
         "AUA": "0.17105730487073031",
@@ -12146,7 +12146,7 @@
     {
         "Species": "GCF_014754425.2",
         "ID": "59534",
-        "Name": "oryx_dammah",
+        "Name": "Oryx dammah",
         "AUU": "0.34124215641338695",
         "AUC": "0.49403948259707386",
         "AUA": "0.16471836098953918",
@@ -12215,7 +12215,7 @@
     {
         "Species": "GCF_950295315.1",
         "ID": "9365",
-        "Name": "erinaceus_europaeus",
+        "Name": "Erinaceus europaeus",
         "AUU": "0.33780169007234484",
         "AUC": "0.4964313940057146",
         "AUA": "0.16576691592194054",
@@ -12284,7 +12284,7 @@
     {
         "Species": "GCF_000260355.1",
         "ID": "143302",
-        "Name": "condylura_cristata",
+        "Name": "Condylura cristata",
         "AUU": "0.35071811691156446",
         "AUC": "0.47938240761570977",
         "AUA": "0.16989947547272577",
@@ -12353,7 +12353,7 @@
     {
         "Species": "GCF_030254825.1",
         "ID": "10047",
-        "Name": "meriones_unguiculatus",
+        "Name": "Meriones unguiculatus",
         "AUU": "0.34191327335858585",
         "AUC": "0.489318970959596",
         "AUA": "0.16876775568181818",
@@ -12422,7 +12422,7 @@
     {
         "Species": "GCF_030435755.1",
         "ID": "9978",
-        "Name": "ochotona_princeps",
+        "Name": "Ochotona princeps",
         "AUU": "0.33185462477156163",
         "AUC": "0.520967904935953",
         "AUA": "0.14717747029248532",
@@ -12491,7 +12491,7 @@
     {
         "Species": "GCF_002288905.1",
         "ID": "391180",
-        "Name": "enhydra_lutris_kenyoni",
+        "Name": "Enhydra lutris_kenyoni",
         "AUU": "0.34637606657352",
         "AUC": "0.4877635128603942",
         "AUA": "0.16586042056608583",
@@ -12560,7 +12560,7 @@
     {
         "Species": "GCF_024362965.1",
         "ID": "9691",
-        "Name": "panthera_pardus",
+        "Name": "Panthera pardus",
         "AUU": "0.3508212174305065",
         "AUC": "0.47678562280351233",
         "AUA": "0.1723931597659812",
@@ -12629,7 +12629,7 @@
     {
         "Species": "GCF_011100635.1",
         "ID": "9337",
-        "Name": "trichosurus_vulpecula",
+        "Name": "Trichosurus vulpecula",
         "AUU": "0.39025189782985537",
         "AUC": "0.4285078006552657",
         "AUA": "0.18124030151487888",
@@ -12698,7 +12698,7 @@
     {
         "Species": "GCF_943737965.1",
         "ID": "109678",
-        "Name": "phodopus_roborovskii",
+        "Name": "Phodopus roborovskii",
         "AUU": "0.3539662635172715",
         "AUC": "0.4747017426479794",
         "AUA": "0.17133199383474912",
@@ -12767,7 +12767,7 @@
     {
         "Species": "GCF_026419965.1",
         "ID": "27615",
-        "Name": "kogia_breviceps",
+        "Name": "Kogia breviceps",
         "AUU": "0.3480957925629345",
         "AUC": "0.48118036120814295",
         "AUA": "0.17072384622892253",
@@ -12836,7 +12836,7 @@
     {
         "Species": "GCF_005190385.1",
         "ID": "40151",
-        "Name": "monodon_monoceros",
+        "Name": "Monodon monoceros",
         "AUU": "0.3484325714338572",
         "AUC": "0.4824849454706911",
         "AUA": "0.16908248309545174",
@@ -12905,7 +12905,7 @@
     {
         "Species": "GCF_011064425.1",
         "ID": "10117",
-        "Name": "rattus_rattus",
+        "Name": "Rattus rattus",
         "AUU": "0.341325325667632",
         "AUC": "0.48954123342274275",
         "AUA": "0.16913344090962523",
@@ -12974,7 +12974,7 @@
     {
         "Species": "GCF_903995435.1",
         "ID": "60746",
-        "Name": "acomys_russatus",
+        "Name": "Acomys russatus",
         "AUU": "0.339149253309751",
         "AUC": "0.4945646859946418",
         "AUA": "0.1662860606956072",
@@ -13043,7 +13043,7 @@
     {
         "Species": "GCF_003031525.2",
         "ID": "1706337",
-        "Name": "neophocaena_asiaeorientalis_asiaeorientalis",
+        "Name": "Neophocaena asiaeorientalis_asiaeorientalis",
         "AUU": "0.3492713628661341",
         "AUC": "0.4802081820382474",
         "AUA": "0.1705204550956185",
@@ -13112,7 +13112,7 @@
     {
         "Species": "GCF_004348235.1",
         "ID": "9720",
-        "Name": "phoca_vitulina",
+        "Name": "Phoca vitulina",
         "AUU": "0.3535748722193305",
         "AUC": "0.4773578626709786",
         "AUA": "0.16906726510969086",
@@ -13181,7 +13181,7 @@
     {
         "Species": "GCF_003339765.1",
         "ID": "9544",
-        "Name": "macaca_mulatta",
+        "Name": "Macaca mulatta",
         "AUU": "0.36978213902731344",
         "AUC": "0.4528953510376585",
         "AUA": "0.17732250993502807",
@@ -13250,7 +13250,7 @@
     {
         "Species": "GCF_014108245.1",
         "ID": "59472",
-        "Name": "pipistrellus_kuhlii",
+        "Name": "Pipistrellus kuhlii",
         "AUU": "0.31986148173096024",
         "AUC": "0.5211382851023775",
         "AUA": "0.15900023316666234",
@@ -13319,7 +13319,7 @@
     {
         "Species": "GCF_000298275.1",
         "ID": "1230840",
-        "Name": "orycteropus_afer_afer",
+        "Name": "Orycteropus afer_afer",
         "AUU": "0.36969150486453595",
         "AUC": "0.4560626470218634",
         "AUA": "0.17424584811360064",
@@ -13388,7 +13388,7 @@
     {
         "Species": "GCF_020826845.1",
         "ID": "77932",
-        "Name": "diceros_bicornis_minor",
+        "Name": "Diceros bicornis_minor",
         "AUU": "0.35728508846788415",
         "AUC": "0.4713761910647339",
         "AUA": "0.17133872046738194",
@@ -13457,7 +13457,7 @@
     {
         "Species": "GCF_000151885.1",
         "ID": "10020",
-        "Name": "dipodomys_ordii",
+        "Name": "Dipodomys ordii",
         "AUU": "0.3544269603698376",
         "AUC": "0.4831519650367312",
         "AUA": "0.16242107459343122",
@@ -13526,7 +13526,7 @@
     {
         "Species": "GCF_003704035.1",
         "ID": "230844",
-        "Name": "peromyscus_maniculatus_bairdii",
+        "Name": "Peromyscus maniculatus_bairdii",
         "AUU": "0.3422273848723684",
         "AUC": "0.49214242514423956",
         "AUA": "0.16563018998339205",
@@ -13595,7 +13595,7 @@
     {
         "Species": "GCF_007565055.1",
         "ID": "61622",
-        "Name": "rhinopithecus_roxellana",
+        "Name": "Rhinopithecus roxellana",
         "AUU": "0.37091787599353554",
         "AUC": "0.45289721789376663",
         "AUA": "0.17618490611269783",
@@ -13664,7 +13664,7 @@
     {
         "Species": "GCF_028878055.1",
         "ID": "9590",
-        "Name": "symphalangus_syndactylus",
+        "Name": "Symphalangus syndactylus",
         "AUU": "0.36456756709495786",
         "AUC": "0.46157134224888813",
         "AUA": "0.17386109065615402",
@@ -13733,7 +13733,7 @@
     {
         "Species": "GCF_027887165.1",
         "ID": "13616",
-        "Name": "monodelphis_domestica",
+        "Name": "Monodelphis domestica",
         "AUU": "0.3924193376549938",
         "AUC": "0.4170872226911761",
         "AUA": "0.1904934396538301",
@@ -13802,7 +13802,7 @@
     {
         "Species": "GCF_950005125.1",
         "ID": "269649",
-        "Name": "chionomys_nivalis",
+        "Name": "Chionomys nivalis",
         "AUU": "0.34529718456725755",
         "AUC": "0.48861693051474075",
         "AUA": "0.16608588491800172",
@@ -13871,7 +13871,7 @@
     {
         "Species": "GCF_024542745.1",
         "ID": "257877",
-        "Name": "macaca_thibetana_thibetana",
+        "Name": "Macaca thibetana_thibetana",
         "AUU": "0.3707181027421305",
         "AUC": "0.4528591488863752",
         "AUA": "0.17642274837149433",
@@ -13940,7 +13940,7 @@
     {
         "Species": "GCF_029407905.1",
         "ID": "346063",
-        "Name": "bubalus_carabanensis",
+        "Name": "Bubalus carabanensis",
         "AUU": "0.3397241747147456",
         "AUC": "0.4939425110006286",
         "AUA": "0.16633331428462578",
@@ -14009,7 +14009,7 @@
     {
         "Species": "GCF_003676395.1",
         "ID": "90247",
-        "Name": "lagenorhynchus_obliquidens",
+        "Name": "Lagenorhynchus obliquidens",
         "AUU": "0.3477469884704352",
         "AUC": "0.4819194946838036",
         "AUA": "0.1703335168457612",
@@ -14078,7 +14078,7 @@
     {
         "Species": "GCF_015227675.2",
         "ID": "10116",
-        "Name": "rattus_norvegicus",
+        "Name": "Rattus norvegicus",
         "AUU": "0.34415987294673495",
         "AUC": "0.4827788922272126",
         "AUA": "0.17306123482605243",
@@ -14147,7 +14147,7 @@
     {
         "Species": "GCF_003160815.1",
         "ID": "9627",
-        "Name": "vulpes_vulpes",
+        "Name": "Vulpes vulpes",
         "AUU": "0.35890902573692157",
         "AUC": "0.46927181289933906",
         "AUA": "0.17181916136373943",
@@ -14216,7 +14216,7 @@
     {
         "Species": "GCF_019393635.1",
         "ID": "33562",
-        "Name": "dromiciops_gliroides",
+        "Name": "Dromiciops gliroides",
         "AUU": "0.38477125958413716",
         "AUC": "0.4356031240272113",
         "AUA": "0.17962561638865152",
@@ -14285,7 +14285,7 @@
     {
         "Species": "GCF_000951045.1",
         "ID": "9568",
-        "Name": "mandrillus_leucophaeus",
+        "Name": "Mandrillus leucophaeus",
         "AUU": "0.3718021528960957",
         "AUC": "0.453289727069176",
         "AUA": "0.17490812003472833",
@@ -14354,7 +14354,7 @@
     {
         "Species": "GCF_030445035.1",
         "ID": "9361",
-        "Name": "dasypus_novemcinctus",
+        "Name": "Dasypus novemcinctus",
         "AUU": "0.36178228408852225",
         "AUC": "0.45950239636440016",
         "AUA": "0.1787153195470776",
@@ -14423,7 +14423,7 @@
     {
         "Species": "GCF_922984935.1",
         "ID": "9662",
-        "Name": "meles_meles",
+        "Name": "Meles meles",
         "AUU": "0.3440054185621402",
         "AUC": "0.489932287777934",
         "AUA": "0.1660622936599258",
@@ -14492,7 +14492,7 @@
     {
         "Species": "GCF_902806735.1",
         "ID": "447135",
-        "Name": "myodes_glareolus",
+        "Name": "Myodes glareolus",
         "AUU": "0.34967465307186135",
         "AUC": "0.4834394748843573",
         "AUA": "0.16688587204378136",
@@ -14561,7 +14561,7 @@
     {
         "Species": "GCF_000181295.1",
         "ID": "30611",
-        "Name": "otolemur_garnettii",
+        "Name": "Otolemur garnettii",
         "AUU": "0.3688062759766353",
         "AUC": "0.45758307675402216",
         "AUA": "0.17361064726934256",
@@ -14630,7 +14630,7 @@
     {
         "Species": "GCF_000442215.2",
         "ID": "118797",
-        "Name": "lipotes_vexillifer",
+        "Name": "Lipotes vexillifer",
         "AUU": "0.3449821987495835",
         "AUC": "0.48869876401340145",
         "AUA": "0.16631903723701505",
@@ -14699,7 +14699,7 @@
     {
         "Species": "GCF_008692025.1",
         "ID": "42100",
-        "Name": "phocoena_sinus",
+        "Name": "Phocoena sinus",
         "AUU": "0.34590677502614636",
         "AUC": "0.4846552038456741",
         "AUA": "0.16943802112817954",
@@ -14768,7 +14768,7 @@
     {
         "Species": "GCF_009834535.1",
         "ID": "419612",
-        "Name": "camelus_ferus",
+        "Name": "Camelus ferus",
         "AUU": "0.34146243252397634",
         "AUC": "0.49569029837489076",
         "AUA": "0.1628472691011329",
@@ -14837,7 +14837,7 @@
     {
         "Species": "GCA_023701655.1",
         "ID": "2918886",
-        "Name": "ovis_ammon_polii_x_ovis_aries",
+        "Name": "Ovis ammon_polii_x_ovis_aries",
         "AUU": "0.35016963718915034",
         "AUC": "0.48407664905739695",
         "AUA": "0.1657537137534527",
@@ -14906,7 +14906,7 @@
     {
         "Species": "GCA_900661375.1",
         "ID": "191816",
-        "Name": "lynx_pardinus",
+        "Name": "Lynx pardinus",
         "AUU": "0.35016963718915034",
         "AUC": "0.48407664905739695",
         "AUA": "0.1657537137534527",
@@ -14975,7 +14975,7 @@
     {
         "Species": "GCA_010411085.1",
         "ID": "84702",
-        "Name": "cervus_hanglu_yarkandensis",
+        "Name": "Cervus hanglu_yarkandensis",
         "AUU": "0.35016963718915034",
         "AUC": "0.48407664905739695",
         "AUA": "0.1657537137534527",
@@ -15044,7 +15044,7 @@
     {
         "Species": "GCA_011754075.1",
         "ID": "48723",
-        "Name": "pontoporia_blainvillei",
+        "Name": "Pontoporia blainvillei",
         "AUU": "0.35016963718915034",
         "AUC": "0.48407664905739695",
         "AUA": "0.1657537137534527",
@@ -15113,7 +15113,7 @@
     {
         "Species": "GCA_028583565.1",
         "ID": "230172",
-        "Name": "ovis_ammon_polii",
+        "Name": "Ovis ammon_polii",
         "AUU": "0.35016963718915034",
         "AUC": "0.48407664905739695",
         "AUA": "0.1657537137534527",
@@ -15182,7 +15182,7 @@
     {
         "Species": "GCA_949782905.1",
         "ID": "3082113",
-        "Name": "rangifer_tarandus_platyrhynchus",
+        "Name": "Rangifer tarandus_platyrhynchus",
         "AUU": "0.35016963718915034",
         "AUC": "0.48407664905739695",
         "AUA": "0.1657537137534527",
@@ -15251,7 +15251,7 @@
     {
         "Species": "GCA_030846915.1",
         "ID": "59451",
-        "Name": "eptesicus_nilssonii",
+        "Name": "Eptesicus nilssonii",
         "AUU": "0.35016963718915034",
         "AUC": "0.48407664905739695",
         "AUA": "0.1657537137534527",
@@ -15320,7 +15320,7 @@
     {
         "Species": "GCA_024510155.1",
         "ID": "2888765",
-        "Name": "gulo_gulo_luscus",
+        "Name": "Gulo gulo_luscus",
         "AUU": "0.35016963718915034",
         "AUC": "0.48407664905739695",
         "AUA": "0.1657537137534527",

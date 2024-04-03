@@ -7,6 +7,7 @@ import TempImg from "../public/img/altair_chart.png"
 // import { useState } from 'react';
 import axios from 'axios'; // Import Axios for making HTTP requests
 import MammaliaJSON from "../data/proportions/mammalia_data.json"
+// import style from "..css/filter.css"
 // import * as d3 from "d3"
 // import React from 'react';
 // // import TSV from "tsv-loader?module!../data/proportions/GCF_000001405.40"
@@ -60,7 +61,7 @@ const Filter = () => {
     };
 
     const handleFilter = () => {
-        const filtered = filteredData.filter(item => selectedIds.includes(item.ID));
+        const filtered = filteredData.filter(item => selectedIds.includes(item.ID) || true);
         if (filtered.length > 0) {
             drawChart(filtered);
         } else {
@@ -76,26 +77,28 @@ const Filter = () => {
   
       const speciesNames = data.map(d => d.Name);
       const codons = Object.keys(data[0]).filter(key => key !== 'Species' && key !== 'ID' && key !== 'Name');
-  
-      const margin = { top: 50, right: 20, bottom: 100, left: 100 };
-      const width = 600 - margin.left - margin.right;
-      const height = 400 - margin.top - margin.bottom;
+      const squareLength = (speciesNames.length < 10) ? (450/speciesNames.length) : (15);
+      const margin = { top: 50, right: 75, bottom: 200, left: 175 };
+      const width = codons.length*10;
+      const height = speciesNames.length*squareLength;
   
       const svg = d3.select(svgRef.current)
           .attr("width", width + margin.left + margin.right)
           .attr("height", height + margin.top + margin.bottom)
           .append("g")
-          .attr("transform", `translate(${margin.left},${margin.top})`);
+          .attr("transform", `translate(${margin.left + 50},${margin.top})`);
   
       const x = d3.scaleBand()
           .domain(codons)
-          .range([0, width])
-          .padding(0.1);
-  
+          .range([0, codons.length * 10])
+          .padding(0);
+    
+    
       const y = d3.scaleBand()
           .domain(speciesNames)
-          .range([0, height])
-          .padding(0.1);
+          .range([0, speciesNames.length * squareLength])
+          .padding(0);
+
   
       const color = d3.scaleSequential(d3.interpolateYlGnBu).domain([0, 1]);
   
@@ -116,10 +119,13 @@ const Filter = () => {
               d3.select(this).style("stroke", "black").style("stroke-width", 2);
               // Show information
               const infoBox = d3.select("#info-box");
-              infoBox.html(`<p>Codon: ${d.codon}</p><p>Species: ${d.species}</p><p>Value: ${d.value}</p>`);
-              infoBox.style("left", `${event.pageX + 10}px`) // Adjust for padding
-                  .style("top", `${event.pageY + 10}px`)
+              const yOffset = window.scrollY || document.documentElement.scrollTop;
+              infoBox.html(`<p>Codon: ${d.codon}</p><p>Species: ${d.species}</p><p>Value: ${d.value} </p>`);
+              infoBox.style("left", `${event.pageX - window.scrollX}px`) // Adjust for padding
+                  .style("top", `${event.pageY - yOffset}px`)
+                  .style("max-width", "400px")
                   .style("visibility", "visible");
+                  
           })
           .on("mouseout", function(event, d) {
               d3.select(this).style("stroke", "none");
@@ -129,13 +135,14 @@ const Filter = () => {
   
       // Add x-axis
       svg.append("g")
-          .attr("class", "axis")
-          .call(d3.axisBottom(x))
-          .selectAll("text")
-          .style("text-anchor", "end")
-          .attr("dx", "-.8em")
-          .attr("dy", ".15em")
-          .attr("transform", "rotate(-65)");
+    .attr("class", "axis")
+    .attr("transform", "translate(0," + height + ")") // Move the axis to the bottom
+    .call(d3.axisBottom(x))
+    .selectAll("text")
+    .style("text-anchor", "end")
+    .attr("dx", "-.8em")
+    .attr("dy", ".15em")
+    .attr("transform", "rotate(-65)");
   
       // Add y-axis
       svg.append("g")
@@ -150,24 +157,27 @@ const Filter = () => {
 
     return (
       <>
+      <link rel="stylesheet" href="filter.css"></link>
       <Head>
         <Navbar />
       </Head>
         <div>
-            <div>
+            <div class="input-container">
                 <input type="text" value={newId} onChange={handleInputChange} placeholder="Enter ID" />
                 <button onClick={handleAddId}>Add ID</button>
             </div>
-            <div>
+            <div class="IDS">
                 {selectedIds.map(id => (
                     <div key={id}>
                         <span>{id}</span>
-                        <button onClick={() => handleRemoveId(id)}>Remove</button>
+                        <button onClick={() => handleRemoveId(id)} class="remove">Remove</button>
                     </div>
                 ))}
             </div>
-            <button onClick={handleFilter}>Filter</button>
+            <button onClick={handleFilter} class="filter">Filter</button>
+        <container class="Graph">
             <svg ref={svgRef}></svg>
+        </container>
             <div id="info-box" ></div>
         </div>
         </>

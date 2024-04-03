@@ -1,0 +1,99 @@
+.Graph {
+    position: relative; /* Position the graph container */
+    top: 70%; /* Position from the top */
+    left: 10%; /* Adjusted offset from the right */
+     /* Center vertically */
+}
+/* filter.css */
+
+body {
+    background-color: #1e1e1e; /* Dark background color */
+    color: #ffffff; /* Light text color */
+    font-family: Arial, sans-serif; /* Specify font family */
+}
+
+.container {
+        margin: 0 auto; /* Center container horizontally */
+    overflow-y: scroll;
+    height: 100vh;
+}
+
+.input-container {
+    margin-bottom: 20px; /* Add space below input container */
+}
+
+.input-container input[type="text"] {
+    width: 200px; /* Set input width */
+    padding: 10px; /* Add padding */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Apply border radius */
+    background-color: #2a2a2a; /* Darker background color */
+    color: #ffffff; /* Light text color */
+    margin-right: 10px; /* Add margin between input and button */
+}
+
+.input-container button {
+    padding: 10px 20px; /* Add padding */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Apply border radius */
+    background-color: #4CAF50; /* Green button color */
+    color: #ffffff; /* Light text color */
+    cursor: pointer; /* Show pointer cursor on hover */
+}
+
+.input-container button:hover {
+    background-color: #45a049; /* Darker green color on hover */
+}
+
+.IDS {
+    margin-top: 20px; /* Add space on top of IDS container */
+}
+
+.IDS div {
+    display: flex; /* Use flexbox for layout */
+    align-items: center; /* Align items vertically */
+    margin-bottom: 10px; /* Add space between each ID */
+}
+
+.IDS span {
+    padding: 8px 12px; /* Add padding */
+    border-radius: 5px; /* Apply border radius */
+    background-color: #2a2a2a; /* Darker background color */
+    margin-right: 10px; /* Add space between span and button */
+}
+
+.IDS button.remove {
+    padding: 8px 12px; /* Add padding */
+    border-radius: 5px; /* Apply border radius */
+    background-color: #ff6b6b; /* Red button color */
+    color: #ffffff; /* Light text color */
+    border: none; /* Remove border */
+    cursor: pointer; /* Show pointer cursor on hover */
+}
+
+.IDS button.remove:hover {
+    background-color: #e74c3c; /* Darker red color on hover */
+}
+
+.filter {
+    padding: 10px 20px; /* Add padding */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Apply border radius */
+    background-color: #3498db; /* Blue button color */
+    color: #ffffff; /* Light text color */
+    cursor: pointer; /* Show pointer cursor on hover */
+    transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+.filter button:hover {
+    background-color: #2980b9; /* Darker blue color on hover */
+}
+
+#info-box {
+    position: fixed; /* Fix position */
+    top: 20px; /* Position from top */
+    right: 20px; /* Position from right */
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent dark background */
+    color: #ffffff; /* Light text color */
+    padding: 10px; /* Add padding */
+    border-radius: 5px; /* Apply border radius */
+}

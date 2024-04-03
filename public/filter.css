@@ -1,6 +1,6 @@
 .Graph {
     position: relative; /* Position the graph container */
-    top: 100%; /* Position from the top */
+    top: 70%; /* Position from the top */
     left: 25%; /* Adjusted offset from the right */
      /* Center vertically */
 }
@@ -17,7 +17,7 @@ body {
     margin: 0 auto; /* Center container horizontally */
     padding: 20px; /* Add padding */
     overflow-y: scroll;
-   height: 100vh;
+    height: 100vh;
 }
 
 .input-container {

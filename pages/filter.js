@@ -77,24 +77,28 @@ const Filter = () => {
   
       const speciesNames = data.map(d => d.Name);
       const codons = Object.keys(data[0]).filter(key => key !== 'Species' && key !== 'ID' && key !== 'Name');
-  
-      const margin = { top: 100, right: 20, bottom: 200, left: 175 };
-      const width = 1000 - margin.left - margin.right;
-      const height = 2000 - margin.top - margin.bottom;
+      const squareLength = (speciesNames.length < 10) ? (450/speciesNames.length) : (10);
+      const margin = { top: 50, right: 75, bottom: 200, left: 175 };
+      const width = codons.length*10;
+      const height = speciesNames.length*squareLength;
   
       const svg = d3.select(svgRef.current)
-          .attr("width", width + margin.left + 50 + margin.right)
+          .attr("width", width + margin.left + margin.right)
           .attr("height", height + margin.top + margin.bottom)
           .append("g")
           .attr("transform", `translate(${margin.left + 50},${margin.top})`);
   
       const x = d3.scaleBand()
           .domain(codons)
-          .range([0, width]);
-  
+          .range([0, codons.length * 10])
+          .padding(0);
+    
+    
       const y = d3.scaleBand()
           .domain(speciesNames)
-          .range([0, height]);
+          .range([0, speciesNames.length * squareLength])
+          .padding(0);
+
   
       const color = d3.scaleSequential(d3.interpolateYlGnBu).domain([0, 1]);
   
@@ -117,7 +121,7 @@ const Filter = () => {
               const infoBox = d3.select("#info-box");
               const yOffset = window.scrollY || document.documentElement.scrollTop;
               infoBox.html(`<p>Codon: ${d.codon}</p><p>Species: ${d.species}</p><p>Value: ${d.value} </p>`);
-              infoBox.style("left", `${event.pageX}px`) // Adjust for padding
+              infoBox.style("left", `${event.pageX - window.scrollX}px`) // Adjust for padding
                   .style("top", `${event.pageY - yOffset}px`)
                   .style("max-width", "400px")
                   .style("visibility", "visible");

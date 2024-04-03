@@ -61,7 +61,7 @@ const Filter = () => {
     };
 
     const handleFilter = () => {
-        const filtered = filteredData.filter(item => selectedIds.includes(item.ID) || true);
+        const filtered = filteredData.filter(item => selectedIds.includes(item.ID));
         if (filtered.length > 0) {
             drawChart(filtered);
         } else {
@@ -78,7 +78,7 @@ const Filter = () => {
       const speciesNames = data.map(d => d.Name);
       const codons = Object.keys(data[0]).filter(key => key !== 'Species' && key !== 'ID' && key !== 'Name');
   
-      const margin = { top: 50, right: 20, bottom: 100, left: 100 };
+      const margin = { top: 50, right: 20, bottom: 200, left: 200 };
       const width = 1000 - margin.left - margin.right;
       const height = 2000 - margin.top - margin.bottom;
   
@@ -86,12 +86,12 @@ const Filter = () => {
           .attr("width", width + margin.left + 50 + margin.right)
           .attr("height", height + margin.top + margin.bottom)
           .append("g")
-          .attr("transform", `translate(${margin.left + 50},${margin.top})`);
+          .attr("transform", `translate(${margin.left + 50},${margin.top + 400})`);
   
       const x = d3.scaleBand()
           .domain(codons)
           .range([0, width])
-          .padding(0.1);
+          .padding(0.2);
   
       const y = d3.scaleBand()
           .domain(speciesNames)

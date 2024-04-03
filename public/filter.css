@@ -1,7 +1,7 @@
 .Graph {
     position: absolute; /* Position the graph container */
     top: 100%; /* Position from the top */
-    right: 25%; /* Adjusted offset from the right */
+    right: 5%; /* Adjusted offset from the right */
     transform: translateY(-50%); /* Center vertically */
 }
 /* filter.css */
@@ -13,9 +13,11 @@ body {
 }
 
 .container {
-    max-width: 1200px; /* Limit container width */
+    max-width: 1300px; /* Limit container width */
     margin: 0 auto; /* Center container horizontally */
     padding: 20px; /* Add padding */
+    overflow-y: scroll;
+   height: 100vh;
 }
 
 .input-container {

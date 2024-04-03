@@ -77,7 +77,7 @@ const Filter = () => {
   
       const speciesNames = data.map(d => d.Name);
       const codons = Object.keys(data[0]).filter(key => key !== 'Species' && key !== 'ID' && key !== 'Name');
-      const squareLength = (speciesNames.length < 10) ? (450/speciesNames.length) : (10);
+      const squareLength = (speciesNames.length < 10) ? (450/speciesNames.length) : (15);
       const margin = { top: 50, right: 75, bottom: 200, left: 175 };
       const width = codons.length*10;
       const height = speciesNames.length*squareLength;

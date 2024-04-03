@@ -1,7 +1,7 @@
 .Graph {
     position: relative; /* Position the graph container */
     top: 70%; /* Position from the top */
-    left: 25%; /* Adjusted offset from the right */
+    left: 10%; /* Adjusted offset from the right */
      /* Center vertically */
 }
 /* filter.css */
@@ -13,9 +13,7 @@ body {
 }
 
 .container {
-    max-width: 1300px; /* Limit container width */
-    margin: 0 auto; /* Center container horizontally */
-    padding: 20px; /* Add padding */
+        margin: 0 auto; /* Center container horizontally */
     overflow-y: scroll;
     height: 100vh;
 }

@@ -1,8 +1,8 @@
 .Graph {
-    position: absolute; /* Position the graph container */
+    position: relative; /* Position the graph container */
     top: 100%; /* Position from the top */
-    right: 5%; /* Adjusted offset from the right */
-    transform: translateY(-50%); /* Center vertically */
+    left: 25%; /* Adjusted offset from the right */
+     /* Center vertically */
 }
 /* filter.css */
 

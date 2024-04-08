@@ -8,17 +8,40 @@ const Dropdown = () => {
   const [categories, setCat] = useState(Object.keys(catData[0]));
   const [values, setVals] = useState("");
   const [categoricals, setCats] = useState(findCategoricals(catData));
+  const [speciesList, setList] = useState("");
+
+  function createSpeciesList(filter, filter2) {
+    let speciesList = [];
+    if (arguments.length === 1) {
+      for (let i = 0; i < catData.length; i++) {
+        if (catData[i][filter] != "") {
+          speciesList = speciesList.concat(catData[i]["scientific_name"]);
+        }
+      }
+    } else if (arguments.length === 2) {
+      for (let i = 0; i < catData.length; i++) {
+        if (catData[i][filter] != "") {
+          var list = catData[i][filter].split("|");
+          if (list.includes(filter2)) {
+            speciesList = speciesList.concat(catData[i]["scientific_name"]);
+          }
+        }
+      }
+    }
+    speciesList = speciesList.sort();
+    console.log(speciesList);
+    return speciesList;
+  }
 
   function findCategoricals(data) {
     let categoricals = [];
     var keys = Object.keys(data[0]);
-    console.log(keys);
+    // console.log(keys);
     let i = 0;
     let j = 0;
     while (i < keys.length) {
-      // console.log(key);
       var key = keys[i];
-      console.log(key);
+      // console.log(key);
       var val = data[j][key];
       if (val === "") {
         j++;
@@ -36,7 +59,7 @@ const Dropdown = () => {
         }
         i++;
       }
-      console.log(categoricals);
+      // console.log(categoricals);
       return categoricals;
     }
 
@@ -60,10 +83,12 @@ const Dropdown = () => {
     setCategory(e.target.value);
     setVals(setValues(e.target.value));
     setValue("");
+    setList(createSpeciesList(e.target.value));
   };
 
   const handleSecondFilterChange = (e) => {
     setValue(e.target.value);
+    setList(createSpeciesList(category, e.target.value));
   };
 
   if (categoricals.includes(category)) {
@@ -99,4 +124,4 @@ const Dropdown = () => {
 };
 export default Dropdown;
 
-// get rid of ""
+//look at behavioral circadian rhythm (The Nearctic)

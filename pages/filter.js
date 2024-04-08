@@ -6,7 +6,6 @@ import Image from "next/image";
 import TempImg from "../public/img/altair_chart.png"
 // import { useState } from 'react';
 import axios from 'axios'; // Import Axios for making HTTP requests
-import MammaliaJSON from "../data/proportions/mammalia_data.json"
 // import style from "..css/filter.css"
 // import * as d3 from "d3"
 // import React from 'react';
@@ -14,6 +13,7 @@ import MammaliaJSON from "../data/proportions/mammalia_data.json"
 // export default function Filter() {
 
 // const PY = require("../components/python.js")
+
 
 
 //   return (
@@ -34,7 +34,7 @@ import MammaliaJSON from "../data/proportions/mammalia_data.json"
 //     </>
 //   );
 // }
-import { useEffect, useRef, useState } from 'react';
+import { Select, useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import mammaliaData from '../data/proportions/mammalia_data.json';
 
@@ -161,6 +161,7 @@ const Filter = () => {
       <Head>
         <Navbar />
       </Head>
+            
         <div>
             <div class="input-container">
                 <input type="text" value={newId} onChange={handleInputChange} placeholder="Enter ID" />

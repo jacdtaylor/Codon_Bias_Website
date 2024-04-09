@@ -8,17 +8,46 @@ const Dropdown = () => {
   const [categories, setCat] = useState(Object.keys(catData[0]));
   const [values, setVals] = useState("");
   const [categoricals, setCats] = useState(findCategoricals(catData));
+  const [speciesList, setList] = useState("");
+
+  
+  // This function takes the filters and returns a list of the species that meets the filters. 
+  // It is currently in alphabetical order, but we'll need to change the continuous variables to put the species in ascending or descending order based on the numbers.
+
+  function createSpeciesList(filter, filter2) {
+    let speciesList = [];
+    if (arguments.length === 1) {
+      for (let i = 0; i < catData.length; i++) {
+        if (catData[i][filter] != "") {
+          speciesList = speciesList.concat(catData[i]["scientific_name"]);
+        }
+      }
+    } else if (arguments.length === 2) {
+      for (let i = 0; i < catData.length; i++) {
+        if (catData[i][filter] != "") {
+          var list = catData[i][filter].split("|");
+          if (list.includes(filter2)) {
+            speciesList = speciesList.concat(catData[i]["scientific_name"]);
+          }
+        }
+      }
+    }
+    speciesList = speciesList.sort();
+    console.log(speciesList);
+    return speciesList;
+  }
+
+
+  // This function determines which filters are categorical and which are numerical.
+  // It returns a list of the categorical filters.
 
   function findCategoricals(data) {
     let categoricals = [];
     var keys = Object.keys(data[0]);
-    console.log(keys);
     let i = 0;
     let j = 0;
     while (i < keys.length) {
-      // console.log(key);
       var key = keys[i];
-      console.log(key);
       var val = data[j][key];
       if (val === "") {
         j++;
@@ -36,9 +65,11 @@ const Dropdown = () => {
         }
         i++;
       }
-      console.log(categoricals);
       return categoricals;
     }
+
+
+    // This function creates and returns the list of options for the second dropdown for the categorical filters.
 
   function setValues(category) {
     let valueSet = new Set();
@@ -56,14 +87,22 @@ const Dropdown = () => {
     return valueList;
   }
 
+
+  // This handles the first dropdown by implementing several of the above functions.
+
   const handleFilterChange = (e) => {
     setCategory(e.target.value);
     setVals(setValues(e.target.value));
     setValue("");
-  };
+    setList(createSpeciesList(e.target.value));
+  };  
+  
+  
+  // This handles the second dropdown (only for categorical filters) by implementing several of the above functions.
 
   const handleSecondFilterChange = (e) => {
     setValue(e.target.value);
+    setList(createSpeciesList(category, e.target.value));
   };
 
   if (categoricals.includes(category)) {
@@ -88,8 +127,6 @@ const Dropdown = () => {
             <div>
               <select className="px-4 py-3 text-lg font-medium text-center text-gray-500 rounded-md" onChange={handleFilterChange} value={category}>
                 <option value="">-- select filter --</option>
-                {/* <option value="Body Mass">Body Mass</option>
-                <option value="Habitat">Habitat</option> */}
                 {categories.map(cat => (
                   <option value={cat}>{cat}</option>
                 ))}
@@ -98,5 +135,3 @@ const Dropdown = () => {
     )};
 };
 export default Dropdown;
-
-// get rid of ""

@@ -1,14 +1,10 @@
-import Head from "next/head";
-import Hero from "../components/hero";
-import Navbar from "../components/navbar";
-import SectionTitle from "../components/sectionTitle";
-import Image from "next/image";
-import TempImg from "../public/img/altair_chart.png"
-import axios from 'axios'; // Import Axios for making HTTP requests
-
-import { Select, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
-import mammaliaData from '../data/proportions/mammalia_data.json';
+import humanData from '../data/proportions/humanCodon.json';
+import Navbar from "../components/navbar";
+import Head from "next/head";
+
+
 
 const Filter = () => {
     const svgRef = useRef();
@@ -16,24 +12,32 @@ const Filter = () => {
     const [selectedIds, setSelectedIds] = useState([]);
     const [newId, setNewId] = useState('');
 
+
     useEffect(() => {
-        setFilteredData(mammaliaData);
+        setFilteredData(humanData);
     }, []);
+
+    useEffect(() => {
+        handleFilter();
+    }, [selectedIds]); // Trigger handleFilter whenever selectedIds change
 
     const handleAddId = () => {
         if (newId && !selectedIds.includes(newId)) {
-            setSelectedIds([...selectedIds, newId]);
-            setNewId('');
+            setSelectedIds(prevIds => {
+                const updatedIds = [...prevIds, newId];
+                setNewId(''); // Reset newId after updating selectedIds
+                return updatedIds;
+            });
         }
     };
 
     const handleRemoveId = (idToRemove) => {
-        const updatedIds = selectedIds.filter(id => id !== idToRemove);
-        setSelectedIds(updatedIds);
+        setSelectedIds(prevIds => prevIds.filter(id => id !== idToRemove));
     };
 
     const handleFilter = () => {
-        const filtered = filteredData.filter(item => selectedIds.includes(item.Name));
+        const filtered = filteredData.filter(item => selectedIds.includes(item.Gene));
+        console.log(filtered);
         if (filtered.length > 0) {
             drawChart(filtered);
         } else {
@@ -42,13 +46,12 @@ const Filter = () => {
             d3.select(svgRef.current).selectAll("*").remove();
         }
     };
-
     const drawChart = (data) => {
       // Clear existing svg content
       d3.select(svgRef.current).selectAll("*").remove();
   
-      const speciesNames = data.map(d => d.Name);
-      const codons = Object.keys(data[0]).filter(key => key !== 'Species' && key !== 'ID' && key !== 'Name');
+      const speciesNames = data.map(d => d.Gene);
+      const codons = Object.keys(data[0]).filter(key => key !== 'Gene' && key !== 'ID');
       const squareLength = (speciesNames.length < 10) ? (450/speciesNames.length) : (15);
       const margin = { top: 50, right: 75, bottom: 200, left: 175 };
       const width = codons.length*10;
@@ -79,10 +82,10 @@ const Filter = () => {
           .data(data)
           .enter().append("g")
           .selectAll("rect")
-          .data(d => codons.map(codon => ({ species: d.Name, codon, value: d[codon] })))
+          .data(d => codons.map(codon => ({ Gene: d.Gene, codon, value: d[codon] })))
           .enter().append("rect")
           .attr("x", d => x(d.codon))
-          .attr("y", d => y(d.species))
+          .attr("y", d => y(d.Gene))
           .attr("width", x.bandwidth())
           .attr("height", y.bandwidth())
           .style("fill", d => color(d.value))
@@ -92,7 +95,7 @@ const Filter = () => {
               // Show information
               const infoBox = d3.select("#info-box");
               const yOffset = window.scrollY || document.documentElement.scrollTop;
-              infoBox.html(`<p>Codon: ${d.codon}</p><p>Species: ${d.species}</p><p>Value: ${d.value} </p>`);
+              infoBox.html(`<p>Codon: ${d.codon}</p><p>Gene: ${d.Gene}</p><p>Value: ${d.value} </p>`);
               infoBox.style("left", `${event.pageX - window.scrollX}px`) // Adjust for padding
                   .style("top", `${event.pageY - yOffset}px`)
                   .style("max-width", "400px")
@@ -136,7 +139,7 @@ const Filter = () => {
       
             
         <div>
-            <div class="input-container">
+            <div className="input-container">
                 <input type="text" value={newId} onChange={handleInputChange} placeholder="Enter ID" />
                 <button onClick={handleAddId}>Add ID</button>
             </div>
@@ -149,7 +152,7 @@ const Filter = () => {
                 ))}
             </div>
             <button onClick={handleFilter} class="filter">Filter</button>
-        <container class="Graph">
+        <container className="Graph">
             <svg ref={svgRef}></svg>
         </container>
             <div id="info-box" ></div>

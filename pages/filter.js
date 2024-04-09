@@ -4,36 +4,8 @@ import Navbar from "../components/navbar";
 import SectionTitle from "../components/sectionTitle";
 import Image from "next/image";
 import TempImg from "../public/img/altair_chart.png"
-// import { useState } from 'react';
 import axios from 'axios'; // Import Axios for making HTTP requests
-// import style from "..css/filter.css"
-// import * as d3 from "d3"
-// import React from 'react';
-// // import TSV from "tsv-loader?module!../data/proportions/GCF_000001405.40"
-// export default function Filter() {
 
-// const PY = require("../components/python.js")
-
-
-
-//   return (
-//     <>
-//       <Head>
-//         <title>Gene Filter</title>
-//       </Head>
-//       <Navbar />
-//       <div>
-//         <h1>Gene Filter</h1>
-        
-//           <button type="submit">Run Python Script</button>
-//           <button type="button" onClick={PY.callPython()}>Load Data</button>
-//       <container id="Test"></container>
-//       </div>
-//       {/* <Image src={TempImg} /> */}
-//       <iframe src= "/altair_chart.html" width="600" height="400" frameborder="0"></iframe>
-//     </>
-//   );
-// }
 import { Select, useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import mammaliaData from '../data/proportions/mammalia_data.json';
@@ -61,7 +33,7 @@ const Filter = () => {
     };
 
     const handleFilter = () => {
-        const filtered = filteredData.filter(item => selectedIds.includes(item.ID) || true);
+        const filtered = filteredData.filter(item => selectedIds.includes(item.Name));
         if (filtered.length > 0) {
             drawChart(filtered);
         } else {
@@ -159,8 +131,9 @@ const Filter = () => {
       <>
       <link rel="stylesheet" href="filter.css"></link>
       <Head>
-        <Navbar />
       </Head>
+        <Navbar />
+      
             
         <div>
             <div class="input-container">

@@ -97,3 +97,20 @@ body {
     padding: 10px; /* Add padding */
     border-radius: 5px; /* Apply border radius */
 }
+
+.checkbox-container {
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: #333; /* Dark background color */
+    color: #fff; /* Text color */
+    padding: 10px; /* Add padding for spacing */
+    border-radius: 8px; /* Rounded corners */
+    position: fixed; /* Position fixed to keep it in place */
+    top: 50px; /* Adjust top position */
+    right: 20px; /* Adjust right position */
+    z-index: 1000; /* Set a high z-index to ensure it's above other content */
+  }
+  
+  .checkbox-container input[type="checkbox"] {
+    margin-right: 5px; /* Add margin between checkbox and label */
+  }

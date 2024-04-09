@@ -692,7 +692,7 @@
     {
         "Species": "GCF_021234165.1",
         "ID": "1884717",
-        "Name": "Pteronotus parnellii_mesoamericanus",
+        "Name": "Pteronotus parnellii mesoamericanus",
         "AUU": "0.35138676229173155",
         "AUC": "0.48046734320074413",
         "AUA": "0.1681458945075243",
@@ -899,7 +899,7 @@
     {
         "Species": "GCF_003254725.2",
         "ID": "286419",
-        "Name": "Canis lupus_dingo",
+        "Name": "Canis lupus dingo",
         "AUU": "0.3549445389871407",
         "AUC": "0.4723507188436691",
         "AUA": "0.17270474216919027",
@@ -968,7 +968,7 @@
     {
         "Species": "GCF_002102435.1",
         "ID": "9880",
-        "Name": "Odocoileus virginianus_texanus",
+        "Name": "Odocoileus virginianus texanus",
         "AUU": "0.3367369925919508",
         "AUC": "0.4998440410691851",
         "AUA": "0.1634189663388641",
@@ -2693,7 +2693,7 @@
     {
         "Species": "GCF_023159225.1",
         "ID": "214514",
-        "Name": "Perognathus longimembris_pacificus",
+        "Name": "Perognathus longimembris pacificus",
         "AUU": "0.353862566246942",
         "AUC": "0.483545909077277",
         "AUA": "0.16259152467578092",
@@ -2900,7 +2900,7 @@
     {
         "Species": "GCF_030028045.1",
         "ID": "575201",
-        "Name": "Hippopotamus amphibius_kiboko",
+        "Name": "Hippopotamus amphibius kiboko",
         "AUU": "0.3429725145522532",
         "AUC": "0.489736324736903",
         "AUA": "0.16729116071084385",
@@ -4004,7 +4004,7 @@
     {
         "Species": "GCF_011764305.1",
         "ID": "9669",
-        "Name": "Mustela putorius_furo",
+        "Name": "Mustela putorius furo",
         "AUU": "0.3466164842457046",
         "AUC": "0.48695603508238927",
         "AUA": "0.1664274806719061",
@@ -5246,7 +5246,7 @@
     {
         "Species": "GCF_029281585.1",
         "ID": "9595",
-        "Name": "Gorilla gorilla_gorilla",
+        "Name": "Gorilla gorilla gorilla",
         "AUU": "0.36647187446643276",
         "AUC": "0.4570272984469866",
         "AUA": "0.17650082708658063",
@@ -5729,7 +5729,7 @@
     {
         "Species": "GCF_024166365.1",
         "ID": "99487",
-        "Name": "Elephas maximus_indicus",
+        "Name": "Elephas maximus indicus",
         "AUU": "0.3617530425270067",
         "AUC": "0.4636336156951931",
         "AUA": "0.17461334177780016",
@@ -6074,7 +6074,7 @@
     {
         "Species": "GCF_000283155.1",
         "ID": "73337",
-        "Name": "Ceratotherium simum_simum",
+        "Name": "Ceratotherium simum simum",
         "AUU": "0.35668514591474376",
         "AUC": "0.4740650779966901",
         "AUA": "0.16924977608856615",
@@ -6488,7 +6488,7 @@
     {
         "Species": "GCF_000321225.1",
         "ID": "9708",
-        "Name": "Odobenus rosmarus_divergens",
+        "Name": "Odobenus rosmarus divergens",
         "AUU": "0.3527301885849541",
         "AUC": "0.48185477459304993",
         "AUA": "0.165415036821996",
@@ -6557,7 +6557,7 @@
     {
         "Species": "GCF_000951035.1",
         "ID": "336983",
-        "Name": "Colobus angolensis_palliatus",
+        "Name": "Colobus angolensis palliatus",
         "AUU": "0.373266469489212",
         "AUC": "0.45081232626720513",
         "AUA": "0.17592120424358287",
@@ -7661,7 +7661,7 @@
     {
         "Species": "GCF_001458135.2",
         "ID": "9994",
-        "Name": "Marmota marmota_marmota",
+        "Name": "Marmota marmota marmota",
         "AUU": "0.37234264151548047",
         "AUC": "0.4483469998437732",
         "AUA": "0.17931035864074638",
@@ -7730,7 +7730,7 @@
     {
         "Species": "GCF_000754665.1",
         "ID": "43346",
-        "Name": "Bison bison_bison",
+        "Name": "Bison bison bison",
         "AUU": "0.34763054380045116",
         "AUC": "0.482998079826998",
         "AUA": "0.16937137637255084",
@@ -8903,7 +8903,7 @@
     {
         "Species": "GCF_011100685.1",
         "ID": "9615",
-        "Name": "Canis lupus_familiaris",
+        "Name": "Canis lupus familiaris",
         "AUU": "0.35522076517278606",
         "AUC": "0.47023964202640434",
         "AUA": "0.17453959280080958",
@@ -9317,7 +9317,7 @@
     {
         "Species": "GCF_016699345.2",
         "ID": "39432",
-        "Name": "Saimiri boliviensis_boliviensis",
+        "Name": "Saimiri boliviensis boliviensis",
         "AUU": "0.36854428943842543",
         "AUC": "0.4582917756441263",
         "AUA": "0.17316393491744825",
@@ -9386,7 +9386,7 @@
     {
         "Species": "GCF_007827085.1",
         "ID": "564181",
-        "Name": "Peromyscus californicus_insignis",
+        "Name": "Peromyscus californicus insignis",
         "AUU": "0.34836383533802995",
         "AUC": "0.48181116441769345",
         "AUA": "0.1698250002442766",
@@ -10628,7 +10628,7 @@
     {
         "Species": "GCF_000243295.1",
         "ID": "127582",
-        "Name": "Trichechus manatus_latirostris",
+        "Name": "Trichechus manatus latirostris",
         "AUU": "0.36453818360942697",
         "AUC": "0.45936222475848676",
         "AUA": "0.17609959163208624",
@@ -12491,7 +12491,7 @@
     {
         "Species": "GCF_002288905.1",
         "ID": "391180",
-        "Name": "Enhydra lutris_kenyoni",
+        "Name": "Enhydra lutris kenyoni",
         "AUU": "0.34637606657352",
         "AUC": "0.4877635128603942",
         "AUA": "0.16586042056608583",
@@ -13043,7 +13043,7 @@
     {
         "Species": "GCF_003031525.2",
         "ID": "1706337",
-        "Name": "Neophocaena asiaeorientalis_asiaeorientalis",
+        "Name": "Neophocaena asiaeorientalis asiaeorientalis",
         "AUU": "0.3492713628661341",
         "AUC": "0.4802081820382474",
         "AUA": "0.1705204550956185",
@@ -13319,7 +13319,7 @@
     {
         "Species": "GCF_000298275.1",
         "ID": "1230840",
-        "Name": "Orycteropus afer_afer",
+        "Name": "Orycteropus afer afer",
         "AUU": "0.36969150486453595",
         "AUC": "0.4560626470218634",
         "AUA": "0.17424584811360064",
@@ -13388,7 +13388,7 @@
     {
         "Species": "GCF_020826845.1",
         "ID": "77932",
-        "Name": "Diceros bicornis_minor",
+        "Name": "Diceros bicornis minor",
         "AUU": "0.35728508846788415",
         "AUC": "0.4713761910647339",
         "AUA": "0.17133872046738194",
@@ -13526,7 +13526,7 @@
     {
         "Species": "GCF_003704035.1",
         "ID": "230844",
-        "Name": "Peromyscus maniculatus_bairdii",
+        "Name": "Peromyscus maniculatus bairdii",
         "AUU": "0.3422273848723684",
         "AUC": "0.49214242514423956",
         "AUA": "0.16563018998339205",
@@ -13871,7 +13871,7 @@
     {
         "Species": "GCF_024542745.1",
         "ID": "257877",
-        "Name": "Macaca thibetana_thibetana",
+        "Name": "Macaca thibetana thibetana",
         "AUU": "0.3707181027421305",
         "AUC": "0.4528591488863752",
         "AUA": "0.17642274837149433",
@@ -14975,7 +14975,7 @@
     {
         "Species": "GCA_010411085.1",
         "ID": "84702",
-        "Name": "Cervus hanglu_yarkandensis",
+        "Name": "Cervus hanglu yarkandensis",
         "AUU": "0.35016963718915034",
         "AUC": "0.48407664905739695",
         "AUA": "0.1657537137534527",
@@ -15113,7 +15113,7 @@
     {
         "Species": "GCA_028583565.1",
         "ID": "230172",
-        "Name": "Ovis ammon_polii",
+        "Name": "Ovis ammon polii",
         "AUU": "0.35016963718915034",
         "AUC": "0.48407664905739695",
         "AUA": "0.1657537137534527",
@@ -15182,7 +15182,7 @@
     {
         "Species": "GCA_949782905.1",
         "ID": "3082113",
-        "Name": "Rangifer tarandus_platyrhynchus",
+        "Name": "Rangifer tarandus platyrhynchus",
         "AUU": "0.35016963718915034",
         "AUC": "0.48407664905739695",
         "AUA": "0.1657537137534527",
@@ -15320,7 +15320,7 @@
     {
         "Species": "GCA_024510155.1",
         "ID": "2888765",
-        "Name": "Gulo gulo_luscus",
+        "Name": "Gulo gulo luscus",
         "AUU": "0.35016963718915034",
         "AUC": "0.48407664905739695",
         "AUA": "0.1657537137534527",

@@ -99,7 +99,7 @@ body {
 }
 
 .checkbox-container {
-    max-height: 200px;
+    height: 200px;
     overflow-y: auto;
     background-color: #333; /* Dark background color */
     color: #fff; /* Text color */
@@ -109,6 +109,7 @@ body {
     top: 50px; /* Adjust top position */
     right: 20px; /* Adjust right position */
     z-index: 1000; /* Set a high z-index to ensure it's above other content */
+    min-width: 200px;
   }
   
   .checkbox-container input[type="checkbox"] {

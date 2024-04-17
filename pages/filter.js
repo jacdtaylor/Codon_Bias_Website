@@ -3,6 +3,7 @@ import * as d3 from 'd3';
 import humanData from '../data/proportions/humanCodon.json';
 import Navbar from "../components/navbar";
 import Head from "next/head";
+import codonJSON from "../data/codonJSON.json";
 
 
 
@@ -39,19 +40,25 @@ const Filter = () => {
         const filtered = filteredData.filter(item => selectedIds.includes(item.Gene));
         console.log(filtered);
         if (filtered.length > 0) {
-            drawChart(filtered);
+            drawChart(filtered, selectedIds);
         } else {
             console.warn('No data found for the selected IDs');
             // Clear existing svg content if no data found
             d3.select(svgRef.current).selectAll("*").remove();
         }
     };
-    const drawChart = (data) => {
+    const drawChart = (data, order) => {
       // Clear existing svg content
       d3.select(svgRef.current).selectAll("*").remove();
-  
+      data.sort((a, b) => order.indexOf(a.Gene) - order.indexOf(b.Gene));
+
+      
       const speciesNames = data.map(d => d.Gene);
       const codons = Object.keys(data[0]).filter(key => key !== 'Gene' && key !== 'ID');
+      const totalCodonCounts = data.map(d => ({
+        Gene: d.Gene,
+        totalCount: codons.reduce((acc, codon) => acc + parseInt(d[codon].split("|")[1]), 0)
+    }));
       const squareLength = (speciesNames.length < 10) ? (450/speciesNames.length) : (15);
       const margin = { top: 50, right: 75, bottom: 200, left: 175 };
       const width = codons.length*10;
@@ -76,18 +83,23 @@ const Filter = () => {
 
   
       const color = d3.scaleSequential(d3.interpolateYlGnBu).domain([0, 1]);
+
+      
   
       // Add rectangles for heatmap
       svg.selectAll("rect")
           .data(data)
           .enter().append("g")
           .selectAll("rect")
-          .data(d => codons.map(codon => ({ Gene: d.Gene, codon, value: d[codon] })))
+          .data(d => codons.map(codon => 
+            ({ Gene: d.Gene, codon, value: d[codon].split("|")[0], count: d[codon].split("|")[1],
+            totalCount: totalCodonCounts.find(tc => tc.Gene === d.Gene).totalCount })))
           .enter().append("rect")
           .attr("x", d => x(d.codon))
           .attr("y", d => y(d.Gene))
           .attr("width", x.bandwidth())
           .attr("height", y.bandwidth())
+        // .attr("height", d => (y.bandwidth() / d.totalCount) * parseInt(d.count) *10) // Adjust height proportionally
           .style("fill", d => color(d.value))
           // Highlight on hover
           .on("mouseover", function(event, d) {
@@ -95,7 +107,10 @@ const Filter = () => {
               // Show information
               const infoBox = d3.select("#info-box");
               const yOffset = window.scrollY || document.documentElement.scrollTop;
-              infoBox.html(`<p>Codon: ${d.codon}</p><p>Gene: ${d.Gene}</p><p>Value: ${d.value} </p>`);
+              const codon = d.codon;
+       
+              
+              infoBox.html(`<p>Codon: ${codon}</p><p>Gene: ${d.Gene}</p><p>Proportion: ${d.value} </p><p>Count: ${d.count}</p><p>Amino Acid: ${codonJSON[codon]}</p>`);
               infoBox.style("left", `${event.pageX - window.scrollX}px`) // Adjust for padding
                   .style("top", `${event.pageY - yOffset}px`)
                   .style("max-width", "400px")
@@ -143,14 +158,15 @@ const Filter = () => {
                 <input type="text" value={newId} onChange={handleInputChange} placeholder="Enter ID" />
                 <button onClick={handleAddId}>Add ID</button>
             </div>
-            <div class="IDS">
+            <div className="checkbox-container">
+                <div className = "IDS">
                 {selectedIds.map(id => (
                     <div key={id}>
                         <span>{id}</span>
                         <button onClick={() => handleRemoveId(id)} class="remove">Remove</button>
                     </div>
                 ))}
-            </div>
+            </div></div>
             <button onClick={handleFilter} class="filter">Filter</button>
         <container className="Graph">
             <svg ref={svgRef}></svg>

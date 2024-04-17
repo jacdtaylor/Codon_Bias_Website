@@ -7,8 +7,8 @@ import Image from "next/image";
 export default function Navbar() {
   // add new pages and links here
   // be sure the page name in pageNames is in the same index as its link in links
-  const pageNames = ["Filter","Select Multiple"];
-  const links = ["/filter", "/selectMultiple"]
+  const pageNames = ["Filter","Select Multiple","Compare Two Genes"];
+  const links = ["/filter", "/selectMultiple", "/compareTwo"]
 
   return (
     <div className="sticky top-0 z-50">

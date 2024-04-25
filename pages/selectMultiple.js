@@ -81,6 +81,7 @@ import Navbar from "../components/navbar";
 import { drawChart } from "../components/drawGraph.js";
 import * as d3 from 'd3';
 import mammaliaData from '../data/proportions/mammalia_data.json';
+import DarkSwitch from "../components/DarkSwitch.js"
 
 const Dropdown = () => {
   const svgRef = useRef();

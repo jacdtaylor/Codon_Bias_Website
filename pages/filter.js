@@ -12,32 +12,56 @@ const Filter = () => {
     const [filteredData, setFilteredData] = useState([]);
     const [selectedIds, setSelectedIds] = useState([]);
     const [newId, setNewId] = useState('');
+    const [allIds, setAllIds] = useState([])
 
 
     useEffect(() => {
         setFilteredData(humanData);
     }, []);
 
+    useEffect(() => {getAllGenes(humanData);}
+        , []);
+
     useEffect(() => {
         handleFilter();
     }, [selectedIds]); // Trigger handleFilter whenever selectedIds change
 
     const handleAddId = () => {
-        if (newId && !selectedIds.includes(newId)) {
+        if (allIds.includes(newId)) {
+            const idsToAdd = newId.split(',').map(id => id.trim());
             setSelectedIds(prevIds => {
-                const updatedIds = [...prevIds, newId];
+                const updatedIds = [...new Set([...prevIds, ...idsToAdd])]; // Using Set to ensure unique values
                 setNewId(''); // Reset newId after updating selectedIds
                 return updatedIds;
             });
         }
+        else {
+            alert("Gene Name Not Found.")
+        }
     };
 
+    const getAllGenes = (data) => {
+        const valueArray = [];
+        for (const Target of data) {
+            valueArray.push(Target["Gene"]);
+        }
+      setAllIds(valueArray) 
+    };
+
+    
     const handleRemoveId = (idToRemove) => {
         setSelectedIds(prevIds => prevIds.filter(id => id !== idToRemove));
     };
 
+    const handleSelectSuggestion = (suggestion) => {
+        setSelectedIds(prevIds => [...new Set([...prevIds, suggestion])]); // Add the suggestion to selectedIds
+    };
     const handleFilter = () => {
-        const filtered = filteredData.filter(item => selectedIds.includes(item.Gene));
+        const filtered = filteredData.filter(item => {
+            const geneUpperCase = item.Gene.toUpperCase();
+            const selectedIdsLowerCase = selectedIds.map(id => id.toUpperCase());
+            return selectedIdsLowerCase.includes(geneUpperCase);
+        });
         console.log(filtered);
         if (filtered.length > 0) {
             drawChart(filtered, selectedIds);
@@ -47,6 +71,8 @@ const Filter = () => {
             d3.select(svgRef.current).selectAll("*").remove();
         }
     };
+    
+    
     const drawChart = (data, order) => {
       // Clear existing svg content
       d3.select(svgRef.current).selectAll("*").remove();
@@ -146,37 +172,48 @@ const Filter = () => {
     };
 
     return (
-      <>
-      <link rel="stylesheet" href="filter.css"></link>
-      <Head>
-      </Head>
-        <Navbar />
-      
-            
-        <div>
-            <div className="input-container">
-                <input type="text" value={newId} onChange={handleInputChange} placeholder="Enter ID" />
-                <button onClick={handleAddId}>Add ID</button>
-            </div>
-            <div className="checkbox-container">
-                <div className = "IDS">
-                {selectedIds.map(id => (
-                    <div key={id}>
-                        <span>{id}</span>
-                        <button onClick={() => handleRemoveId(id)} class="remove">Remove</button>
+        <>
+            <link rel="stylesheet" href="filter.css"></link>
+            <Head>
+            </Head>
+            <Navbar />
+
+            <div>
+                <div className="input-container">
+                    <input type="text" value={newId} onChange={handleInputChange} placeholder="Enter ID" />
+                    <button onClick={handleAddId}>Add ID</button>
+                </div>
+                <div className="checkbox-container">
+                    <div className="IDS">
+                        {selectedIds.map(id => (
+                            <div key={id}>
+                                <span>{id}</span>
+                                <button onClick={() => handleRemoveId(id)} className="remove">Remove</button>
+                            </div>
+                        ))}
                     </div>
-                ))}
-            </div></div>
-            <button onClick={handleFilter} class="filter">Filter</button>
-        <container className="Graph">
-            <svg ref={svgRef}></svg>
-        </container>
-            <div id="info-box" ></div>
-        </div>
+                </div>
+                <div>
+                {newId && (
+    <ul className="GeneNamesUl">
+        {allIds
+            .filter(id => id.toLowerCase().startsWith(newId.toLowerCase()))
+            .slice(0, 30)
+            .map((id, index) => (
+                <li className="GeneNamesLi" key={index} onClick={() => handleSelectSuggestion(id)}>
+                    {id}
+                </li>
+            ))}
+    </ul>
+)}
+                </div>
+                <container className="Graph">
+                    <svg ref={svgRef}></svg>
+                </container>
+                <div id="info-box" ></div>
+            </div>
         </>
     );
 };
 
 export default Filter;
-
-    

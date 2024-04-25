@@ -7,7 +7,7 @@
 /* filter.css */
 
 body {
-    background-color: #1e1e1e; /* Dark background color */
+    background-color: #363636; /* Dark background color */
     color: #ffffff; /* Light text color */
     font-family: Arial, sans-serif; /* Specify font family */
 }
@@ -115,3 +115,28 @@ body {
   .checkbox-container input[type="checkbox"] {
     margin-right: 5px; /* Add margin between checkbox and label */
   }
+
+  .GeneNamesUl {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 500px;
+    max-height: 200px; /* Adjust the max-height as needed */
+    overflow-y: auto;
+    border: 1px solid #ccc; /* Add border for visibility */
+    border-radius: 4px; /* Optional: Add border-radius for rounded corners */
+}
+
+.GeneNamesLi {
+    background-color: #333333;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 450px;
+    margin: 7px;
+    
+}
+
+.GeneNamesLi:hover {
+    background-color: #666666;
+}

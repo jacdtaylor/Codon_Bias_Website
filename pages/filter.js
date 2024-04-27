@@ -5,7 +5,8 @@ import Navbar from "../components/navbar";
 import Head from "next/head";
 import codonJSON from "../data/codonJSON.json";
 import { saveAs } from 'file-saver';
-import { Canvg } from 'canvg';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+
 
 
 
@@ -116,6 +117,17 @@ const Filter = () => {
         }
     };
     
+    const onDragEnd = (result) => {
+        if (!result.destination) {
+            return;
+        }
+
+        const newSelectedIds = Array.from(selectedIds);
+        const [reorderedItem] = newSelectedIds.splice(result.source.index, 1);
+        newSelectedIds.splice(result.destination.index, 0, reorderedItem);
+
+        setSelectedIds(newSelectedIds);
+    };
     
     const drawChart = (data, order) => {
       // Clear existing svg content
@@ -233,6 +245,9 @@ const Filter = () => {
                 <br />
                 <button className="download" onClick={() => downloadGraph()}>Download</button>
                 <br />
+                <button className="clear" onClick={() => setSelectedIds([])}>Clear All</button>
+
+                <br />
                 {!isVisible && (<button onClick={() => handleClick()}>Show Selected Genes</button>)}
                 {isVisible && (<button onClick={() => handleClick()}>Show Selectable Genes</button>)}            </container>
                 <div>
@@ -252,15 +267,28 @@ const Filter = () => {
                 </div>
                 {isVisible &&
                 <div className="checkbox-container">
-                    <div className="IDS">
-                        {selectedIds.map(id => (
-                            <div key={id}>
-                                <span>{id}</span>
-                                <button onClick={() => handleRemoveId(id)} className="remove">X</button>
+                <DragDropContext onDragEnd={onDragEnd}>
+                    <Droppable droppableId="selectedIds">
+                        {(provided) => (
+                            <div {...provided.droppableProps} ref={provided.innerRef}>
+                                {selectedIds.map((id, index) => (
+                                    <Draggable key={id} draggableId={id} index={index}>
+                                        {(provided) => (
+                                            <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                                <div>
+                                                    <span className="idSpan">{id}</span>
+                                                    <button onClick={() => handleRemoveId(id)} className="remove">X</button>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </Draggable>
+                                ))}
+                                {provided.placeholder}
                             </div>
-                        ))}
-                    </div>
-                </div>}
+                        )}
+                    </Droppable>
+                </DragDropContext>
+            </div>}
                 </container>
                 
                 <container className="Graph">

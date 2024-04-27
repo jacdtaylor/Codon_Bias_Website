@@ -44,6 +44,7 @@ input[type="text"] {
 }
 
 .checkbox-container {
+    position: relative;
     width: 80%;
     list-style-type: none;
     padding: 0;
@@ -53,52 +54,34 @@ input[type="text"] {
     border: 1px solid #ccc;
     border-radius: 4px;
     scrollbar-color: rgba(200, 212, 255, 0.8) rgba(76, 81, 99, 0.8);
+    
 }
 
-.checkbox-container input[type="checkbox"] {
-    margin-right: 5px;
+.checkbox-container span {
+    padding: 0.2em 0.5em; /* Adjust padding as needed */
+        display: inline-block;
+        background-color: rgba(57, 63, 84, 0.8);
+        padding-right:1em;
+        width:70%;
+        margin-bottom:5px;
+        margin-top: 5px;
 }
 
-.IDS {
-    margin-top: 20px;
-    margin: 10px;
-}
-
-.IDS div {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-.IDS span,
-.IDS button.remove {
-    padding: 8px 12px;
-    height: 50px;
-
-}
-
-.IDS span {
-    background-color: rgba(57, 63, 84, 0.8  );
-    width: 70%;
-}
-
-.IDS button.remove {
-    border: none;
-    color: inherit;
-    cursor: pointer;
-    font-size: 18px;
-    line-height: 1;
-    color: rgba(76, 81, 99, 0.8);
-    background-color: rgba(57, 63, 84, 0.8  );
+.checkbox-container button {
+    padding: 0.2em 0.5em; /* Adjust padding as needed */
+    display: inline-block;
+    background-color: rgba(74, 80, 99, 0.8);
+    margin-bottom:5px;
+    margin-top: 5px;
+    color:rgba(90, 97, 122, 0.8);
     transition: color 0.3s ease;
 
 }
+.checkbox-container button:hover {
+    color: white;
 
-.IDS button.remove:hover {
-   color: white;
 }
-
-
+    
 
 #info-box {
     position: fixed;

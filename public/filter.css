@@ -3,7 +3,8 @@ body {
     background-image: radial-gradient(circle at 0% 0%, #373b52, #252736 51%, #1d1e26);
     color: #ffffff;
     font-family: Arial, sans-serif;
-    overflow-x: hidden; /* Prevent horizontal scrolling */
+    overflow-x: hidden; 
+    /* Prevent horizontal scrolling */
 
 }
 
@@ -43,16 +44,21 @@ input[type="text"] {
     box-shadow: 3px 5px 5px rgba(34, 39, 56, 0.9);
 }
 
+
+
 .checkbox-container {
-    position: relative;
-    width: 80%;
-    list-style-type: none;
-    padding: 0;
-    margin: 5px;
+    top:100%;
+    left:50%;
+    
+    margin-left:-200px;
+    margin-top:200px;
+    width:400px; 
     height: 200px;
+    top: 0;
+    position: fixed;
+    background-color: rgba(57, 63, 84, 1);
     overflow-y: auto;
     border: 1px solid #ccc;
-    border-radius: 4px;
     scrollbar-color: rgba(200, 212, 255, 0.8) rgba(76, 81, 99, 0.8);
     
 }
@@ -60,11 +66,20 @@ input[type="text"] {
 .checkbox-container span {
     padding: 0.2em 0.5em; /* Adjust padding as needed */
         display: inline-block;
-        background-color: rgba(57, 63, 84, 0.8);
+        background-color: rgba(47, 53, 73, 0.8);
         padding-right:1em;
-        width:70%;
+        width:85%;
         margin-bottom:5px;
         margin-top: 5px;
+        transition: background-color 0.3s ease;
+
+}
+
+.checkbox-container span:hover {
+    
+        background-color: rgba(61, 68, 92, 0.8);
+        color: rgba(187, 203, 255, 0.8);
+       
 }
 
 .checkbox-container button {
@@ -75,13 +90,15 @@ input[type="text"] {
     margin-top: 5px;
     color:rgba(90, 97, 122, 0.8);
     transition: color 0.3s ease;
-
 }
 .checkbox-container button:hover {
     color: white;
 
 }
     
+.checkbox-container .CloseMenu {
+    margin-top:0px;
+}
 
 #info-box {
     position: fixed;

@@ -18,6 +18,7 @@ const Filter = () => {
     const [newId, setNewId] = useState('');
     const [allIds, setAllIds] = useState([])
     const [isVisible, setIsVisible] = useState(false);
+    const [countToggle, setCountToggle] = useState(false);
 
 
     useEffect(() => {
@@ -29,7 +30,7 @@ const Filter = () => {
 
     useEffect(() => {
         handleFilter();
-    }, [selectedIds]); // Trigger handleFilter whenever selectedIds change
+    }, [selectedIds, countToggle]); // Trigger handleFilter whenever selectedIds change
 
     const handleAddId = () => {
         if (allIds.includes(newId) | newId.includes(",")) {
@@ -53,7 +54,9 @@ const Filter = () => {
       setAllIds(valueArray) 
     };
 
-    
+    const HandleCountToggle = () => {
+        setCountToggle(!countToggle);
+    }
     const handleRemoveId = (idToRemove) => {
         setSelectedIds(prevIds => prevIds.filter(id => id !== idToRemove));
     };
@@ -169,6 +172,7 @@ const Filter = () => {
       
   
       // Add rectangles for heatmap
+      
       svg.selectAll("rect")
           .data(data)
           .enter().append("g")
@@ -178,9 +182,10 @@ const Filter = () => {
             totalCount: totalCodonCounts.find(tc => tc.Gene === d.Gene).totalCount })))
           .enter().append("rect")
           .attr("x", d => x(d.codon))
-          .attr("y", d => y(d.Gene))
+          .attr("y", d => countToggle ? y(d.Gene) + (y.bandwidth() - ((y.bandwidth() / d.totalCount) * parseInt(d.count) * 10)) / 2 : y(d.Gene))
           .attr("width", x.bandwidth())
-          .attr("height", y.bandwidth())
+          .attr("height", d => countToggle ? Math.max((y.bandwidth() / d.totalCount) * parseInt(d.count) * 10, 3) : 
+          y.bandwidth())
         // .attr("height", d => (y.bandwidth() / d.totalCount) * parseInt(d.count) *10) // Adjust height proportionally
           .style("fill", d => color(d.value))
           // Highlight on hover
@@ -192,8 +197,8 @@ const Filter = () => {
               const codon = d.codon;
        
               
-              infoBox.html(`<p>Codon: ${codon}</p><p>Gene: ${d.Gene}</p><p>Proportion: ${d.value} </p><p>Count: ${d.count}</p><p>Amino Acid: ${codonJSON[codon]}</p>`);
-              infoBox.style("left", `${event.pageX - window.scrollX}px`) // Adjust for padding
+              infoBox.html(`<p>Gene: ${d.Gene}</p><p>Codon: ${codon}</p><p>Amino Acid: ${codonJSON[codon]}</p><p>Proportion: ${d.value} </p><p>Count: ${d.count}</p>`);
+              infoBox.style("left", `${event.pageX}px`) // Adjust for padding
                   .style("top", `${event.pageY - yOffset}px`)
                   .style("max-width", "400px")
                   .style("visibility", "visible");
@@ -233,7 +238,6 @@ const Filter = () => {
             <Head>
             </Head>
             <Navbar />
-            
             <div>
             <container className="Left_Column">
                 <div className="input-container">
@@ -246,12 +250,13 @@ const Filter = () => {
                 <button className="download" onClick={() => downloadGraph()}>Download</button>
                 <br />
                 <button className="clear" onClick={() => setSelectedIds([])}>Clear All</button>
-
+                <br />
+                <button className="toggle" onClick={() => HandleCountToggle()}>Toggle</button>
                 <br />
                 {!isVisible && (<button onClick={() => handleClick()}>Show Selected Genes</button>)}
-                {isVisible && (<button onClick={() => handleClick()}>Show Selectable Genes</button>)}            </container>
+             </container>
                 <div>
-                {(newId && !isVisible) && (
+                {newId && (
     <ul className="GeneNamesUl">
         {allIds
             .filter(id => id.toLowerCase().startsWith(newId.toLowerCase()))
@@ -265,8 +270,18 @@ const Filter = () => {
     </ul>
 )}
                 </div>
-                {isVisible &&
+                
+                </container>
+                
+                <container className="Graph">
+                    <svg ref={svgRef}></svg>
+                </container>
+                
+                <div id="info-box" ></div>
+            </div>
+            {isVisible &&
                 <div className="checkbox-container">
+                    <button className="CloseMenu" onClick={() => handleClick()}>X</button>
                 <DragDropContext onDragEnd={onDragEnd}>
                     <Droppable droppableId="selectedIds">
                         {(provided) => (
@@ -289,14 +304,6 @@ const Filter = () => {
                     </Droppable>
                 </DragDropContext>
             </div>}
-                </container>
-                
-                <container className="Graph">
-                    <svg ref={svgRef}></svg>
-                </container>
-                
-                <div id="info-box" ></div>
-            </div>
         </>
     );
 };

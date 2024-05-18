@@ -198,7 +198,7 @@ const Filter = () => {
        
               
               infoBox.html(`<p>Gene: ${d.Gene}</p><p>Codon: ${codon}</p><p>Amino Acid: ${codonJSON[codon]}</p><p>Proportion: ${d.value} </p><p>Count: ${d.count}</p>`);
-              infoBox.style("left", `${event.pageX}px`) // Adjust for padding
+              infoBox.style("left", `${event.pageX - 415}px`) // Adjust for padding
                   .style("top", `${event.pageY - yOffset}px`)
                   .style("max-width", "400px")
                   .style("visibility", "visible");

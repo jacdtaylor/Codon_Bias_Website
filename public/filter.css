@@ -98,6 +98,7 @@ input[type="text"] {
     
 .checkbox-container .CloseMenu {
     margin-top:0px;
+    margin-left:350px ; 
 }
 
 #info-box {
@@ -154,3 +155,7 @@ input[type="text"] {
     top: 70%;
     left: 30%;
 }
+
+
+
+

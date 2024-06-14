@@ -33,6 +33,12 @@ const drawChart = (data, svgRef, order) => {
 
     const color = d3.scaleSequential(d3.interpolateYlGnBu).domain([0, 1]);
 
+
+    // const colorScale = d3.scaleOrdinal()
+    // .domain(categories)
+    // .range(d3.schemeCategory10);
+
+    
     // Add rectangles for heatmap
     svg.selectAll("rect")
         .data(data)
@@ -52,7 +58,7 @@ const drawChart = (data, svgRef, order) => {
             const infoBox = d3.select("#info-box");
             const yOffset = window.scrollY || document.documentElement.scrollTop;
             infoBox.html(`<p>Codon: ${d.codon}</p><p>Species: ${d.species}</p><p>Value: ${d.value} </p>`);
-            infoBox.style("left", `${event.pageX - window.scrollX}px`) // Adjust for padding
+            infoBox.style("left", `${event.pageX - 425}px`) // Adjust for padding
                 .style("top", `${event.pageY - yOffset}px`)
                 .style("max-width", "400px")
                 .style("visibility", "visible");
@@ -79,6 +85,13 @@ const drawChart = (data, svgRef, order) => {
     svg.append("g")
         .attr("class", "axis")
         .call(d3.axisLeft(y));
+
+        svg.append("g")
+        .attr("class", "axis")
+        .attr("transform", `translate(${width}, 0)`)
+        .call(d3.axisRight(y).tickFormat(d => "categories[d]"))
+        .selectAll(".tick text")
+        // .attr("fill", d => colorScale(d)); // Apply color to tick text
 };
 
 export { drawChart };

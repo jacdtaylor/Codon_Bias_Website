@@ -1,117 +1,161 @@
-.Graph {
-    position: relative; /* Position the graph container */
-    top: 70%; /* Position from the top */
-    left: 10%; /* Adjusted offset from the right */
-     /* Center vertically */
-}
-/* filter.css */
-
+/* General styling */
 body {
-    background-color: #1e1e1e; /* Dark background color */
-    color: #ffffff; /* Light text color */
-    font-family: Arial, sans-serif; /* Specify font family */
+    background-image: radial-gradient(circle at 0% 0%, #373b52, #252736 51%, #1d1e26);
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden; 
+    /* Prevent horizontal scrolling */
+
 }
 
 .container {
-        margin: 0 auto; /* Center container horizontally */
+    margin: 0 auto;
     overflow-y: scroll;
     height: 100vh;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+
 }
 
 .input-container {
-    margin-bottom: 20px; /* Add space below input container */
+    margin-bottom: 20px;
 }
 
-.input-container input[type="text"] {
-    width: 200px; /* Set input width */
-    padding: 10px; /* Add padding */
-    border: none; /* Remove border */
-    border-radius: 5px; /* Apply border radius */
-    background-color: #2a2a2a; /* Darker background color */
-    color: #ffffff; /* Light text color */
-    margin-right: 10px; /* Add margin between input and button */
+input[type="text"] {
+    width: 200px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgba(57, 63, 84, 0.8);
+    color: #bfd2ff;
+    margin-right: 10px;
 }
 
-.input-container button {
-    padding: 10px 20px; /* Add padding */
-    border: none; /* Remove border */
-    border-radius: 5px; /* Apply border radius */
-    background-color: #4CAF50; /* Green button color */
-    color: #ffffff; /* Light text color */
-    cursor: pointer; /* Show pointer cursor on hover */
+.Column_Buttons button {
+    background-color: rgba(57, 63, 84, 0.8);
+    color: #e0eaff;
+    width: 70%;
+    text-align: left;
+    padding: 5px;
+    margin: 5px;
+    transition: box-shadow 0.5s ease-in-out;
 }
 
-.input-container button:hover {
-    background-color: #45a049; /* Darker green color on hover */
+.Column_Buttons button:hover {
+    box-shadow: 3px 5px 5px rgba(34, 39, 56, 0.9);
 }
 
-.IDS {
-    margin-top: 20px; /* Add space on top of IDS container */
+
+
+.checkbox-container {
+    top:100%;
+    left:50%;
+    
+    margin-left:-200px;
+    margin-top:200px;
+    width:400px; 
+    height: 200px;
+    top: 0;
+    position: fixed;
+    background-color: rgba(57, 63, 84, 1);
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    scrollbar-color: rgba(200, 212, 255, 0.8) rgba(76, 81, 99, 0.8);
+    
 }
 
-.IDS div {
-    display: flex; /* Use flexbox for layout */
-    align-items: center; /* Align items vertically */
-    margin-bottom: 10px; /* Add space between each ID */
+.checkbox-container span {
+    padding: 0.2em 0.5em; /* Adjust padding as needed */
+        display: inline-block;
+        background-color: rgba(47, 53, 73, 0.8);
+        padding-right:1em;
+        width:85%;
+        margin-bottom:5px;
+        margin-top: 5px;
+        transition: background-color 0.3s ease;
+
 }
 
-.IDS span {
-    padding: 8px 12px; /* Add padding */
-    border-radius: 5px; /* Apply border radius */
-    background-color: #2a2a2a; /* Darker background color */
-    margin-right: 10px; /* Add space between span and button */
+.checkbox-container span:hover {
+    
+        background-color: rgba(61, 68, 92, 0.8);
+        color: rgba(187, 203, 255, 0.8);
+       
 }
 
-.IDS button.remove {
-    padding: 8px 12px; /* Add padding */
-    border-radius: 5px; /* Apply border radius */
-    background-color: #ff6b6b; /* Red button color */
-    color: #ffffff; /* Light text color */
-    border: none; /* Remove border */
-    cursor: pointer; /* Show pointer cursor on hover */
+.checkbox-container button {
+    padding: 0.2em 0.5em; /* Adjust padding as needed */
+    display: inline-block;
+    background-color: rgba(74, 80, 99, 0.8);
+    margin-bottom:5px;
+    margin-top: 5px;
+    color:rgba(90, 97, 122, 0.8);
+    transition: color 0.3s ease;
 }
+.checkbox-container button:hover {
+    color: white;
 
-.IDS button.remove:hover {
-    background-color: #e74c3c; /* Darker red color on hover */
 }
-
-.filter {
-    padding: 10px 20px; /* Add padding */
-    border: none; /* Remove border */
-    border-radius: 5px; /* Apply border radius */
-    background-color: #3498db; /* Blue button color */
-    color: #ffffff; /* Light text color */
-    cursor: pointer; /* Show pointer cursor on hover */
-    transition: background-color 0.3s ease; /* Smooth transition for background color */
-}
-.filter button:hover {
-    background-color: #2980b9; /* Darker blue color on hover */
+    
+.checkbox-container .CloseMenu {
+    margin-top:0px;
+    margin-left:350px ; 
 }
 
 #info-box {
-    position: fixed; /* Fix position */
-    top: 20px; /* Position from top */
-    right: 20px; /* Position from right */
-    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent dark background */
-    color: #ffffff; /* Light text color */
-    padding: 10px; /* Add padding */
-    border-radius: 5px; /* Apply border radius */
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 5px;
 }
 
-.checkbox-container {
-    height: 200px;
+
+
+.GeneNamesUl {
+    width: 80%;
+    list-style-type: none;
+    padding: 0;
+    margin: 5px;
+    max-height: 200px;
     overflow-y: auto;
-    background-color: #333; /* Dark background color */
-    color: #fff; /* Text color */
-    padding: 10px; /* Add padding for spacing */
-    border-radius: 8px; /* Rounded corners */
-    position: fixed; /* Position fixed to keep it in place */
-    top: 50px; /* Adjust top position */
-    right: 20px; /* Adjust right position */
-    z-index: 1000; /* Set a high z-index to ensure it's above other content */
-    min-width: 200px;
-  }
-  
-  .checkbox-container input[type="checkbox"] {
-    margin-right: 5px; /* Add margin between checkbox and label */
-  }
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    scrollbar-color: rgba(200, 212, 255, 0.8) rgba(76, 81, 99, 0.8);
+}
+
+.GeneNamesLi {
+    background-color: rgba(57, 63, 84, 0.8);
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 7px;
+}
+
+.GeneNamesLi:hover {
+    background-color: rgba(76, 81, 99, 0.8);
+}
+
+/* Left column */
+.Left_Column {
+    position: fixed;
+    left: 0;
+    width: 25%;
+    height: 100%;
+    overflow-y: auto;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #161720;
+}
+
+/* Graph styling */
+.Graph {
+    position: relative;
+    top: 70%;
+    left: 30%;
+}
+
+
+
+

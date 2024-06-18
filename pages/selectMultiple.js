@@ -5,6 +5,7 @@ import { drawChart } from "../components/drawGraph.js";
 import * as d3 from 'd3';
 import mammaliaData from '../data/proportions/mammalia_data.json';
 import DarkSwitch from "../components/DarkSwitch.js";
+import { createKey } from 'next/dist/shared/lib/router/router.js';
 
 const Dropdown = () => {
   const svgRef = useRef();
@@ -16,6 +17,16 @@ const Dropdown = () => {
   const [filteredData, setFilteredData] = useState([]);
   const [filter, updateFilter] = useState([]);
   const [speciesNames, updateNames] = useState([]);
+  const [key, updateKey] = useState({});
+
+  const [minValue, setMinValue] = useState(0);
+  const [maxValue, setMaxValue] = useState(100);
+  const [upperLimit, setUpper] = useState(100)
+  const [lowerLimit, setLower] = useState(0)
+
+  const [tempMinValue, setTempMinValue] = useState(0);
+  const [tempMaxValue, setTempMaxValue] = useState(100);
+  const [Unit, setUnit] = useState("NA")
 
   useEffect(() => {
     setFilteredData(mammaliaData);
@@ -27,9 +38,48 @@ const Dropdown = () => {
     handleFilter();
   }, [values]);
 
+  useEffect(() => {
+    handleMinMax();
+  }, [category]);
+
   function containsNumber(str) {
     return /\d/.test(str);
   }
+
+  const handleSliderChange = (e) => {
+    const { id, value } = e.target;
+    if (id === 'fromSlider') {
+      setTempMinValue(Number(value).toFixed(3));
+    } else {
+      setTempMaxValue(Number(value).toFixed(3));
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { id, value } = e.target;
+    
+    if (id === 'minInput') {
+        const numericValue = parseFloat(value);
+        if (!isNaN(numericValue)) {
+            setTempMinValue(numericValue);
+        } else {
+            setTempMinValue(0);
+        }
+    } else {
+        const numericValue = parseFloat(value);
+        if (!isNaN(numericValue)) {
+            setTempMaxValue(numericValue);
+        } else {
+            setTempMaxValue(0);
+        }
+    }
+};
+
+  const applyFilter = () => {
+    setMinValue(tempMinValue);
+    setMaxValue(tempMaxValue);
+    numericalFilter();
+  };
 
   function findCategoricals(data) {
     let categoricals = [];
@@ -49,17 +99,26 @@ const Dropdown = () => {
   const setValuesForCategory = (category) => {
     let valueSet = new Set();
     catData.forEach((item) => {
-      let vals = item[category].split("|");
-      vals.forEach((val) => valueSet.add(val.trim()));
+      if (item[category]) {
+        let vals = item[category].split("|");
+        vals.forEach((val) => valueSet.add(val.trim()));
+      }
     });
 
     let valuesArray = Array.from(valueSet).sort();
-    valuesArray = valuesArray.filter((val) => getSpecies(category, [val]).length > 3);
+    if (category != "scientific_name") {
+    valuesArray = valuesArray.filter((val) => getSpecies(category, [val]).length > 3);}
+    else {
+      valuesArray = valuesArray.filter((val) => getSpecies(category, [val]).length >= 1);}
+
     return valuesArray;
   };
 
+
+
   const handleFilterChange = (e) => {
     const selectedCategory = e.target.value;
+
     setCategory(selectedCategory);
     setValues([]);
   };
@@ -73,23 +132,153 @@ const Dropdown = () => {
     }
   };
 
-  function getSpecies(category, items) {
+
+  function combineArraysIntoObject(array1, array2) {
+    // Make sure both arrays have the same length
+    if (array1.length !== array2.length) {
+        throw new Error("Arrays must have the same length.");
+    }
+
+    var combinedObject = {};
+
+    // Iterate over the arrays
+    for (var i = 0; i < array1.length; i++) {
+      if (!combinedObject[array1[i]]) {
+        combinedObject[array1[i]] = []}
+
+        combinedObject[array1[i]].push(array2[i]);
+    }
+
+    return combinedObject;
+}
+
+  function getFilteredSpecies(category, items) {
     const selected = [];
+    const things = [];
+    
     for (let i = 0; i < items.length; i++) {
       const filtered = catData.filter((ele) => ele[category].includes(items[i])).map(ele => ele.scientific_name);
       selected.push(...filtered);
-    }
+
+      for (let j = 0; j < filtered.length; j++) {
+        things.push(items[i]);}}
+
+        console.log(combineArraysIntoObject(selected,things))
+        
+
+    
     return selected.filter(item => isInMammaliaData(item));
   }
 
-  const handleFilter = () => {
-    const filteredSpecies = getSpecies(category, values);
-    updateFilter(filteredSpecies);
+  function getNewKey(category, items) {
+    const selected = [];
+    const things = [];
+    
+    for (let i = 0; i < items.length; i++) {
+      const filtered = catData.filter((ele) => ele[category].includes(items[i])).map(ele => ele.scientific_name);
+      selected.push(...filtered);
 
+      for (let j = 0; j < filtered.length; j++) {
+        things.push(items[i]);}}
+
+        
+
+    
+    return combineArraysIntoObject(selected,things);
+  }
+
+  function getSpecies(category, items) {
+    const selected = [];
+    
+    for (let i = 0; i < items.length; i++) {
+      const filtered = catData.filter((ele) => ele[category].includes(items[i])).map(ele => ele.scientific_name);
+      selected.push(...filtered);}
+      
+      
+
+    
+    return selected.filter(item => isInMammaliaData(item));
+  }
+  
+
+  const handleMinMax = () => {
+    let valuesArray = [];
+    catData.forEach((item) => {
+      if (item[category]) {
+        let val = parseFloat(item[category]);
+        let tempUnit = extractUnits(item[category]);
+        let newval;
+        if (tempUnit == "kg") {
+          newval = val * 1000;
+          setUnit("kg")
+        } else if (tempUnit == "tons") {
+          newval = val * 907.185;
+          setUnit("g")
+        } else {
+          newval = val;
+          setUnit(tempUnit)
+        }
+        if (!isNaN(newval)) {
+          valuesArray.push(newval);
+        }
+      }
+    });
+
+    if (valuesArray.length > 0) {
+      setUpper(Math.max(...valuesArray));
+      setLower(Math.min(...valuesArray));
+      setTempMinValue(Math.min(...valuesArray));
+      setTempMaxValue(Math.max(...valuesArray));
+    }
+  };
+
+
+  function extractUnits(text) {
+    // This regex will match one or more alphabetical characters at the end of the string
+    const match = text.match(/[a-zA-Z]+$/);
+    return match ? match[0] : null;
+}
+
+
+  const convertWeight = (weight) => {
+    let unit = extractUnits(weight);
+    let value = parseFloat(weight);
+    let newval;
+        if (unit == "kg") {
+          newval = value * 1000;
+          setUnit("g")
+        } else if (unit == "tons") {
+          newval = value * 907.185;
+          setUnit("g")
+        } else {
+          newval = value;}
+        return newval;
+        }
+
+
+
+  const numericalFilter = () => {
+    const filteredSpecies = catData.filter((ele) => (convertWeight(ele[category]) <= maxValue) && (convertWeight(ele[category]) >= minValue)).map(ele => ele.scientific_name);
+    updateFilter(filteredSpecies);
     const filtered = filteredData.filter(item => filteredSpecies.includes(item.Name));
 
     if (filtered.length > 0) {
-      drawChart(filtered, svgRef, filteredSpecies);
+      drawChart(filtered, svgRef, filteredSpecies, key);
+    } else {
+      console.warn('No data found for the selected IDs');
+      d3.select(svgRef.current).selectAll("*").remove();
+    }
+  };
+
+  const handleFilter = () => {
+    const filteredSpecies = getFilteredSpecies(category, values);
+    const tempKey = getNewKey(category, values);
+    updateFilter(filteredSpecies);
+    
+    const filtered = filteredData.filter(item => filteredSpecies.includes(item.Name));
+   
+    if (filtered.length > 0) {
+      drawChart(filtered, svgRef, filteredSpecies, tempKey);
     } else {
       console.warn('No data found for the selected IDs');
       d3.select(svgRef.current).selectAll("*").remove();
@@ -134,22 +323,48 @@ const Dropdown = () => {
               }
             </div>
           )}
-          {!categoricals.includes(category) && (<div class="range_container">
-    <div class="sliders_control">
-        <input id="fromSlider" type="range" value="10" min="0" max="100"/>
-        <input id="toSlider" type="range" value="40" min="0" max="100"/>
-    </div>
-    <div class="form_control">
-        <div class="form_control_container">
-            <div class="form_control_container__time">Min</div>
-            <input class="form_control_container__time__input" type="number" id="fromInput" value="10" min="0" max="100"/>
-        </div>
-        <div class="form_control_container">
-            <div class="form_control_container__time">Max</div>
-            <input class="form_control_container__time__input" type="number" id="toInput" value="40" min="0" max="100"/>
-        </div>
-    </div>
-</div>)}
+          {!categoricals.includes(category) && (
+            <div className="range_container">
+              <div className="sliders_control">
+                {/* <input
+                  id="fromSlider"
+                  type="range"
+                  min={lowerLimit}
+                  max={upperLimit}
+                  value={tempMinValue}
+                  onChange={handleSliderChange}
+                />
+                <input
+                  id="toSlider"
+                  type="range"
+                  min={lowerLimit}
+                  max={upperLimit}
+                  value={tempMaxValue}
+                  onChange={handleSliderChange}
+                /> */}
+              </div>
+              <div>
+                <span>{tempMinValue.toFixed(3)}</span> - <span>{tempMaxValue.toFixed(3)} {Unit}</span>
+                <br />
+                <input
+                  type="text"
+                  id="minInput"
+                  value={tempMinValue}
+                  onChange={handleInputChange}
+                  placeholder="Min"
+                />
+                <input
+                  type="text"
+                  id="maxInput"
+                  value={tempMaxValue}
+                  onChange={handleInputChange}
+                  placeholder="Max"
+                />
+                <br />
+                <button onClick={applyFilter}>Apply</button>
+              </div>
+            </div>
+          )}
         </div>
         <div className="Graph">
           <svg ref={svgRef}></svg>

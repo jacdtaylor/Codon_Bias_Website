@@ -159,3 +159,49 @@ input[type="text"] {
 
 
 
+.range_container {
+  position: relative;
+  width: 300px; 
+}
+
+.sliders_control {
+  position: relative;
+  height: 50px;
+}
+
+.sliders_control input[type=range] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 30px;
+  pointer-events: none;
+}
+
+.sliders_control input[type=range]::-webkit-slider-thumb {
+  pointer-events: all;
+  position: relative;
+  z-index: 2;
+}
+
+.sliders_control input[type=range]::-moz-range-thumb {
+  pointer-events: all;
+  position: relative;
+  z-index: 2;
+}
+
+.sliders_control input#toSlider::-webkit-slider-thumb {
+  background: red;
+}
+
+.sliders_control input#toSlider::-moz-range-thumb {
+  background: red;
+}
+
+.sliders_control input#fromSlider::-webkit-slider-thumb {
+  background: blue;
+}
+
+.sliders_control input#fromSlider::-moz-range-thumb {
+  background: blue;
+}

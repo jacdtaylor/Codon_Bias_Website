@@ -5,7 +5,6 @@ import { drawChart } from "../components/drawGraph.js";
 import * as d3 from 'd3';
 import mammaliaData from '../data/proportions/mammalia_data.json';
 import DarkSwitch from "../components/DarkSwitch.js";
-import { createKey } from 'next/dist/shared/lib/router/router.js';
 
 const Dropdown = () => {
   const svgRef = useRef();
@@ -21,12 +20,12 @@ const Dropdown = () => {
 
   const [minValue, setMinValue] = useState(0);
   const [maxValue, setMaxValue] = useState(100);
-  const [upperLimit, setUpper] = useState(100)
-  const [lowerLimit, setLower] = useState(0)
+  const [upperLimit, setUpper] = useState(100);
+  const [lowerLimit, setLower] = useState(0);
 
   const [tempMinValue, setTempMinValue] = useState(0);
   const [tempMaxValue, setTempMaxValue] = useState(100);
-  const [Unit, setUnit] = useState("NA")
+  const [Unit, setUnit] = useState("NA");
 
   useEffect(() => {
     setFilteredData(mammaliaData);
@@ -57,28 +56,30 @@ const Dropdown = () => {
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
-    
+
     if (id === 'minInput') {
-        const numericValue = parseFloat(value);
-        if (!isNaN(numericValue)) {
-            setTempMinValue(numericValue);
-        } else {
-            setTempMinValue(0);
-        }
+      if (!isNaN(parseFloat(value))) {
+        setTempMinValue(value);
+      } else {
+        setTempMinValue(0);
+      }
     } else {
-        const numericValue = parseFloat(value);
-        if (!isNaN(numericValue)) {
-            setTempMaxValue(numericValue);
-        } else {
-            setTempMaxValue(0);
-        }
+      if (!isNaN(parseFloat(value))) {
+        setTempMaxValue(value);
+      } else {
+        setTempMaxValue(0);
+      }
     }
-};
+  };
 
   const applyFilter = () => {
-    setMinValue(tempMinValue);
-    setMaxValue(tempMaxValue);
-    numericalFilter();
+    asyncApplyFilter();
+  };
+
+  const asyncApplyFilter = async () => {
+    await setMinValue(parseFloat(tempMinValue));
+    await setMaxValue(parseFloat(tempMaxValue));
+    await numericalFilter();
   };
 
   function findCategoricals(data) {
@@ -103,22 +104,21 @@ const Dropdown = () => {
         let vals = item[category].split("|");
         vals.forEach((val) => valueSet.add(val.trim()));
       }
-    });
-
+    }
+    );
+    
     let valuesArray = Array.from(valueSet).sort();
-    if (category != "scientific_name") {
-    valuesArray = valuesArray.filter((val) => getSpecies(category, [val]).length > 3);}
-    else {
-      valuesArray = valuesArray.filter((val) => getSpecies(category, [val]).length >= 1);}
+    if (category !== "scientific_name") {
+      valuesArray = valuesArray.filter((val) => getSpecies(category, [val]).length > 3);
+    } else {
+      valuesArray = valuesArray.filter((val) => getSpecies(category, [val]).length >= 1);
+    }
 
     return valuesArray;
   };
 
-
-
   const handleFilterChange = (e) => {
     const selectedCategory = e.target.value;
-
     setCategory(selectedCategory);
     setValues([]);
   };
@@ -132,74 +132,66 @@ const Dropdown = () => {
     }
   };
 
-
   function combineArraysIntoObject(array1, array2) {
-    // Make sure both arrays have the same length
     if (array1.length !== array2.length) {
-        throw new Error("Arrays must have the same length.");
+      throw new Error("Arrays must have the same length.");
     }
 
     var combinedObject = {};
 
-    // Iterate over the arrays
     for (var i = 0; i < array1.length; i++) {
       if (!combinedObject[array1[i]]) {
-        combinedObject[array1[i]] = []}
+        combinedObject[array1[i]] = [];
+      }
 
-        combinedObject[array1[i]].push(array2[i]);
+      combinedObject[array1[i]].push(array2[i]);
     }
 
     return combinedObject;
-}
+  }
 
   function getFilteredSpecies(category, items) {
     const selected = [];
     const things = [];
+
+
     
-    for (let i = 0; i < items.length; i++) {
-      const filtered = catData.filter((ele) => ele[category].includes(items[i])).map(ele => ele.scientific_name);
+      const filtered = catData.filter((ele) => 
+      items.every((item) => ele[category].includes(item))).map(ele => ele.scientific_name);
+      
       selected.push(...filtered);
 
-      for (let j = 0; j < filtered.length; j++) {
-        things.push(items[i]);}}
 
-        console.log(combineArraysIntoObject(selected,things))
-        
 
-    
     return selected.filter(item => isInMammaliaData(item));
   }
 
   function getNewKey(category, items) {
     const selected = [];
     const things = [];
-    
+
     for (let i = 0; i < items.length; i++) {
       const filtered = catData.filter((ele) => ele[category].includes(items[i])).map(ele => ele.scientific_name);
       selected.push(...filtered);
 
       for (let j = 0; j < filtered.length; j++) {
-        things.push(items[i]);}}
+        things.push(items[i]);
+      }
+    }
 
-        
-
-    
-    return combineArraysIntoObject(selected,things);
+    return combineArraysIntoObject(selected, things);
   }
 
   function getSpecies(category, items) {
     const selected = [];
-    
+
     for (let i = 0; i < items.length; i++) {
       const filtered = catData.filter((ele) => ele[category].includes(items[i])).map(ele => ele.scientific_name);
-      selected.push(...filtered);}
-      
-      
+      selected.push(...filtered);
+    }
 
-    
     return selected.filter(item => isInMammaliaData(item));
   }
-  
 
   const handleMinMax = () => {
     let valuesArray = [];
@@ -208,15 +200,15 @@ const Dropdown = () => {
         let val = parseFloat(item[category]);
         let tempUnit = extractUnits(item[category]);
         let newval;
-        if (tempUnit == "kg") {
+        if (tempUnit === "kg") {
           newval = val * 1000;
-          setUnit("kg")
-        } else if (tempUnit == "tons") {
+          setUnit("kg");
+        } else if (tempUnit === "tons") {
           newval = val * 907.185;
-          setUnit("g")
+          setUnit("g");
         } else {
           newval = val;
-          setUnit(tempUnit)
+          setUnit(tempUnit);
         }
         if (!isNaN(newval)) {
           valuesArray.push(newval);
@@ -232,38 +224,60 @@ const Dropdown = () => {
     }
   };
 
-
   function extractUnits(text) {
-    // This regex will match one or more alphabetical characters at the end of the string
     const match = text.match(/[a-zA-Z]+$/);
     return match ? match[0] : null;
-}
+  }
 
+
+  const FindMaxValue = (value) => {
+    
+    if (value) {
+    const valArray = value.split("|")
+    const newArray = valArray.map((v) => convertWeight(v))
+    return Math.max(...newArray)}
+
+  }
 
   const convertWeight = (weight) => {
     let unit = extractUnits(weight);
     let value = parseFloat(weight);
     let newval;
-        if (unit == "kg") {
-          newval = value * 1000;
-          setUnit("g")
-        } else if (unit == "tons") {
-          newval = value * 907.185;
-          setUnit("g")
-        } else {
-          newval = value;}
-        return newval;
-        }
+    if (unit === "kg") {
+      newval = value * 1000;
+      setUnit("g");
+    } else if (unit === "tons") {
+      newval = value * 907.185;
+      setUnit("g");
+    } else {
+      newval = value;
+      setUnit(unit)
+    }
+    return newval;
+  };
 
 
+  const createKeyNumerical = async (species, cat) => {
+    const targetData = catData.filter((ele) => species.includes(ele.scientific_name))
+    const localKey = {};
+    for (let obj in targetData) {
+let tempNum = FindMaxValue(targetData[obj][cat]);
 
-  const numericalFilter = () => {
-    const filteredSpecies = catData.filter((ele) => (convertWeight(ele[category]) <= maxValue) && (convertWeight(ele[category]) >= minValue)).map(ele => ele.scientific_name);
+      localKey[targetData[obj].scientific_name] = tempNum;
+      
+    }
+    return localKey;
+  }
+
+  const numericalFilter = async () => {
+    const filteredSpecies = await catData.filter((ele) => (FindMaxValue(ele[category]) <= tempMaxValue) && (FindMaxValue(ele[category]) >= tempMinValue))
+    .sort((a,b) => FindMaxValue(a[category]) - FindMaxValue(b[category])).map(ele => ele.scientific_name);
+    
     updateFilter(filteredSpecies);
-    const filtered = filteredData.filter(item => filteredSpecies.includes(item.Name));
-
+    const filtered = await filteredData.filter(item => filteredSpecies.includes(item.Name));
+    const numericalKey = await createKeyNumerical(filteredSpecies, category)
     if (filtered.length > 0) {
-      drawChart(filtered, svgRef, filteredSpecies, key);
+      drawChart(filtered, svgRef, filteredSpecies, numericalKey);
     } else {
       console.warn('No data found for the selected IDs');
       d3.select(svgRef.current).selectAll("*").remove();
@@ -274,9 +288,9 @@ const Dropdown = () => {
     const filteredSpecies = getFilteredSpecies(category, values);
     const tempKey = getNewKey(category, values);
     updateFilter(filteredSpecies);
-    
+
     const filtered = filteredData.filter(item => filteredSpecies.includes(item.Name));
-   
+
     if (filtered.length > 0) {
       drawChart(filtered, svgRef, filteredSpecies, tempKey);
     } else {
@@ -319,8 +333,7 @@ const Dropdown = () => {
                     />
                     <label htmlFor={val}>{val}</label>
                   </div>
-                ))
-              }
+                ))}
             </div>
           )}
           {!categoricals.includes(category) && (
@@ -344,7 +357,7 @@ const Dropdown = () => {
                 /> */}
               </div>
               <div>
-                <span>{tempMinValue.toFixed(3)}</span> - <span>{tempMaxValue.toFixed(3)} {Unit}</span>
+                <span>{parseFloat(tempMinValue).toFixed(3)}</span> - <span>{parseFloat(tempMaxValue).toFixed(3)} {Unit}</span>
                 <br />
                 <input
                   type="text"

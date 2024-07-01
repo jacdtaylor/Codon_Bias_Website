@@ -312,12 +312,14 @@ let tempNum = FindMaxValue(targetData[obj][cat]);
           >
             <option disabled value="">
               -- select filter --
-            </option>
-            {categories.map((cat) => (
-              <option key={cat} value={cat}>
-                {cat}
-              </option>
-            ))}
+          </option>
+            {categories
+            .filter((cat) => cat !== "scientific_name")
+            .map((cat) => (
+          <option key={cat} value={cat}>
+      {cat}
+    </option>
+  ))}
           </select>
           {categoricals.includes(category) && (
             <div ref={checkboxesRef} className="GeneNamesUl">
@@ -336,7 +338,7 @@ let tempNum = FindMaxValue(targetData[obj][cat]);
                 ))}
             </div>
           )}
-          {!categoricals.includes(category) && (
+          {!categoricals.includes(category) && (category!="") && (
             <div className="range_container">
               <div className="sliders_control">
                 {/* <input

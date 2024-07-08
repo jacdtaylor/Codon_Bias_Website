@@ -17,6 +17,7 @@ const Dropdown = () => {
   const [filter, updateFilter] = useState([]);
   const [speciesNames, updateNames] = useState([]);
   const [key, updateKey] = useState({});
+  const [sort, flipSort] = useState(1);
 
   const [minValue, setMinValue] = useState(0);
   const [maxValue, setMaxValue] = useState(100);
@@ -28,12 +29,14 @@ const Dropdown = () => {
   const [Unit, setUnit] = useState("NA");
 
   useEffect(() => {
+
     setFilteredData(mammaliaData);
     updateNames(mammaliaData.map(item => item.Name));
     setCategoricals(findCategoricals(catData));
   }, []);
 
   useEffect(() => {
+    setCategoricals(findCategoricals(catData));
     handleFilter();
   }, [values]);
 
@@ -45,6 +48,10 @@ const Dropdown = () => {
     return /\d/.test(str);
   }
 
+  function changeSort() {
+    flipSort(sort*-1);
+    handleFilter();
+  }
   const handleSliderChange = (e) => {
     const { id, value } = e.target;
     if (id === 'fromSlider') {
@@ -166,20 +173,27 @@ const Dropdown = () => {
     return selected.filter(item => isInMammaliaData(item));
   }
 
-  function getNewKey(category, items) {
-    const selected = [];
-    const things = [];
+  // function getNewKey(category, items) {
+  //   const selected = [];
+  //   const things = [];
 
-    for (let i = 0; i < items.length; i++) {
-      const filtered = catData.filter((ele) => ele[category].includes(items[i])).map(ele => ele.scientific_name);
-      selected.push(...filtered);
+  //   for (let i = 0; i < items.length; i++) {
+  //     const filtered = catData.filter((ele) => ele[category].includes(items[i])).map(ele => ele.scientific_name);
+  //     selected.push(...filtered);
 
-      for (let j = 0; j < filtered.length; j++) {
-        things.push(items[i]);
-      }
-    }
+  //     for (let j = 0; j < filtered.length; j++) {
+  //       things.push(items[i]);
+  //     }
+  //   }
 
-    return combineArraysIntoObject(selected, things);
+  //   return combineArraysIntoObject(selected, things);
+  // }
+  function getNewKey(category) {
+   
+
+      const scientific = catData.map(ele => ele.scientific_name);
+      const data = catData.map(ele => ele[category]);
+    return combineArraysIntoObject(scientific,data);
   }
 
   function getSpecies(category, items) {
@@ -257,25 +271,31 @@ const Dropdown = () => {
   };
 
 
-  const createKeyNumerical = async (species, cat) => {
-    const targetData = catData.filter((ele) => species.includes(ele.scientific_name))
+  const createKeyNumerical = async (cat) => {
     const localKey = {};
-    for (let obj in targetData) {
-let tempNum = FindMaxValue(targetData[obj][cat]);
+    
+    for (let obj in catData) {
+    let tempNum = FindMaxValue(catData[obj][cat]);
 
-      localKey[targetData[obj].scientific_name] = tempNum;
-      
+      localKey[catData[obj].scientific_name] = Number(tempNum).toFixed(4);
+      console.log(localKey);
     }
     return localKey;
   }
 
   const numericalFilter = async () => {
-    const filteredSpecies = await catData.filter((ele) => (FindMaxValue(ele[category]) <= tempMaxValue) && (FindMaxValue(ele[category]) >= tempMinValue))
-    .sort((a,b) => FindMaxValue(a[category]) - FindMaxValue(b[category])).map(ele => ele.scientific_name);
-    
+      let filteredSpecies;
+    if (sort == 1) {
+    filteredSpecies = await catData.filter((ele) => (FindMaxValue(ele[category]) <= tempMaxValue) && (FindMaxValue(ele[category]) >= tempMinValue))
+    .sort((a,b) => FindMaxValue(a[category]) - FindMaxValue(b[category])).map(ele => ele.scientific_name);}
+    else {
+    filteredSpecies = await catData.filter((ele) => (FindMaxValue(ele[category]) <= tempMaxValue) && (FindMaxValue(ele[category]) >= tempMinValue))
+      .sort((a,b) => FindMaxValue(b[category]) - FindMaxValue(a[category])).map(ele => ele.scientific_name);}
+
+
     updateFilter(filteredSpecies);
     const filtered = await filteredData.filter(item => filteredSpecies.includes(item.Name));
-    const numericalKey = await createKeyNumerical(filteredSpecies, category)
+    const numericalKey = await createKeyNumerical(category)
     if (filtered.length > 0) {
       drawChart(filtered, svgRef, filteredSpecies, numericalKey);
     } else {
@@ -284,9 +304,29 @@ let tempNum = FindMaxValue(targetData[obj][cat]);
     }
   };
 
-  const handleFilter = () => {
-    const filteredSpecies = getFilteredSpecies(category, values);
-    const tempKey = getNewKey(category, values);
+  const handleFilter = async () => {
+    
+    let filteredSpecies;
+    console.log(categoricals);
+    console.log(category);
+    let tempKey;
+    if (categoricals.includes(category)) {
+      tempKey = getNewKey(category);
+     
+      if (sort == 1) (filteredSpecies =  getFilteredSpecies(category, values).sort())
+      else {filteredSpecies =  getFilteredSpecies(category, values).sort((a, b) => b.localeCompare(a));}
+    }
+    else {
+      await numericalFilter();
+      return;
+      tempKey = await createKeyNumerical(category)
+        if (sort == 1) {
+           filteredSpecies = await catData
+            .sort((a,b) => FindMaxValue(a[category]) - FindMaxValue(b[category])).map(ele => ele.scientific_name);}
+         else {
+          filteredSpecies = await catData
+            .sort((a,b) => FindMaxValue(b[category]) - FindMaxValue(a[category])).map(ele => ele.scientific_name);}
+    }
     updateFilter(filteredSpecies);
 
     const filtered = filteredData.filter(item => filteredSpecies.includes(item.Name));
@@ -319,8 +359,10 @@ let tempNum = FindMaxValue(targetData[obj][cat]);
           <option key={cat} value={cat}>
       {cat}
     </option>
+    
   ))}
           </select>
+          <button onClick={changeSort}>Sort</button>
           {categoricals.includes(category) && (
             <div ref={checkboxesRef} className="GeneNamesUl">
               {setValuesForCategory(category)
@@ -359,7 +401,7 @@ let tempNum = FindMaxValue(targetData[obj][cat]);
                 /> */}
               </div>
               <div>
-                <span>{parseFloat(tempMinValue).toFixed(3)}</span> - <span>{parseFloat(tempMaxValue).toFixed(3)} {Unit}</span>
+                <span>{parseFloat(tempMinValue).toFixed(4)}</span> - <span>{parseFloat(tempMaxValue).toFixed(4)} {Unit}</span>
                 <br />
                 <input
                   type="text"

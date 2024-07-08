@@ -1,11 +1,12 @@
 /* General styling */
 body {
-    background-image: radial-gradient(circle at 0% 0%, #373b52, #3c3f55 51%, #71748f);
-    color: #ffffff;
-    font-family: Arial, sans-serif;
-    overflow-x: hidden; 
-    /* Prevent horizontal scrolling */
-
+  background-image: radial-gradient(circle at 0% 0%, #373b52, #3c3f55 51%, #71748f);
+  min-height: 100vh; /* Ensure it covers at least the full viewport height */
+  min-width: 100vh;
+  margin: 0;     
+  padding: 0;    
+  color: #ffffff;
+  font-family: Arial, sans-serif;
 }
 
 .container {
@@ -109,6 +110,7 @@ input[type="text"] {
     color: #ffffff;
     padding: 10px;
     border-radius: 5px;
+    z-index: 15;
 }
 
 
@@ -139,6 +141,7 @@ input[type="text"] {
 
 /* Left column */
 .Left_Column {
+    min-width: 250px;
     position: fixed;
     left: 0;
     width: 25%;
@@ -147,6 +150,7 @@ input[type="text"] {
     padding: 20px;
     box-sizing: border-box;
     background-color: #161720;
+    z-index: 10;
 }
 
 /* Graph styling */
@@ -154,6 +158,7 @@ input[type="text"] {
     position: relative;
     top: 70%;
     left: 30%;
+    overflow-y: scroll;
 }
 
 

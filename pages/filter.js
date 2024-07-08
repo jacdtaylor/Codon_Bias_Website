@@ -272,11 +272,11 @@ const Filter = () => {
                 </div>
                 
                 </container>
-                
+                <container className="G_container">
                 <container className="Graph">
                     <svg ref={svgRef}></svg>
                 </container>
-                
+                </container>
                 <div id="info-box" ></div>
             </div>
             {isVisible &&

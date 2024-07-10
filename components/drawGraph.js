@@ -10,7 +10,7 @@ const drawChart = (data, svgRef, order, key) => {
     const speciesNames = data.map(d => d.Name);
     const codons = Object.keys(data[0]).filter(key => key !== 'Species' && key !== 'ID' && key !== 'Name');
     const squareLength = (speciesNames.length < 10) ? (450/speciesNames.length) : (15);
-    const margin = { top: 50, right: 250, bottom: 200, left: 175 };
+    const margin = { top: 50, right: 0, bottom: 200, left: 175 };
     const width = codons.length * 10;
     const height = speciesNames.length * squareLength;
 
@@ -56,7 +56,7 @@ const drawChart = (data, svgRef, order, key) => {
             // Show information
             const infoBox = d3.select("#info-box");
             const yOffset = window.scrollY || document.documentElement.scrollTop;
-            infoBox.html(`<p>Codon: ${d.codon}</p><p>Species: ${d.species}</p><p>Value: ${d.value} </p>`);
+            infoBox.html(`<p>Species: ${d.species}</p><p>Codon: ${d.codon}</p><p>Value: ${d.value} </p><p>Traits: ${String(key[d.species])}</p>`);
             infoBox.style("left", `${event.pageX - 425}px`) // Adjust for padding
                 .style("top", `${event.pageY - yOffset}px`)
                 .style("max-width", "400px")
@@ -85,11 +85,11 @@ const drawChart = (data, svgRef, order, key) => {
         .attr("class", "axis")
         .call(d3.axisLeft(y));
 
-        svg.append("g")
-        .attr("class", "axis")
-        .attr("transform", `translate(${width}, 0)`)
-        .call(d3.axisRight(y).tickFormat(d => key[d]))
-        .selectAll(".tick text")
+        // svg.append("g")
+        // .attr("class", "axis")
+        // .attr("transform", `translate(${width}, 0)`)
+        // .call(d3.axisRight(y).tickFormat(d => key[d]))
+        // .selectAll(".tick text")
         // .attr("fill", d => colorScale(d)); // Apply color to tick text
 };
 

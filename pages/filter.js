@@ -4,6 +4,7 @@ import humanData from '../data/proportions/humanCodon.json';
 import Navbar from "../components/navbar";
 import Head from "next/head";
 import codonJSON from "../data/codonJSON.json";
+import { ClusterCodonData } from "../components/cluster.js";
 import { saveAs } from 'file-saver';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
@@ -232,6 +233,17 @@ const Filter = () => {
         setNewId(e.target.value);
     };
 
+    const HandleCluster = () => {
+        const filtered = filteredData.filter(item => {
+            const geneUpperCase = item.Gene.toUpperCase();
+            const selectedIdsLowerCase = selectedIds.map(id => id.toUpperCase());
+            return selectedIdsLowerCase.includes(geneUpperCase);
+        });
+        setSelectedIds(ClusterCodonData(filtered));
+        
+        
+    }
+
     return (
         <>
             <link rel="stylesheet" href="filter.css"></link>
@@ -253,6 +265,8 @@ const Filter = () => {
                 <br />
                 <button className="toggle" onClick={() => HandleCountToggle()}>Toggle</button>
                 <br />
+                <button className="Cluster" onClick={() => HandleCluster()}>Cluster</button>
+                <br />
                 {!isVisible && (<button onClick={() => handleClick()}>Show Selected Genes</button>)}
              </container>
                 <div>
@@ -272,11 +286,11 @@ const Filter = () => {
                 </div>
                 
                 </container>
-                
+                <container className="G_container">
                 <container className="Graph">
                     <svg ref={svgRef}></svg>
                 </container>
-                
+                </container>
                 <div id="info-box" ></div>
             </div>
             {isVisible &&

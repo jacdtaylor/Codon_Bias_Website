@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import * as d3 from 'd3';
 import catData from "../data/cleanedTraitData.json";
-import mammaliaData from '../data/proportions/mammalia_data.json';
 import Navbar from "../components/navbar";
 import { drawChart } from "../components/drawGraph.js";
+import * as d3 from 'd3';
+import mammaliaData from '../data/proportions/mammalia_data.json';
 import DarkSwitch from "../components/DarkSwitch.js";
 
 const Dropdown = () => {
-  // State variables and refs
   const svgRef = useRef();
   const checkboxesRef = useRef();
   const [category, setCategory] = useState("");
@@ -19,44 +18,40 @@ const Dropdown = () => {
   const [speciesNames, updateNames] = useState([]);
   const [key, updateKey] = useState({});
   const [sort, flipSort] = useState(1);
+
   const [minValue, setMinValue] = useState(0);
   const [maxValue, setMaxValue] = useState(100);
   const [upperLimit, setUpper] = useState(100);
   const [lowerLimit, setLower] = useState(0);
+
   const [tempMinValue, setTempMinValue] = useState(0);
   const [tempMaxValue, setTempMaxValue] = useState(100);
   const [Unit, setUnit] = useState("NA");
 
-  // Component did mount
   useEffect(() => {
+
     setFilteredData(mammaliaData);
     updateNames(mammaliaData.map(item => item.Name));
     setCategoricals(findCategoricals(catData));
   }, []);
 
-  // Update categorical filters when values change
   useEffect(() => {
     setCategoricals(findCategoricals(catData));
     handleFilter();
   }, [values]);
 
-  // Handle initial setup and filtering based on category change
   useEffect(() => {
     handleMinMax();
   }, [category]);
 
-  // Utility function to check if a string contains a number
   function containsNumber(str) {
     return /\d/.test(str);
   }
 
-  // Function to change sorting order
   function changeSort() {
-    flipSort(sort * -1);
+    flipSort(sort*-1);
     handleFilter();
   }
-
-  // Handlers for slider and input changes
   const handleSliderChange = (e) => {
     const { id, value } = e.target;
     if (id === 'fromSlider') {
@@ -68,6 +63,7 @@ const Dropdown = () => {
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
+
     if (id === 'minInput') {
       if (!isNaN(parseFloat(value))) {
         setTempMinValue(value);
@@ -83,7 +79,6 @@ const Dropdown = () => {
     }
   };
 
-  // Apply numerical filter based on slider or input changes
   const applyFilter = () => {
     asyncApplyFilter();
   };
@@ -94,7 +89,6 @@ const Dropdown = () => {
     await numericalFilter();
   };
 
-  // Find categorical filters from data
   function findCategoricals(data) {
     let categoricals = [];
     for (let key in data[0]) {
@@ -106,12 +100,10 @@ const Dropdown = () => {
     return categoricals;
   }
 
-  // Check if a species name exists in mammaliaData
   const isInMammaliaData = (item) => {
     return speciesNames.includes(item);
   };
 
-  // Set possible values for a selected category
   const setValuesForCategory = (category) => {
     let valueSet = new Set();
     catData.forEach((item) => {
@@ -119,8 +111,9 @@ const Dropdown = () => {
         let vals = item[category].split("|");
         vals.forEach((val) => valueSet.add(val.trim()));
       }
-    });
-
+    }
+    );
+    
     let valuesArray = Array.from(valueSet).sort();
     if (category !== "scientific_name") {
       valuesArray = valuesArray.filter((val) => getSpecies(category, [val]).length > 3);
@@ -131,14 +124,12 @@ const Dropdown = () => {
     return valuesArray;
   };
 
-  // Handle change in filter category
   const handleFilterChange = (e) => {
     const selectedCategory = e.target.value;
     setCategory(selectedCategory);
     setValues([]);
   };
 
-  // Handle checkbox change for categorical filters
   const handleCheckboxChange = (e) => {
     const selectedValue = e.target.value;
     if (values.includes(selectedValue)) {
@@ -148,7 +139,6 @@ const Dropdown = () => {
     }
   };
 
-  // Combine two arrays into an object
   function combineArraysIntoObject(array1, array2) {
     if (array1.length !== array2.length) {
       throw new Error("Arrays must have the same length.");
@@ -167,26 +157,45 @@ const Dropdown = () => {
     return combinedObject;
   }
 
-  // Get filtered species based on category and selected items
   function getFilteredSpecies(category, items) {
     const selected = [];
-    const filtered = catData.filter((ele) =>
-      items.every((item) => ele[category].includes(item))
-    ).map(ele => ele.scientific_name);
+    const things = [];
 
-    selected.push(...filtered);
+
+    
+      const filtered = catData.filter((ele) => 
+      items.every((item) => ele[category].includes(item))).map(ele => ele.scientific_name);
+      
+      selected.push(...filtered);
+
+
 
     return selected.filter(item => isInMammaliaData(item));
   }
 
-  // Create a new key object based on category
+  // function getNewKey(category, items) {
+  //   const selected = [];
+  //   const things = [];
+
+  //   for (let i = 0; i < items.length; i++) {
+  //     const filtered = catData.filter((ele) => ele[category].includes(items[i])).map(ele => ele.scientific_name);
+  //     selected.push(...filtered);
+
+  //     for (let j = 0; j < filtered.length; j++) {
+  //       things.push(items[i]);
+  //     }
+  //   }
+
+  //   return combineArraysIntoObject(selected, things);
+  // }
   function getNewKey(category) {
-    const scientific = catData.map(ele => ele.scientific_name);
-    const data = catData.map(ele => ele[category]);
-    return combineArraysIntoObject(scientific, data);
+   
+
+      const scientific = catData.map(ele => ele.scientific_name);
+      const data = catData.map(ele => ele[category]);
+    return combineArraysIntoObject(scientific,data);
   }
 
-  // Get species based on category and items
   function getSpecies(category, items) {
     const selected = [];
 
@@ -198,7 +207,6 @@ const Dropdown = () => {
     return selected.filter(item => isInMammaliaData(item));
   }
 
-  // Calculate min and max values for numerical categories
   const handleMinMax = () => {
     let valuesArray = [];
     catData.forEach((item) => {
@@ -230,22 +238,21 @@ const Dropdown = () => {
     }
   };
 
-  // Extract units from a string
   function extractUnits(text) {
     const match = text.match(/[a-zA-Z]+$/);
     return match ? match[0] : null;
   }
 
-  // Find max numerical value from a string
-  const FindMaxValue = (value) => {
-    if (value) {
-      const valArray = value.split("|");
-      const newArray = valArray.map((v) => convertWeight(v));
-      return Math.max(...newArray);
-    }
-  };
 
-  // Convert weight based on unit
+  const FindMaxValue = (value) => {
+    
+    if (value) {
+    const valArray = value.split("|")
+    const newArray = valArray.map((v) => convertWeight(v))
+    return Math.max(...newArray)}
+
+  }
+
   const convertWeight = (weight) => {
     let unit = extractUnits(weight);
     let value = parseFloat(weight);
@@ -258,35 +265,37 @@ const Dropdown = () => {
       setUnit("g");
     } else {
       newval = value;
-      setUnit(unit);
+      setUnit(unit)
     }
     return newval;
   };
 
-  // Create key with numerical values
+
   const createKeyNumerical = async (cat) => {
     const localKey = {};
+    
     for (let obj in catData) {
-      let tempNum = FindMaxValue(catData[obj][cat]);
+    let tempNum = FindMaxValue(catData[obj][cat]);
+
       localKey[catData[obj].scientific_name] = Number(tempNum).toFixed(4);
+      console.log(localKey);
     }
     return localKey;
-  };
+  }
 
-  // Filter data based on numerical values
   const numericalFilter = async () => {
-    let filteredSpecies;
-    if (sort === 1) {
-      filteredSpecies = await catData.filter((ele) => (FindMaxValue(ele[category]) <= tempMaxValue) && (FindMaxValue(ele[category]) >= tempMinValue))
-        .sort((a, b) => FindMaxValue(a[category]) - FindMaxValue(b[category])).map(ele => ele.scientific_name);
-    } else {
-      filteredSpecies = await catData.filter((ele) => (FindMaxValue(ele[category]) <= tempMaxValue) && (FindMaxValue(ele[category]) >= tempMinValue))
-        .sort((a, b) => FindMaxValue(b[category]) - FindMaxValue(a[category])).map(ele => ele.scientific_name);
-    }
+      let filteredSpecies;
+    if (sort == 1) {
+    filteredSpecies = await catData.filter((ele) => (FindMaxValue(ele[category]) <= tempMaxValue) && (FindMaxValue(ele[category]) >= tempMinValue))
+    .sort((a,b) => FindMaxValue(a[category]) - FindMaxValue(b[category])).map(ele => ele.scientific_name);}
+    else {
+    filteredSpecies = await catData.filter((ele) => (FindMaxValue(ele[category]) <= tempMaxValue) && (FindMaxValue(ele[category]) >= tempMinValue))
+      .sort((a,b) => FindMaxValue(b[category]) - FindMaxValue(a[category])).map(ele => ele.scientific_name);}
+
 
     updateFilter(filteredSpecies);
     const filtered = await filteredData.filter(item => filteredSpecies.includes(item.Name));
-    const numericalKey = await createKeyNumerical(category);
+    const numericalKey = await createKeyNumerical(category)
     if (filtered.length > 0) {
       drawChart(filtered, svgRef, filteredSpecies, numericalKey);
     } else {
@@ -295,21 +304,28 @@ const Dropdown = () => {
     }
   };
 
-  // Handle filter changes based on category selection
   const handleFilter = async () => {
+    
     let filteredSpecies;
+    console.log(categoricals);
+    console.log(category);
     let tempKey;
     if (categoricals.includes(category)) {
       tempKey = getNewKey(category);
-
-      if (sort === 1) {
-        filteredSpecies = getFilteredSpecies(category, values).sort();
-      } else {
-        filteredSpecies = getFilteredSpecies(category, values).sort((a, b) => b.localeCompare(a));
-      }
-    } else {
+     
+      if (sort == 1) (filteredSpecies =  getFilteredSpecies(category, values).sort())
+      else {filteredSpecies =  getFilteredSpecies(category, values).sort((a, b) => b.localeCompare(a));}
+    }
+    else {
       await numericalFilter();
       return;
+      tempKey = await createKeyNumerical(category)
+        if (sort == 1) {
+           filteredSpecies = await catData
+            .sort((a,b) => FindMaxValue(a[category]) - FindMaxValue(b[category])).map(ele => ele.scientific_name);}
+         else {
+          filteredSpecies = await catData
+            .sort((a,b) => FindMaxValue(b[category]) - FindMaxValue(a[category])).map(ele => ele.scientific_name);}
     }
     updateFilter(filteredSpecies);
 
@@ -336,16 +352,17 @@ const Dropdown = () => {
           >
             <option disabled value="">
               -- select filter --
-            </option>
+          </option>
             {categories
-              .filter((cat) => cat !== "scientific_name")
-              .map((cat) => (
-                <option key={cat} value={cat}>
-                  {cat}
-                </option>
-              ))}
+            .filter((cat) => cat !== "scientific_name")
+            .map((cat) => (
+          <option key={cat} value={cat}>
+      {cat}
+    </option>
+    
+  ))}
           </select>
-          <button onClick={changeSort}>Sort</button>{(sort === 1) && <span>Lowest To Highest</span>}{(sort === -1) && <span>Highest To Lowest</span>}
+          <button onClick={changeSort}>Sort</button>
           {categoricals.includes(category) && (
             <div ref={checkboxesRef} className="GeneNamesUl">
               {setValuesForCategory(category)
@@ -363,7 +380,7 @@ const Dropdown = () => {
                 ))}
             </div>
           )}
-          {!categoricals.includes(category) && (category !== "") && (
+          {!categoricals.includes(category) && (category!="") && (
             <div className="range_container">
               <div className="sliders_control">
                 {/* <input

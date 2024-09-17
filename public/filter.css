@@ -1,11 +1,13 @@
 /* General styling */
 body {
-    background-image: radial-gradient(circle at 0% 0%, #373b52, #252736 51%, #1d1e26);
-    color: #ffffff;
-    font-family: Arial, sans-serif;
-    overflow-x: hidden; 
-    /* Prevent horizontal scrolling */
-
+  background-image: radial-gradient(circle at 0% 0%, #373b52, #3c3f55 51%, #71748f);
+  min-height: 100vh; /* Ensure it covers at least the full viewport height */
+  min-width: 100vh;
+  margin: 0;     
+  padding: 0;    
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+  overflow-x: hidden;
 }
 
 .container {
@@ -109,6 +111,7 @@ input[type="text"] {
     color: #ffffff;
     padding: 10px;
     border-radius: 5px;
+    z-index: 15;
 }
 
 
@@ -139,6 +142,7 @@ input[type="text"] {
 
 /* Left column */
 .Left_Column {
+    min-width: 250px;
     position: fixed;
     left: 0;
     width: 25%;
@@ -147,6 +151,7 @@ input[type="text"] {
     padding: 20px;
     box-sizing: border-box;
     background-color: #161720;
+    z-index: 10;
 }
 
 /* Graph styling */
@@ -154,8 +159,55 @@ input[type="text"] {
     position: relative;
     top: 70%;
     left: 30%;
+    overflow-y: scroll;
 }
 
 
 
 
+.range_container {
+  position: relative;
+  width: 300px; 
+}
+
+.sliders_control {
+  position: relative;
+  height: 50px;
+}
+
+.sliders_control input[type=range] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 30px;
+  pointer-events: none;
+}
+
+.sliders_control input[type=range]::-webkit-slider-thumb {
+  pointer-events: all;
+  position: relative;
+  z-index: 2;
+}
+
+.sliders_control input[type=range]::-moz-range-thumb {
+  pointer-events: all;
+  position: relative;
+  z-index: 2;
+}
+
+.sliders_control input#toSlider::-webkit-slider-thumb {
+  background: red;
+}
+
+.sliders_control input#toSlider::-moz-range-thumb {
+  background: red;
+}
+
+.sliders_control input#fromSlider::-webkit-slider-thumb {
+  background: blue;
+}
+
+.sliders_control input#fromSlider::-moz-range-thumb {
+  background: blue;
+}

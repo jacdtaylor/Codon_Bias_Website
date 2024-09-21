@@ -345,7 +345,7 @@ const Dropdown = () => {
                 </option>
               ))}
           </select>
-          <button onClick={changeSort}>Sort</button>{(sort === 1) && <span>Lowest To Highest</span>}{(sort === -1) && <span>Highest To Lowest</span>}
+          <button onClick={changeSort}>Sort</button>{(sort === 1) && <span> Lowest To Highest</span>}{(sort === -1) && <span>Highest To Lowest</span>}
           {categoricals.includes(category) && (
             <div ref={checkboxesRef} className="GeneNamesUl">
               {setValuesForCategory(category)

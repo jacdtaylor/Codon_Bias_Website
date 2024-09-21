@@ -140,7 +140,7 @@ const Filter = () => {
 
       
       const speciesNames = data.map(d => d.Gene);
-      const codons = Object.keys(data[0]).filter(key => key !== 'Gene' && key !== 'ID');
+      const codons = Object.keys(codonJSON);
       const totalCodonCounts = data.map(d => ({
         Gene: d.Gene,
         totalCount: codons.reduce((acc, codon) => acc + parseInt(d[codon].split("|")[1]), 0)

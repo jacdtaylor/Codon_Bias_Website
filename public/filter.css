@@ -46,6 +46,28 @@ input[type="text"] {
     box-shadow: 3px 5px 5px rgba(34, 39, 56, 0.9);
 }
 
+button {
+  background-color: rgba(57, 63, 84, 0.8);
+  color: #e0eaff;
+  width: 25%;
+  text-align: center;
+  padding: 5px;
+  margin: 5px;
+  transition: box-shadow 0.5s ease-in-out;
+}
+button:hover {
+  box-shadow: 3px 5px 5px rgba(34, 39, 56, 0.9);
+}
+
+span {
+  color: #e0eaff;
+
+  text-align: left;
+  padding: 5px;
+  margin: 5px;
+  transition: box-shadow 0.5s ease-in-out;
+}
+
 
 
 .checkbox-container {

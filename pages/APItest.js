@@ -49,6 +49,8 @@ const Filter = () => {
   const ExtrapolateData = () => {
 
     const newSpeciesAndGenes = {};
+    if (data.data == null) {setError("No Data Found")
+                          return;}
     for (let i = 0; i < data.data.length; i++) {
         let GeneList = [];
         console.log((data.data[i].organism.name)) 
@@ -78,7 +80,7 @@ const Filter = () => {
 
       {/* Button to trigger the fetch */}
       <button onClick={fetchData}>Fetch Data</button>
-      <button onClick={ExtrapolateData}>ProcessData</button>
+      <button onClick={ExtrapolateData}>Display Data</button>
 
       {/* Display error if it exists */}
       {error && <p>Error: {error}</p>}

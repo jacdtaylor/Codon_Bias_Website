@@ -7,6 +7,8 @@ import codonJSON from "../data/codonJSON.json";
 import { ClusterCodonData } from "../components/cluster.js";
 import { saveAs } from 'file-saver';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import expectedProportions from "../data/expectedProportions.json";
+import { toInteger } from 'lodash';
 
 
 
@@ -180,15 +182,21 @@ const Filter = () => {
           .selectAll("rect")
           .data(d => codons.map(codon => 
             ({ Gene: d.Gene, codon, value: d[codon].split("|")[0], count: d[codon].split("|")[1],
-            totalCount: totalCodonCounts.find(tc => tc.Gene === d.Gene).totalCount })))
+            totalCount: totalCodonCounts.find(tc => tc.Gene === d.Gene).totalCount})))
           .enter().append("rect")
           .attr("x", d => x(d.codon))
           .attr("y", d => countToggle ? y(d.Gene) + (y.bandwidth() - ((y.bandwidth() / d.totalCount) * parseInt(d.count) * 10)) / 2 : y(d.Gene))
           .attr("width", x.bandwidth())
           .attr("height", d => countToggle ? Math.max((y.bandwidth() / d.totalCount) * parseInt(d.count) * 10, 3) : 
           y.bandwidth())
-        // .attr("height", d => (y.bandwidth() / d.totalCount) * parseInt(d.count) *10) // Adjust height proportionally
-          .style("fill", d => color(d.value))
+
+
+          // Adjust Coloring for Expected Proportion
+        //   .style("fill", d => color( (d.value * (toInteger(codonJSON[d.codon].split("|")[1])+1)) / 2))
+
+
+          .style("fill", d => color( (d.value ))) // Default Coloring
+
           // Highlight on hover
           .on("mouseover", function(event, d) {
               d3.select(this).style("stroke", "black").style("stroke-width", 2);
@@ -199,6 +207,8 @@ const Filter = () => {
        
               
               infoBox.html(`<p>Gene: ${d.Gene}</p><p>Codon: ${codon}</p><p>Amino Acid: ${codonJSON[codon]}</p><p>Proportion: ${d.value} </p><p>Count: ${d.count}</p>`);
+            //   <p>${ -1 * (toInteger(codonJSON[d.codon].split("|")[1])) * (expectedProportions[d.codon] - d.value )}</p>
+
               infoBox.style("left", `${event.pageX - 415}px`) // Adjust for padding
                   .style("top", `${event.pageY - yOffset}px`)
                   .style("max-width", "400px")

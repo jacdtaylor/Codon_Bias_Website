@@ -53,8 +53,8 @@ const drawChart = (data, svgRef, order, key) => {
         .attr("y", d => y(d.species))
         .attr("width", x.bandwidth())
         .attr("height", y.bandwidth())
-        // .style("fill", d => color(d.value))
-                  .style("fill", d => color( (d.value * (toInteger(codonJSON[d.codon].split("|")[1])+1)) / 2))
+        .style("fill", d => color(d.value))
+                //   .style("fill", d => color( (d.value * (toInteger(codonJSON[d.codon].split("|")[1])+1)) / 2))
 
         // Highlight on hover
         .on("mouseover", function(event, d) {
@@ -62,7 +62,8 @@ const drawChart = (data, svgRef, order, key) => {
             // Show information
             const infoBox = d3.select("#info-box");
             const yOffset = window.scrollY || document.documentElement.scrollTop;
-            infoBox.html(`<p>Species: ${d.species}</p><p>Codon: ${d.codon}</p><p>Value: ${d.value} </p><p>Traits: ${String(key[d.species])}</p>`);
+            infoBox.html(`<p>Species: ${d.species}</p><p>Codon: ${d.codon}</p><p>Amino Acid: ${codonJSON[d.codon].split("|")[0]}</p><p>Traits: ${String(key[d.species])}</p><p>Value: ${d.value} </p>`);
+            // 
             infoBox.style("left", `${event.pageX - 425}px`) // Adjust for padding
                 .style("top", `${event.pageY - yOffset}px`)
                 .style("max-width", "400px")

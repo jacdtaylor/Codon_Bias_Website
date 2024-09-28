@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import catData from "../data/cleanedTraitData.json";
 import mammaliaData from '../data/proportions/mammalia_data.json';
+import vertebrateData from '../data/proportions/vertebrateJSON.json';
 import Navbar from "../components/navbar";
 import { drawChart } from "../components/drawGraph.js";
 import DarkSwitch from "../components/DarkSwitch.js";
@@ -327,6 +328,7 @@ const Dropdown = () => {
     <>
       <link rel="stylesheet" href="filter.css" />
       <Navbar />
+
       <div>
         <div className="Left_Column">
           <select

@@ -6,6 +6,8 @@ import { saveAs } from 'file-saver';
 import allSpeciesData from "../data/speciesList.json";
 import Order from "../data/codonOrder.json"
 import { drawChart } from '../components/orthoHeatMap';
+import taxo from '../data/taxoTranslator.json';
+
 
 const compareOrtho = () => {
 
@@ -17,10 +19,12 @@ const compareOrtho = () => {
     const [currentGenes, setCurrentGenes] = useState([]);
     const [selectedGenes, setSelectedGenes] = useState([]);
     const [newId, setNewId] = useState("");
+    const [taxoTranslator, setTaxoTranslator] = useState({})
 
     useEffect(() => {
         setAllSpecies(allSpeciesData);
         setCodonOrder(Order);
+        setTaxoTranslator(taxo);
     }, []);
 
     const downloadGraph = () => {
@@ -102,7 +106,7 @@ const compareOrtho = () => {
             </option>
             {allSpecies.map((cat) => (
                 <option key={cat} value={cat}>
-                  {cat}
+                  {taxo[cat]}
                 </option>
             ))}
         </select>

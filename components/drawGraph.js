@@ -1,5 +1,9 @@
 import * as d3 from 'd3';
 import { useEffect } from 'react';
+import codonJSON from "../data/codonJSON.json";
+import { toInteger } from 'lodash';
+
+
 
 const drawChart = (data, svgRef, order, key) => {
     // Clear existing svg content
@@ -50,13 +54,16 @@ const drawChart = (data, svgRef, order, key) => {
         .attr("width", x.bandwidth())
         .attr("height", y.bandwidth())
         .style("fill", d => color(d.value))
+                //   .style("fill", d => color( (d.value * (toInteger(codonJSON[d.codon].split("|")[1])+1)) / 2))
+
         // Highlight on hover
         .on("mouseover", function(event, d) {
             d3.select(this).style("stroke", "black").style("stroke-width", 2);
             // Show information
             const infoBox = d3.select("#info-box");
             const yOffset = window.scrollY || document.documentElement.scrollTop;
-            infoBox.html(`<p>Species: ${d.species}</p><p>Codon: ${d.codon}</p><p>Value: ${d.value} </p><p>Traits: ${String(key[d.species])}</p>`);
+            infoBox.html(`<p>Species: ${d.species}</p><p>Codon: ${d.codon}</p><p>Amino Acid: ${codonJSON[d.codon].split("|")[0]}</p><p>Traits: ${String(key[d.species])}</p><p>Value: ${d.value} </p>`);
+            // 
             infoBox.style("left", `${event.pageX - 425}px`) // Adjust for padding
                 .style("top", `${event.pageY - yOffset}px`)
                 .style("max-width", "400px")
@@ -85,12 +92,11 @@ const drawChart = (data, svgRef, order, key) => {
         .attr("class", "axis")
         .call(d3.axisLeft(y));
 
-        // svg.append("g")
-        // .attr("class", "axis")
-        // .attr("transform", `translate(${width}, 0)`)
-        // .call(d3.axisRight(y).tickFormat(d => key[d]))
-        // .selectAll(".tick text")
-        // .attr("fill", d => colorScale(d)); // Apply color to tick text
+        svg.append("g")
+        .attr("class", "axis")
+        .attr("transform", `translate(${width}, 0)`)
+        .call(d3.axisRight(y).tickFormat(d => key[d]))
+        .selectAll(".tick text")
 };
 
 export { drawChart };

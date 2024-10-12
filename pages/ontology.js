@@ -19,7 +19,8 @@ const Filter = () => {
 
   
   // Function to fetch the data based on the user input ID
-  const fetchData = () => {
+
+async function getData () {
 
     if (!go_id) {
         setError('Please enter GO ID');
@@ -28,6 +29,22 @@ const Filter = () => {
 
     setLoading(true); // Set loading to true when the API call starts
     setError(null); // Clear previous errors
+
+    try {
+      let result = await fetchData();
+    } catch (error) {
+      setError('Could not fetch data.  Try again later.')
+    }
+  }
+
+  function fetchData () {
+
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve("Data fetched successfully!");
+      }, 2000);
+    });
+  }
     
     fetch(`https://api.geneontology.org/api/bioentity/function/${go_id}/genes`)
     .then((response) => {
@@ -91,11 +108,11 @@ const Filter = () => {
         type="text" 
         value={scientific_name} 
         onChange={(e) => setScientificName(e.target.value)} 
-        placeholder="Enter scientific name here" 
+        placeholder="Select species to take a closer look" 
       />
 
       {/* Button to trigger the fetch */}
-      <button onClick={fetchData}>Fetch Data</button>
+      <button onClick={()=>getData}>Fetch Data</button>
       <button onClick={ExtrapolateData}>ProcessData</button>
 
       {/* Display error if it exists */}
@@ -105,7 +122,7 @@ const Filter = () => {
       {loading && <p>Loading...</p>}
 
       {/* Display the JSON data if it exists */}
-      {data && <pre>{JSON.stringify(speciesAndGenes, null, 2)}</pre>}
+      {data && <pre>{JSON.stringify(data, null, 2)}</pre>}
     </div>
     </>
   );

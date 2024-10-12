@@ -21,6 +21,7 @@ const compareOrtho = () => {
     const [newId, setNewId] = useState("");
     const [taxoTranslator, setTaxoTranslator] = useState({});
     const [selectedSpeciesGenes, setSelectedSpeciesGenes] = useState([]);
+    const [possibleGroups, setPossibleGroups] = useState([])
 
     useEffect(() => {
         setAllSpecies(allSpeciesData);
@@ -93,6 +94,12 @@ const compareOrtho = () => {
         drawChart(selectedGenes, svgRef, taxoTranslator)
     }
 
+    const handleShowGroups = (id) => {
+        groups = currentSpeciesData.id[0];
+        groups = groups.split(",");
+        setPossibleGroups(groups);
+    }
+
     return (
         <>
         <link rel="stylesheet" href="filter.css"></link>
@@ -142,7 +149,9 @@ const compareOrtho = () => {
             .slice(0, 30)
             .map((id, index) => (
                 <li className="GeneNamesLi" key={index}>
-                    {id}<button onClick={() => handleGeneChange(id)}>Add Gene</button>
+                    {id}
+                    <button onClick={() => handleGeneChange(id)}>Add Gene</button>
+                    <button onClick={() => handleShowGroups(id)}>Show Groups</button>
                 </li>
             ))}
     </ul>

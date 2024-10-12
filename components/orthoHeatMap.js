@@ -6,20 +6,20 @@ import codonJSON from "../data/codonJSON.json";
 
 
 
-const drawChart = (data, svgCurrent) => {
+const drawChart = (data, svgCurrent, taxoKey) => {
     // Clear existing svg content
     d3.select(svgCurrent.current).selectAll("*").remove();
     // data.sort((a, b) => order.indexOf(a.Gene) - order.indexOf(b.Gene));
 
     
-    const speciesNames = data.map(d => d.Gene);
+    const speciesNames = data.map(d => `${taxoKey[d.Species]} - ${d.Gene}`);
     const codons = Object.keys(codonJSON);
     const totalCodonCounts = data.map(d => ({
       Gene: d.Gene,
       totalCount: codons.reduce((acc, codon) => acc + parseInt(d[codon].split("|")[1]), 0)
   }));
     const squareLength = (speciesNames.length < 10) ? (450/speciesNames.length) : (15);
-    const margin = { top: 50, right: 75, bottom: 200, left: 175 };
+    const margin = { top: 50, right: 500, bottom: 200, left: 50 };
     const width = codons.length*10;
     const height = speciesNames.length*squareLength;
 
@@ -56,7 +56,7 @@ const drawChart = (data, svgCurrent) => {
           totalCount: totalCodonCounts.find(tc => tc.Gene === d.Gene).totalCount})))
         .enter().append("rect")
         .attr("x", d => x(d.codon))
-        .attr("y", d => y(d.Gene))
+        .attr("y", d => y(`${taxoKey[d.Species]} - ${d.Gene}`))
         .attr("width", x.bandwidth())
         .attr("height", 
         y.bandwidth())
@@ -77,7 +77,7 @@ const drawChart = (data, svgCurrent) => {
             const codon = d.codon;
      
             
-            infoBox.html(`<p>Species: ${d.Species}</p><p>Gene: ${d.Gene}</p><p>Codon: ${codon}</p><p>Amino Acid: ${codonJSON[codon]}</p><p>Proportion: ${d.value} </p><p>Count: ${d.count}</p>`);
+            infoBox.html(`<p>Species: ${taxoKey[d.Species]}</p><p>Gene: ${d.Gene}</p><p>Codon: ${codon}</p><p>Amino Acid: ${codonJSON[codon].split("|")[0]}</p><p>Proportion: ${d.value} </p><p>Count: ${d.value == 0 ? 0 : d.count}</p>`);
           //   <p>${ -1 * (toInteger(codonJSON[d.codon].split("|")[1])) * (expectedProportions[d.codon] - d.value )}</p>
 
             infoBox.style("left", `${event.pageX - 415}px`) // Adjust for padding
@@ -103,10 +103,16 @@ const drawChart = (data, svgCurrent) => {
   .attr("dy", ".15em")
   .attr("transform", "rotate(-65)");
 
-    // Add y-axis
-    svg.append("g")
-        .attr("class", "axis")
-        .call(d3.axisLeft(y));
+    
+  svg.append("g")
+  .attr("class", "axis")
+  .attr("transform", `translate(${width}, 0)`)  // Move y-axis to the right by the width of the graph
+  .call(d3.axisRight(y))  // Use axisRight to put labels on the right side
+.selectAll("text")
+  .style("text-anchor", "start")  // Left align the text (so it aligns with the axis properly on the right side)
+  .attr("dx", ".8em")             // Add spacing between the axis and text to prevent overlap
+  .attr("dy", ".15em");
+
 };
 
 

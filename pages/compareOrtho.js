@@ -19,7 +19,9 @@ const compareOrtho = () => {
     const [currentGenes, setCurrentGenes] = useState([]);
     const [selectedGenes, setSelectedGenes] = useState([]);
     const [newId, setNewId] = useState("");
-    const [taxoTranslator, setTaxoTranslator] = useState({})
+    const [taxoTranslator, setTaxoTranslator] = useState({});
+    const [selectedSpeciesGenes, setSelectedSpeciesGenes] = useState([]);
+    const [possibleGroups, setPossibleGroups] = useState([])
 
     useEffect(() => {
         setAllSpecies(allSpeciesData);
@@ -66,6 +68,7 @@ const compareOrtho = () => {
         AddedData["Species"] = species;
         AddedData["Gene"] = selected;
         // const AddedData = {"Species":species,"Gene":selected, "Data":currentSpeciesData[selected]}
+        setSelectedSpeciesGenes([[species,selected],...selectedSpeciesGenes])
         setSelectedGenes([AddedData, ...selectedGenes]);
     }
 
@@ -88,7 +91,13 @@ const compareOrtho = () => {
     };
 
     const HandleGraph = () => {
-        drawChart(selectedGenes, svgRef)
+        drawChart(selectedGenes, svgRef, taxoTranslator)
+    }
+
+    const handleShowGroups = (id) => {
+        groups = currentSpeciesData.id[0];
+        groups = groups.split(",");
+        setPossibleGroups(groups);
     }
 
     return (
@@ -131,10 +140,18 @@ const compareOrtho = () => {
         <ul className="GeneNamesUl">
         {currentGenes
             .filter(id => id.toLowerCase().startsWith(newId.toLowerCase()))
+            .filter(id => !new Set(
+                selectedSpeciesGenes
+                  .filter(item => item[0] === species) // Filter by species
+                  .map(item => item[1])                      // Extract the genes for the current species
+              ).has(id)
+              )
             .slice(0, 30)
             .map((id, index) => (
-                <li className="GeneNamesLi" key={index} onClick={() => handleGeneChange(id)}>
+                <li className="GeneNamesLi" key={index}>
                     {id}
+                    <button onClick={() => handleGeneChange(id)}>Add Gene</button>
+                    <button onClick={() => handleShowGroups(id)}>Show Groups</button>
                 </li>
             ))}
     </ul>

@@ -20,7 +20,7 @@ export default function Navbar() {
           <Link 
             href="/"
             className="text-xl font-semibold tracking-tight no-underline rounded-md hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none">
-            &nbsp;&nbsp;NEAR
+            &nbsp;&nbsp;Codon Bias
           </Link>
         </div>
         <Disclosure>

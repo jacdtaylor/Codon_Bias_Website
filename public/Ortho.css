@@ -1,0 +1,213 @@
+/* General styling */
+body {
+    background-image: radial-gradient(circle at 0% 0%, #373b52, #3c3f55 51%, #71748f);
+    min-height: 100vh; /* Ensure it covers at least the full viewport height */
+    min-width: 100vh;
+    margin: 0;     
+    padding: 0;    
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+  }
+  
+  .container {
+      margin: 0 auto;
+      overflow-y: scroll;
+      height: 100vh;
+      overflow-x: hidden; /* Prevent horizontal scrolling */
+  
+  }
+  
+  .input-container {
+      margin-bottom: 20px;
+  }
+  
+  input[type="text"] {
+      width: 200px;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: rgba(57, 63, 84, 0.8);
+      color: #bfd2ff;
+      margin-right: 10px;
+  }
+  
+  .Column_Buttons button {
+      background-color: rgba(57, 63, 84, 0.8);
+      color: #e0eaff;
+      width: 70%;
+      text-align: left;
+      padding: 5px;
+      margin: 5px;
+      transition: box-shadow 0.5s ease-in-out;
+  }
+  
+  .Column_Buttons button:hover {
+      box-shadow: 3px 5px 5px rgba(34, 39, 56, 0.9);
+  }
+  
+  button {
+    background-color: rgba(57, 63, 84, 0.8);
+    color: #e0eaff;
+    width: 25%;
+    text-align: center;
+    padding: 5px;
+    margin: 5px;
+    transition: box-shadow 0.5s ease-in-out;
+  }
+  button:hover {
+    box-shadow: 3px 5px 5px rgba(34, 39, 56, 0.9);
+  }
+  
+  span {
+    color: #e0eaff;
+  
+    text-align: left;
+    padding: 5px;
+    margin: 5px;
+    transition: box-shadow 0.5s ease-in-out;
+  }
+  
+  
+  
+  .checkbox-container {
+      /* top:100%;
+      left:50%;
+      
+      margin-left:-200px;
+      margin-top:200px;
+      width:400px; 
+      height: 200px;
+      top: 0;
+      position: fixed;
+      background-color: rgba(57, 63, 84, 1);
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      scrollbar-color: rgba(200, 212, 255, 0.8) rgba(76, 81, 99, 0.8); */
+      
+  }
+  
+  .checkbox-container span {
+      padding: 0.2em 0.5em; /* Adjust padding as needed */
+          display: inline-block;
+          background-color: rgba(47, 53, 73, 0.8);
+          padding-right:1em;
+          width:85%;
+          margin-bottom:5px;
+          margin-top: 5px;
+          transition: background-color 0.3s ease;
+  
+  }
+  
+  .checkbox-container span:hover {
+      
+          background-color: rgba(61, 68, 92, 0.8);
+          color: rgba(187, 203, 255, 0.8);
+         
+  }
+  
+  .checkbox-container button {
+      padding: 0.2em 0.5em; /* Adjust padding as needed */
+      display: inline-block;
+      background-color: rgba(74, 80, 99, 0.8);
+      margin-bottom:5px;
+      margin-top: 5px;
+      color:rgba(90, 97, 122, 0.8);
+      transition: color 0.3s ease;
+  }
+  .checkbox-container button:hover {
+      color: white;
+    
+  
+  }
+      
+  .checkbox-container .CloseMenu {
+      margin-top:0px;
+      margin-left:350px ; 
+  }
+  
+  #info-box {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: #ffffff;
+      padding: 10px;
+      border-radius: 5px;
+      z-index: 15;
+  }
+  
+  .Species_Input {
+    margin-bottom: 20px;
+    width: 200px;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      /* background-color: rgba(57, 63, 84, 0.8); */
+      color: #bfd2ff;
+      margin-right: 10px;
+  }
+  
+  
+
+
+  .GeneNamesUl {
+      /* width: 80%; */
+      list-style-type: none;
+      padding: 0;
+      margin: 5px;
+      max-height: 200px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      border-radius: 2px;
+      scrollbar-color: rgba(200, 212, 255, 0.8) rgba(76, 81, 99, 0.8);
+  }
+  
+  .GeneButton {
+
+  }
+  
+  .GeneNamesLi {
+      background-color: rgba(57, 63, 84, 0.8);
+      padding: 8px 12px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin: 7px;
+  }
+  
+  .GeneNamesLi:hover {
+      background-color: rgba(76, 81, 99, 0.8);
+  }
+  
+  /* Left column */
+  .Left_Column {
+      min-width: 250px;
+      position: fixed;
+      left: 0;
+      width: 25%;
+      height: 100%;
+      overflow-y: auto;
+      padding: 20px;
+      box-sizing: border-box;
+      background-color: #161720;
+      z-index: 10;
+      scrollbar-color: rgba(200, 212, 255, 0.8) rgba(76, 81, 99, 0.8); 
+
+  }
+  
+  /* Graph styling */
+  .Graph {
+      position: relative;
+      top: 70%;
+      left: 30%;
+      overflow-y: scroll;
+  }
+  
+  
+  
+  
+  .range_container {
+    position: relative;
+    width: 300px; 
+  }
+  

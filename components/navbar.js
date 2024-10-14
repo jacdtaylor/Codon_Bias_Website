@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Disclosure } from "@headlessui/react";
-import heroImg from "../public/img/logo.svg";
+// import heroImg from "../public/img/logo.svg";
+import heroImg from "../public/favicon.ico";
 import Image from "next/image";
 
 
@@ -15,7 +16,7 @@ export default function Navbar() {
       <nav className="drop-shadow-sm flex items-center justify-right lg:flex-wrap bg-slate-100 p-0 border-b border-gray-200">
         <div className="flex items-center flex-shrink-0 text-black mr-6 px-2 py-1 w-5/6 lg:w-auto">
           <Link href="/">
-            <Image href="/" src={heroImg} width="40" height="40" alt="NEAR Logo" loading="eager" style={{width: "40px", height: "40px" }} />
+            <Image href="/" src={heroImg} width="40" height="40" alt="NEAR Logo" loading="eager" style={{width: "40px", height: "40px"}} />
           </Link>
           <Link 
             href="/"

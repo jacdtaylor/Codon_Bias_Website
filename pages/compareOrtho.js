@@ -4,15 +4,14 @@ import Navbar from "../components/navbar";
 import Head from "next/head";
 import { saveAs } from 'file-saver';
 import allSpeciesData from "../data/speciesList.json";
-import Order from "../data/codonOrder.json"
+import Order from "../data/codonOrder.json";
 import { drawChart } from '../components/orthoHeatMap';
 import taxo from '../data/taxoTranslator.json';
-
+import groupDivider from '../data/orthoDivide.json';
 
 const compareOrtho = () => {
-
     const svgRef = useRef();
-    const [codonOrder,setCodonOrder] = useState([])
+    const [codonOrder, setCodonOrder] = useState([]);
     const [species, setSpecies] = useState("");
     const [allSpecies, setAllSpecies] = useState([]);
     const [currentSpeciesData, setCurrentSpeciesData] = useState({});
@@ -21,12 +20,15 @@ const compareOrtho = () => {
     const [newId, setNewId] = useState("");
     const [taxoTranslator, setTaxoTranslator] = useState({});
     const [selectedSpeciesGenes, setSelectedSpeciesGenes] = useState([]);
-    const [possibleGroups, setPossibleGroups] = useState([])
+    const [possibleGroups, setPossibleGroups] = useState([]);
+    const [showGroups, setShowGroups] = useState(false);
+    const [groupDivides, setGroupDivides] = useState([]);
 
     useEffect(() => {
         setAllSpecies(allSpeciesData);
         setCodonOrder(Order);
         setTaxoTranslator(taxo);
+        setGroupDivides(groupDivider);
     }, []);
 
     const downloadGraph = () => {
@@ -57,21 +59,19 @@ const compareOrtho = () => {
         setNewId(e.target.value);
     };
 
-    const handleGeneChange = (e) => {
-        const selected = e;
-        const proportionData = currentSpeciesData[selected][1];
-        const AddedData = Order.reduce((acc, key, index) => {
+    const handleGeneChange = (gene) => {
+        const proportionData = currentSpeciesData[gene][1];
+        const AddedData = codonOrder.reduce((acc, key, index) => {
             acc[key] = proportionData[index];
             return acc;
-          }, {});
+        }, {});
 
         AddedData["Species"] = species;
-        AddedData["Gene"] = selected;
-        // const AddedData = {"Species":species,"Gene":selected, "Data":currentSpeciesData[selected]}
-        setSelectedSpeciesGenes([[species,selected],...selectedSpeciesGenes])
-        setSelectedGenes([AddedData, ...selectedGenes]);
-    }
+        AddedData["Gene"] = gene;
 
+        setSelectedSpeciesGenes([[species, gene], ...selectedSpeciesGenes]);
+        setSelectedGenes([AddedData, ...selectedGenes]);
+    };
 
     const handleDataChange = (item) => {
         fetch(`speciesIndividualJSONS/${item}JSON.json`)
@@ -83,7 +83,7 @@ const compareOrtho = () => {
             })
             .then(data => {
                 setCurrentSpeciesData(data);
-                setCurrentGenes(Object.keys(data))
+                setCurrentGenes(Object.keys(data));
             })
             .catch(error => {
                 console.error("Error fetching species data:", error);
@@ -91,79 +91,136 @@ const compareOrtho = () => {
     };
 
     const HandleGraph = () => {
-        drawChart(selectedGenes, svgRef, taxoTranslator)
-    }
+        drawChart(selectedGenes, svgRef, taxoTranslator);
+    };
 
     const handleShowGroups = (id) => {
-        groups = currentSpeciesData.id[0];
+        let groups = currentSpeciesData[id][0];
         groups = groups.split(",");
         setPossibleGroups(groups);
-    }
+        setShowGroups(true);
+    };
+
+    const selectOrthoGroup = (id) => {
+        let i = 0;
+        while (i < groupDivides.length) {
+            if (id < groupDivides[i]) {
+                break;
+            }
+            i++;
+        }
+        fetch(`OrthoGroups/GroupFile_${i}.json`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Failed to fetch group data");
+                }
+                return response.json();
+            })
+            .then(data => {
+                pullOrthoData(data[id])
+                    .then(orthoData => {
+                        drawChart(orthoData,svgRef,taxoTranslator)
+                    })
+                    .catch(error => {
+                        console.error("Error fetching ortho data:", error);
+                    });
+            });
+    };
+
+    const pullOrthoData = async (sortedArray) => {
+        const oData = [];
+
+        const fetchPromises = sortedArray.map(async ([species, gene]) => {
+            try {
+                const response = await fetch(`speciesIndividualJSONS/${species}JSON.json`);
+                if (!response.ok) {
+                    throw new Error("Failed to fetch species data");
+                }
+                const data = await response.json();
+                const proportionData = data[gene][1];
+
+                const AddedData = codonOrder.reduce((acc, key, index) => {
+                    acc[key] = proportionData[index];
+                    return acc;
+                }, {});
+
+                AddedData["Species"] = species;
+                AddedData["Gene"] = gene;
+
+                oData.push(AddedData);
+            } catch (error) {
+                console.error("Error fetching data for", species, gene, error);
+            }
+        });
+
+        await Promise.all(fetchPromises);
+
+        return oData;
+    };
 
     return (
         <>
-        <link rel="stylesheet" href="filter.css"></link>
-        <Head></Head>
-        <Navbar />
-        <select
-            className="px-4 py-3 text-lg font-medium text-center text-gray-500 rounded-md"
-            onChange={handleSpeciesChange}
-            value={species}
-        >
-            <option disabled value="">
-              -- Select Species --
-            </option>
-            {allSpecies.map((cat) => (
-                <option key={cat} value={cat}>
-                  {taxo[cat]}
+            <link rel="stylesheet" href="Ortho.css"></link>
+            <Head></Head>
+            <Navbar />
+            <div className='Left_Column'>
+            <select
+                className="Species_Input"
+                onChange={handleSpeciesChange}
+                value={species}
+            >
+                <option disabled value="">
+                    -- Select Species --
                 </option>
-            ))}
-        </select>
-        {/* <select
-            className="px-4 py-3 text-lg font-medium text-center text-gray-500 rounded-md"
-            onChange={handleGeneChange}
-            // value={Gene}
-        >
-            <option disabled value="">
-              -- Select Gene --
-            </option>
-            {currentGenes.map((cat) => (
-                <option key={cat} value={cat}>
-                  {cat}
-                </option>
-            ))}
-        </select> */}
-
-        <div className="input-container">
-            <input type="text" value={newId} onChange={handleInputChange} placeholder="Enter ID" />
-        </div>
-        <ul className="GeneNamesUl">
-        {currentGenes
-            .filter(id => id.toLowerCase().startsWith(newId.toLowerCase()))
-            .filter(id => !new Set(
-                selectedSpeciesGenes
-                  .filter(item => item[0] === species) // Filter by species
-                  .map(item => item[1])                      // Extract the genes for the current species
-              ).has(id)
-              )
-            .slice(0, 30)
-            .map((id, index) => (
-                <li className="GeneNamesLi" key={index}>
-                    {id}
-                    <button onClick={() => handleGeneChange(id)}>Add Gene</button>
-                    <button onClick={() => handleShowGroups(id)}>Show Groups</button>
-                </li>
-            ))}
-    </ul>
-        <button onClick={HandleGraph}>Plot</button>
-        <container className="G_container">
-            <container className="Graph">
-            <svg ref={svgRef}></svg>
-            </container>
-            </container>
-                <div id="info-box" ></div>
-
-        <button onClick={downloadGraph}>Download Graph</button>
+                {allSpecies.map((cat) => (
+                    <option key={cat} value={cat}>
+                        {taxo[cat]}
+                    </option>
+                ))}
+            </select>
+            
+            <div className="input-container">
+                <input type="text" value={newId} onChange={handleInputChange} placeholder="Enter ID" />
+            </div>
+            
+            <ul className="GeneNamesUl">
+                {currentGenes
+                    .filter(id => id.toLowerCase().startsWith(newId.toLowerCase()))
+                    .filter(id => !new Set(
+                        selectedSpeciesGenes
+                            .filter(item => item[0] === species)
+                            .map(item => item[1])
+                    ).has(id))
+                    .slice(0, 30)
+                    .map((id, index) => (
+                        <li className="GeneNamesLi" key={index}>
+                            {id}
+                            <button onClick={() => handleGeneChange(id)} className = "geneButton">Add Gene</button>
+                            <button onClick={() => handleShowGroups(id)} className = "geneButton">Show Groups</button>
+                        </li>
+                    ))}
+            </ul>
+            
+            {showGroups && 
+                possibleGroups.map((id, index) => (
+                    <li className="checkbox-container" key={index}>
+                        <button onClick={() => selectOrthoGroup(id)}>{id}</button>
+                        <button onClick={() => setShowGroups(false)}>X</button>
+                    </li>
+                ))
+            }
+            
+            <button onClick={HandleGraph}>Plot</button>
+            </div>
+            <div className="G_container">
+                <div className="Graph">
+                    <svg ref={svgRef}></svg>
+                </div>
+            </div>
+            
+            <div id="info-box"></div>
+            
+            <button onClick={downloadGraph}>Download Graph</button>
         </>
     );
 };

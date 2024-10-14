@@ -134,61 +134,90 @@ const Filter = () => {
         <>
           <link rel="stylesheet" href="filter.css" />
           <Navbar />
-          <div>
-          <h1 style={{ width: '100%', padding: '30px', fontSize: '20px'}}>
-              Search by Gene Function
-              </h1>
-    
-            <div style={{ width: '300px'}}>
-        <link rel="stylesheet" href="filter.css"></link>
-          <input
-            type="text"
-            value={trait}
-            onChange={handleInputChange1}
-            placeholder="Enter gene function or trait"
-            style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
-          />
+          <div className="Left_Column">
+  <h1 style={{ width: '100%', padding: '30px', fontSize: '20px'}}>
+    Search by Gene Function
+  </h1>
 
-          
-          {/* Render suggestions if available and showSuggestions is true */}
-          {showSuggestions && filteredOptions.length > 0 && (
-            <ul style={{
-              listStyle: 'none',
-              padding: '0',
-              margin: '0',
-              border: '1px solid #ccc',
-              borderRadius: '4px',
-              maxHeight: '150px',
-              overflowY: 'auto',
-              position: 'absolute',
-              width: '300px'
-            }}>
-              {filteredOptions.map((option, index) => (
-                <li 
-                  key={index} 
-                  onClick={() => handleSuggestionClick(option)} 
-                  style={{ padding: '8px', cursor: 'pointer', borderBottom: '1px solid #ccc' }}
-                >
-                  {option}
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
+  <div style={{ width: '300px'}}>
+    <input
+      type="text"
+      value={trait}
+      onChange={handleInputChange1}
+      placeholder="Enter gene function or trait"
+      style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
+    />
 
-    
-            {/* Button to trigger the fetch */}
-            <div style={{ width: '150px'}}>
-            <button onClick={getData} 
-                  style={{ width: '100%', 
-                  padding: '8px',
-                  marginLeft: '50px', 
-                  marginTop: '175px',
-                  borderRadius: '4px', 
-                  border: '1px solid #ccc' }}>
-              Fetch Data
-              </button>
-              </div>
+    {showSuggestions && filteredOptions.length > 0 && (
+      <ul style={{
+        listStyle: 'none',
+        padding: '0',
+        margin: '0',
+        border: '1px solid #ccc',
+        borderRadius: '4px',
+        maxHeight: '150px',
+        overflowY: 'auto',
+        position: 'absolute',
+        width: '300px'
+      }}>
+        {filteredOptions.map((option, index) => (
+          <li 
+            key={index} 
+            onClick={() => handleSuggestionClick(option)} 
+            style={{ padding: '8px', cursor: 'pointer', borderBottom: '1px solid #ccc' }}
+          >
+            {option}
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+
+  {/* Button to trigger fetch */}
+  <div style={{ width: '150px'}}>
+    <button onClick={getData} 
+      style={{ width: '100%', padding: '8px', marginLeft: '50px', marginTop: '175px', borderRadius: '4px', border: '1px solid #ccc' }}>
+      Fetch Data
+    </button>
+  </div>
+
+  {/* Select Species Section */}
+  <h1 style={{ width: '100%', padding: '30px', fontSize: '20px', marginTop: '25px'}}>
+    Select species
+  </h1>
+  <input
+    style={{ width: '300px', padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
+    type="text"
+    value={scientific_name}
+    onChange={handleInputChange2}
+    placeholder="Select species to take a closer look"
+  />
+  
+  {showSuggestions2 && filteredOptions2.length > 0 && (
+    <ul style={{
+      listStyle: 'none',
+      padding: '0',
+      margin: '0',
+      border: '1px solid #ccc',
+      borderRadius: '4px',
+      maxHeight: '150px',
+      overflowY: 'auto',
+      position: 'absolute',
+      width: '300px'
+    }}>
+      {filteredOptions2.map((option, index) => (
+        <li 
+          key={index} 
+          onClick={() => handleSuggestionClick2(option)} 
+          style={{ padding: '8px', cursor: 'pointer', borderBottom: '1px solid #ccc' }}
+        >
+          {option}
+        </li>
+      ))}
+    </ul>
+  )}
+</div>
+          <div className='Graph'>
     
             {/* Display error if it exists */}
             {error && <p>Error: {error}</p>}
@@ -196,49 +225,9 @@ const Filter = () => {
             {/* Display loading message */}
             {loading && <p>Loading...</p>}
     
-            {data && (
-              <div style={{ position: 'absolute', left: '50%', top: '50px', width: '300px', margin: '10px', padding: '10px'}}>
-                <pre>{JSON.stringify(data, null, 2)}</pre>
-              </div>
-  )}
+            {/* Display the processed species and genes if they exist */}
+            {data && <pre className='Graph'>{JSON.stringify(data, null, 2)}</pre>}
           </div>
-          <div> 
-          <h1 style={{ width: '100%', padding: '30px', fontSize: '20px', marginTop: '25px'}}>
-              Select Species to take a closer look
-              </h1>
-              <input style={{ width: '300px', padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
-              type="text"
-              value={scientific_name}
-              onChange={handleInputChange2}
-              placeholder="Select species to take a closer look"
-          />
-          </div>
-          <div>
-            {/* Render suggestions if available and showSuggestions is true */}
-            {showSuggestions2 && filteredOptions2.length > 0 && (
-            <ul style={{
-              listStyle: 'none',
-              padding: '0',
-              margin: '0',
-              border: '1px solid #ccc',
-              borderRadius: '4px',
-              maxHeight: '150px',
-              overflowY: 'auto',
-              position: 'absolute',
-              width: '300px'
-            }}>
-              {filteredOptions2.map((option, index) => (
-                <li 
-                  key={index} 
-                  onClick={() => handleSuggestionClick2(option)} 
-                  style={{ padding: '8px', cursor: 'pointer', borderBottom: '1px solid #ccc' }}
-                >
-                  {option}
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
         </>
       );
     }
@@ -248,13 +237,12 @@ const Filter = () => {
         <>
           <link rel="stylesheet" href="filter.css" />
           <Navbar />
-          <div>
+          <div className="Left_Column">
             <h1 style={{ width: '100%', padding: '30px', fontSize: '20px'}}>
               Search by Gene Function
               </h1>
     
-            <div style={{ width: '300px'}}>
-        <link rel="stylesheet" href="filter.css"></link>
+            <div className="input-container" style={{ width: '300px'}}>
           <input
             type="text"
             value={trait}
@@ -302,15 +290,18 @@ const Filter = () => {
               Fetch Data
               </button>
               </div>
+          </div>
+          
+          <div className='Graph'>
     
             {/* Display error if it exists */}
             {error && <p>Error: {error}</p>}
-    
+
             {/* Display loading message */}
             {loading && <p>Loading...</p>}
-    
+
             {/* Display the processed species and genes if they exist */}
-            {data && <pre>{JSON.stringify(data, null, 2)}</pre>}
+            {data && <pre className='Graph'>{JSON.stringify(data, null, 2)}</pre>}
           </div>
         </>
       );

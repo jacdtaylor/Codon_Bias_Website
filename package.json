@@ -43,9 +43,11 @@
     "react-dom": "^18",
     "react-hook-form": "^7.43.9",
     "react-select": "^5.8.0",
+    "react-window": "^1.8.10",
     "tsv-loader": "^1.0.5",
     "txt-loader": "^1.0.0",
-    "val-loader": "^6.0.0"
+    "val-loader": "^6.0.0",
+    "worker-loader": "^3.0.8"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",

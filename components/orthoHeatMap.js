@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 import codonJSON from "../data/codonJSON.json";
-
+import sortedNameList from "../data/sortedNameList.json"
 
 
 
@@ -10,6 +10,7 @@ const drawChart = (data, svgCurrent, taxoKey) => {
     // Clear existing svg content
     d3.select(svgCurrent.current).selectAll("*").remove();
     // data.sort((a, b) => order.indexOf(a.Gene) - order.indexOf(b.Gene));
+    data.sort((a, b) => sortedNameList.indexOf(a.Species) - sortedNameList.indexOf(b.Species));
 
     
     const speciesNames = data.map(d => `${taxoKey[d.Species]} - ${d.Gene}`);
@@ -105,13 +106,35 @@ const drawChart = (data, svgCurrent, taxoKey) => {
 
     
   svg.append("g")
+      
   .attr("class", "axis")
   .attr("transform", `translate(${width}, 0)`)  // Move y-axis to the right by the width of the graph
   .call(d3.axisRight(y))  // Use axisRight to put labels on the right side
-.selectAll("text")
+  .selectAll("text")
   .style("text-anchor", "start")  // Left align the text (so it aligns with the axis properly on the right side)
   .attr("dx", ".8em")             // Add spacing between the axis and text to prevent overlap
-  .attr("dy", ".15em");
+  .attr("dy", ".15em")
+  .on("mouseover", function(event, d) {
+
+        d3.select(this).style("stroke", "white").style("stroke-width", 0.5);
+                // Show information
+                // const infoBox = d3.select("#info-box");
+                // const yOffset = window.scrollY || document.documentElement.scrollTop;
+               
+         
+                
+                // infoBox.html(d);
+                //  infoBox.style("left", `${event.pageX - 415}px`) // Adjust for padding
+                //     .style("top", `${event.pageY - yOffset}px`)
+                //     .style("max-width", "400px")
+      //               .style("visibility", "visible");
+      })  
+      .on("mouseout", function(event, d) {
+        d3.select(this).style("stroke", "none");
+        // Hide information
+        d3.select("#info-box").style("visibility", "hidden");
+    });
+    
 
 };
 

@@ -71,9 +71,9 @@ body {
   
   
   .checkbox-container {
-      /* top:100%;
+      top:100%;
       left:50%;
-      
+      color: #e0eaff;
       margin-left:-200px;
       margin-top:200px;
       width:400px; 
@@ -82,17 +82,24 @@ body {
       position: fixed;
       background-color: rgba(57, 63, 84, 1);
       overflow-y: auto;
+      overflow-x: hidden;
       border: 1px solid #ccc;
-      scrollbar-color: rgba(200, 212, 255, 0.8) rgba(76, 81, 99, 0.8); */
+      scrollbar-color: rgba(200, 212, 255, 0.8) rgba(76, 81, 99, 0.8);
       
   }
   
-  .checkbox-container span {
+
+  .close-button {
+        width:25px;
+
+  }
+  .checkbox-container button {
       padding: 0.2em 0.5em; /* Adjust padding as needed */
           display: inline-block;
           background-color: rgba(47, 53, 73, 0.8);
+         
           padding-right:1em;
-          width:85%;
+          width:100%;
           margin-bottom:5px;
           margin-top: 5px;
           transition: background-color 0.3s ease;
@@ -134,7 +141,7 @@ body {
       color: #ffffff;
       padding: 10px;
       border-radius: 5px;
-      z-index: 15;
+      z-index: 20;
   }
   
   .Species_Input {
@@ -163,8 +170,15 @@ body {
       scrollbar-color: rgba(200, 212, 255, 0.8) rgba(76, 81, 99, 0.8);
   }
   
-  .GeneButton {
-
+  .GeneNamesLi button {
+   
+    background-color: rgba(57, 63, 84, 0.8);
+    color: #e0eaff;
+    width: 30%;
+    text-align: center;
+    padding: 5px;
+    margin: 5px;
+    transition: box-shadow 0.5s ease-in-out;
   }
   
   .GeneNamesLi {
@@ -194,12 +208,18 @@ body {
       scrollbar-color: rgba(200, 212, 255, 0.8) rgba(76, 81, 99, 0.8); 
 
   }
+
+  .graphButtons {
+    position: fixed;
+    right: 0;
+    z-index: 10;
+  }
   
   /* Graph styling */
   .Graph {
       position: relative;
       top: 70%;
-      left: 30%;
+      left: 20%;
       overflow-y: scroll;
   }
   

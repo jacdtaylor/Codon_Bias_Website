@@ -7,10 +7,16 @@ import allSpeciesData from "../data/speciesList.json";
 import Order from "../data/codonOrder.json";
 import { drawChart } from '../components/orthoHeatMap';
 import taxo from '../data/taxoTranslator.json';
+import commonNames from '../data/commonNameTranslator.json'
 import groupDivider from '../data/orthoDivide.json';
+import orthoWorker from 'worker-loader!../components/orthoWorker.js'; // Import the worker
+
 
 const compareOrtho = () => {
-    const svgRef = useRef();
+    const svgRef1 = useRef();
+    const svgRef2 = useRef();
+    const svgRef3 = useRef();
+    const [currentSVG, setCurrentSVG] = useState("");
     const [codonOrder, setCodonOrder] = useState([]);
     const [species, setSpecies] = useState("");
     const [allSpecies, setAllSpecies] = useState([]);
@@ -29,10 +35,12 @@ const compareOrtho = () => {
         setCodonOrder(Order);
         setTaxoTranslator(taxo);
         setGroupDivides(groupDivider);
+        setCurrentSVG(svgRef1);
     }, []);
 
     const downloadGraph = () => {
-        const svgElement = svgRef.current;
+        const svgElement = currentSVG.current;
+        if (!svgElement) return;
         const svgXML = new XMLSerializer().serializeToString(svgElement);
         const img = new Image();
         img.src = 'data:image/svg+xml;base64,' + btoa(svgXML);
@@ -57,6 +65,10 @@ const compareOrtho = () => {
 
     const handleInputChange = (e) => {
         setNewId(e.target.value);
+    };
+
+    const handleNameChange = () => {
+        setTaxoTranslator(taxoTranslator === taxo ? commonNames : taxo);
     };
 
     const handleGeneChange = (gene) => {
@@ -91,7 +103,10 @@ const compareOrtho = () => {
     };
 
     const HandleGraph = () => {
-        drawChart(selectedGenes, svgRef, taxoTranslator);
+        if (selectedGenes.length == 0) {
+            alert("No Genes Selected");
+        } else {
+        drawChart(selectedGenes, currentSVG, taxoTranslator);}
     };
 
     const handleShowGroups = (id) => {
@@ -119,7 +134,7 @@ const compareOrtho = () => {
             .then(data => {
                 pullOrthoData(data[id])
                     .then(orthoData => {
-                        drawChart(orthoData,svgRef,taxoTranslator)
+                        drawChart(orthoData, currentSVG, taxoTranslator);
                     })
                     .catch(error => {
                         console.error("Error fetching ortho data:", error);
@@ -127,9 +142,40 @@ const compareOrtho = () => {
             });
     };
 
+    const handleLoading = () => {
+        d3.select(currentSVG.current).selectAll("*").remove();
+        d3.select(currentSVG.current)
+            .append("text")
+            .attr("x", "50%")
+            .attr("y", "50%")
+            .attr("text-anchor", "middle")
+            .attr("dominant-baseline", "middle")
+            .text("Loading...")
+            .style("font-size", "24px")
+            .style("fill", "#ffffff");
+    };
+
+    const setGraphNum = (ref) => {
+        if (currentSVG.current) {
+            currentSVG.current.style.display = "none";
+        }
+        if (ref.current) {
+            ref.current.style.display = "block";
+        }
+        setCurrentSVG(ref);
+    };
+
+    const clearCurrent = () => {
+        d3.select(currentSVG.current).selectAll("*").remove();
+    }
+
+    const clearGenes = () => {
+        setSelectedSpeciesGenes([]);
+        setSelectedGenes([]);
+    }
+
     const pullOrthoData = async (sortedArray) => {
         const oData = [];
-
         const fetchPromises = sortedArray.map(async ([species, gene]) => {
             try {
                 const response = await fetch(`speciesIndividualJSONS/${species}JSON.json`);
@@ -154,7 +200,6 @@ const compareOrtho = () => {
         });
 
         await Promise.all(fetchPromises);
-
         return oData;
     };
 
@@ -163,64 +208,79 @@ const compareOrtho = () => {
             <link rel="stylesheet" href="Ortho.css"></link>
             <Head></Head>
             <Navbar />
+            <div id="info-box" ></div>
+            <span className='graphButtons'>
+                <button onClick={() => setGraphNum(svgRef1)}>Graph 1</button>
+                <button onClick={() => setGraphNum(svgRef2)}>Graph 2</button>
+                <button onClick={() => setGraphNum(svgRef3)}>Graph 3</button>
+            </span>
             <div className='Left_Column'>
-            <select
-                className="Species_Input"
-                onChange={handleSpeciesChange}
-                value={species}
-            >
-                <option disabled value="">
-                    -- Select Species --
-                </option>
-                {allSpecies.map((cat) => (
-                    <option key={cat} value={cat}>
-                        {taxo[cat]}
+                <select
+                    className="Species_Input"
+                    onChange={handleSpeciesChange}
+                    value={species}
+                >
+                    <option disabled value="">
+                        -- Select Species --
                     </option>
-                ))}
-            </select>
-            
-            <div className="input-container">
-                <input type="text" value={newId} onChange={handleInputChange} placeholder="Enter ID" />
-            </div>
-            
-            <ul className="GeneNamesUl">
-                {currentGenes
-                    .filter(id => id.toLowerCase().startsWith(newId.toLowerCase()))
-                    .filter(id => !new Set(
-                        selectedSpeciesGenes
-                            .filter(item => item[0] === species)
-                            .map(item => item[1])
-                    ).has(id))
-                    .slice(0, 30)
-                    .map((id, index) => (
-                        <li className="GeneNamesLi" key={index}>
-                            {id}
-                            <button onClick={() => handleGeneChange(id)} className = "geneButton">Add Gene</button>
-                            <button onClick={() => handleShowGroups(id)} className = "geneButton">Show Groups</button>
-                        </li>
+                    {allSpecies.map((cat) => (
+                        <option key={cat} value={cat}>
+                            {taxoTranslator[cat]}
+                        </option>
                     ))}
-            </ul>
-            
-            {showGroups && 
-                possibleGroups.map((id, index) => (
-                    <li className="checkbox-container" key={index}>
-                        <button onClick={() => selectOrthoGroup(id)}>{id}</button>
-                        <button onClick={() => setShowGroups(false)}>X</button>
-                    </li>
-                ))
-            }
-            
-            <button onClick={HandleGraph}>Plot</button>
+                </select>
+
+                <div className="input-container">
+                    <input type="text" value={newId} onChange={handleInputChange} placeholder="Enter ID" />
+                </div>
+                <button onClick={handleNameChange}>Toggle Name</button>
+                <button onClick={clearCurrent}>Clear Graph</button>
+                <button onClick={clearGenes}>Clear Selected</button>
+
+                <ul className="GeneNamesUl">
+                    {currentGenes
+                        .filter(id => id.toLowerCase().startsWith(newId.toLowerCase()))
+                        .filter(id => !new Set(
+                            selectedSpeciesGenes
+                                .filter(item => item[0] === species)
+                                .map(item => item[1])
+                        ).has(id))
+                        .slice(0, 30)
+                        .map((id, index) => (
+                            <li className="GeneNamesLi" key={index}>
+                                <div>{id}</div>
+                                <div>
+                                    <button onClick={() => handleGeneChange(id)} className="geneButton">Add Gene</button>
+                                    <button onClick={() => handleShowGroups(id)} className="geneButton">Show Groups</button>
+                                </div>
+                            </li>
+                        ))}
+                </ul>
+
+                {showGroups && (
+                    <div className="checkbox-container">
+                        <button onClick={() => setShowGroups(false)} className="close-button">Close Menu</button>
+                        <ul>
+                            {possibleGroups.map((id, index) => (
+                                <li key={index}>
+                                    <button onClick={() => { selectOrthoGroup(id); setShowGroups(false); handleLoading(); }}>
+                                        {id}
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
+                <button onClick={HandleGraph}>Plot</button>
             </div>
             <div className="G_container">
                 <div className="Graph">
-                    <svg ref={svgRef}></svg>
+                    <svg id="ID1" ref={svgRef1}></svg>
+                    <svg id="ID2" ref={svgRef2} style={{ display: "none" }}></svg>
+                    <svg id="ID3" ref={svgRef3} style={{ display: "none" }}></svg>
                 </div>
+                <button onClick={downloadGraph}>Download Graph</button>
             </div>
-            
-            <div id="info-box"></div>
-            
-            <button onClick={downloadGraph}>Download Graph</button>
         </>
     );
 };

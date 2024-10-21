@@ -16,6 +16,7 @@ const compareOrtho = () => {
     const svgRef1 = useRef();
     const svgRef2 = useRef();
     const svgRef3 = useRef();
+    const [showLoader, setShowLoader] = useState(false)
     const [currentSVG, setCurrentSVG] = useState("");
     const [codonOrder, setCodonOrder] = useState([]);
     const [species, setSpecies] = useState("");
@@ -37,6 +38,8 @@ const compareOrtho = () => {
         setGroupDivides(groupDivider);
         setCurrentSVG(svgRef1);
     }, []);
+
+   
 
     const downloadGraph = () => {
         const svgElement = currentSVG.current;
@@ -106,6 +109,7 @@ const compareOrtho = () => {
         if (selectedGenes.length == 0) {
             alert("No Genes Selected");
         } else {
+        setShowLoader(false)
         drawChart(selectedGenes, currentSVG, taxoTranslator);}
     };
 
@@ -134,6 +138,7 @@ const compareOrtho = () => {
             .then(data => {
                 pullOrthoData(data[id])
                     .then(orthoData => {
+                        setShowLoader(false);
                         drawChart(orthoData, currentSVG, taxoTranslator);
                     })
                     .catch(error => {
@@ -144,15 +149,8 @@ const compareOrtho = () => {
 
     const handleLoading = () => {
         d3.select(currentSVG.current).selectAll("*").remove();
-        d3.select(currentSVG.current)
-            .append("text")
-            .attr("x", "50%")
-            .attr("y", "50%")
-            .attr("text-anchor", "middle")
-            .attr("dominant-baseline", "middle")
-            .text("Loading...")
-            .style("font-size", "24px")
-            .style("fill", "#ffffff");
+        setShowLoader(true);
+            
     };
 
     const setGraphNum = (ref) => {
@@ -275,6 +273,8 @@ const compareOrtho = () => {
             </div>
             <div className="G_container">
                 <div className="Graph">
+                    {showLoader &&
+                    <div class="loader"></div>}
                     <svg id="ID1" ref={svgRef1}></svg>
                     <svg id="ID2" ref={svgRef2} style={{ display: "none" }}></svg>
                     <svg id="ID3" ref={svgRef3} style={{ display: "none" }}></svg>

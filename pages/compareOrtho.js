@@ -41,7 +41,9 @@ const compareOrtho = () => {
     }, []);
 
     useEffect(() => {
-        HandleErrorlessGraph();
+        if (selectedGenes.length > 0) {
+            HandleGraph();
+        }
     }, [taxoTranslator]);
 
     useEffect(() => {
@@ -122,7 +124,7 @@ const compareOrtho = () => {
             });
     };
 
-    const HandleGraph = () => {
+    const HandleGraph = (onLoad) => {
         if (selectedGenes.length == 0) {
             alert("No Genes Selected");
         } else {
@@ -130,12 +132,7 @@ const compareOrtho = () => {
         drawChart(selectedGenes, currentSVG, taxoTranslator);}
     };
     
-    const HandleErrorlessGraph = () => {
-        if (selectedGenes.length != 0) {
-            setShowLoader(false)
-            drawChart(selectedGenes, currentSVG, taxoTranslator);
-        }
-    };
+    
 
 
     const handleShowGroups = (id) => {

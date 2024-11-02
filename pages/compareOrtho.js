@@ -30,6 +30,7 @@ const compareOrtho = () => {
     const [possibleGroups, setPossibleGroups] = useState([]);
     const [showGroups, setShowGroups] = useState(false);
     const [groupDivides, setGroupDivides] = useState([]);
+    const [showSelected, setShowSelected] = useState(false);
 
     useEffect(() => {
         setAllSpecies(allSpeciesData);
@@ -39,7 +40,13 @@ const compareOrtho = () => {
         setCurrentSVG(svgRef1);
     }, []);
 
-   
+    useEffect(() => {
+        HandleErrorlessGraph();
+    }, [taxoTranslator]);
+
+    useEffect(() => {
+        HandleSelected();
+    }, [selectedGenes]);
 
     const downloadGraph = () => {
         const svgElement = currentSVG.current;
@@ -72,6 +79,7 @@ const compareOrtho = () => {
 
     const handleNameChange = () => {
         setTaxoTranslator(taxoTranslator === taxo ? commonNames : taxo);
+        
     };
 
     const handleGeneChange = (gene) => {
@@ -84,9 +92,18 @@ const compareOrtho = () => {
         AddedData["Species"] = species;
         AddedData["Gene"] = gene;
 
-        setSelectedSpeciesGenes([[species, gene], ...selectedSpeciesGenes]);
         setSelectedGenes([AddedData, ...selectedGenes]);
     };
+
+    const HandleSelected = () => {
+        const temporaryArray = selectedGenes.map(entry => [entry["Species"], entry["Gene"]]);
+        setSelectedSpeciesGenes(temporaryArray);
+    };
+
+    const HandleSelectedDisplay = () => {
+        setShowGroups(false);
+        setShowSelected(true);
+    }
 
     const handleDataChange = (item) => {
         fetch(`speciesIndividualJSONS/${item}JSON.json`)
@@ -112,6 +129,14 @@ const compareOrtho = () => {
         setShowLoader(false)
         drawChart(selectedGenes, currentSVG, taxoTranslator);}
     };
+    
+    const HandleErrorlessGraph = () => {
+        if (selectedGenes.length != 0) {
+            setShowLoader(false)
+            drawChart(selectedGenes, currentSVG, taxoTranslator);
+        }
+    };
+
 
     const handleShowGroups = (id) => {
         let groups = currentSpeciesData[id][0];
@@ -139,6 +164,7 @@ const compareOrtho = () => {
                 pullOrthoData(data[id])
                     .then(orthoData => {
                         setShowLoader(false);
+                        setSelectedGenes(orthoData)
                         drawChart(orthoData, currentSVG, taxoTranslator);
                     })
                     .catch(error => {
@@ -269,7 +295,22 @@ const compareOrtho = () => {
                         </ul>
                     </div>
                 )}
-                <button onClick={HandleGraph}>Plot</button>
+               {showSelected && (
+                    <div className="checkbox-container">
+                        <button onClick={() => setShowSelected(false)} className="close-button">Close Menu</button>
+                        <ul>
+                            {selectedSpeciesGenes.map((item, index) => (
+                                <li key={index}>
+                                    <button>
+                                        {taxoTranslator[item[0]]}, {item[1]}
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
+                <button onClick={HandleGraph}>Plot</button> 
+                <button onClick={HandleSelectedDisplay}>Show Selected</button>
             </div>
             <div className="G_container">
                 <div className="Graph">

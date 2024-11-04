@@ -13,9 +13,12 @@ import orthoWorker from 'worker-loader!../components/orthoWorker.js'; // Import 
 
 
 const compareOrtho = () => {
+
     const svgRef1 = useRef();
     const svgRef2 = useRef();
     const svgRef3 = useRef();
+ 
+    
     const [showLoader, setShowLoader] = useState(false)
     const [currentSVG, setCurrentSVG] = useState("");
     const [codonOrder, setCodonOrder] = useState([]);
@@ -43,8 +46,10 @@ const compareOrtho = () => {
     useEffect(() => {
         if (selectedGenes.length > 0) {
             HandleGraph();
+        } else {
+            d3.select(currentSVG.current).selectAll("*").remove();
         }
-    }, [taxoTranslator]);
+    }, [taxoTranslator, selectedGenes]);
 
     useEffect(() => {
         HandleSelected();
@@ -74,6 +79,12 @@ const compareOrtho = () => {
         setSpecies(selected);
         handleDataChange(selected);
     };
+
+
+    const handleRemoveGene = (indexToRemove) => {
+        setSelectedGenes(selectedGenes => selectedGenes.filter((item, index) => index !== indexToRemove));
+    };
+
 
     const handleInputChange = (e) => {
         setNewId(e.target.value);
@@ -196,7 +207,6 @@ const compareOrtho = () => {
     }
 
     const pullOrthoData = async (sortedArray) => {
-        const oData = [];
         const fetchPromises = sortedArray.map(async ([species, gene]) => {
             try {
                 const response = await fetch(`speciesIndividualJSONS/${species}JSON.json`);
@@ -205,22 +215,23 @@ const compareOrtho = () => {
                 }
                 const data = await response.json();
                 const proportionData = data[gene][1];
-
+    
+                // Construct AddedData without directly modifying oData in parallel
                 const AddedData = codonOrder.reduce((acc, key, index) => {
                     acc[key] = proportionData[index];
                     return acc;
-                }, {});
-
-                AddedData["Species"] = species;
-                AddedData["Gene"] = gene;
-
-                oData.push(AddedData);
+                }, { Species: species, Gene: gene });
+    
+                return AddedData;
             } catch (error) {
                 console.error("Error fetching data for", species, gene, error);
+                return null; // Return null to filter out unsuccessful fetches
             }
         });
-
-        await Promise.all(fetchPromises);
+    
+        // Wait for all fetches to complete and filter out any null results
+        const results = await Promise.all(fetchPromises);
+        const oData = results.filter(Boolean); // Filter out nulls for unsuccessful fetches
         return oData;
     };
 
@@ -301,12 +312,13 @@ const compareOrtho = () => {
                                     <button>
                                         {taxoTranslator[item[0]]}, {item[1]}
                                     </button>
+                                    <button onClick={()=>handleRemoveGene(index)}>Remove</button>
+
                                 </li>
                             ))}
                         </ul>
                     </div>
                 )}
-                <button onClick={HandleGraph}>Plot</button> 
                 <button onClick={HandleSelectedDisplay}>Show Selected</button>
             </div>
             <div className="G_container">

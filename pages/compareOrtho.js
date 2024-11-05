@@ -17,23 +17,35 @@ const compareOrtho = () => {
     const svgRef1 = useRef();
     const svgRef2 = useRef();
     const svgRef3 = useRef();
- 
-    
-    const [showLoader, setShowLoader] = useState(false)
     const [currentSVG, setCurrentSVG] = useState("");
-    const [codonOrder, setCodonOrder] = useState([]);
-    const [species, setSpecies] = useState("");
-    const [allSpecies, setAllSpecies] = useState([]);
-    const [currentSpeciesData, setCurrentSpeciesData] = useState({});
-    const [currentGenes, setCurrentGenes] = useState([]);
+
+    const [selectedGenes1, setSelectedGenes1] = useState([]);
+    const [selectedSpeciesGenes1, setSelectedSpeciesGenes1] = useState([]);
+    const [selectedGenes2, setSelectedGenes2] = useState([]);
+    const [selectedSpeciesGenes2, setSelectedSpeciesGenes2] = useState([]);
+    const [selectedGenes3, setSelectedGenes3] = useState([]);
+    const [selectedSpeciesGenes3, setSelectedSpeciesGenes3] = useState([]);
+
+
     const [selectedGenes, setSelectedGenes] = useState([]);
-    const [newId, setNewId] = useState("");
-    const [taxoTranslator, setTaxoTranslator] = useState({});
     const [selectedSpeciesGenes, setSelectedSpeciesGenes] = useState([]);
-    const [possibleGroups, setPossibleGroups] = useState([]);
-    const [showGroups, setShowGroups] = useState(false);
+
+    const [allSpecies, setAllSpecies] = useState([]);
+    const [codonOrder, setCodonOrder] = useState([]);
+    const [taxoTranslator, setTaxoTranslator] = useState({});
     const [groupDivides, setGroupDivides] = useState([]);
+    const [possibleGroups, setPossibleGroups] = useState([]);
+
+    const [newId, setNewId] = useState("");
+    const [species, setSpecies] = useState("");
+    const [currentGenes, setCurrentGenes] = useState([]);
+    const [currentSpeciesData, setCurrentSpeciesData] = useState({});
+
+    
+    
+    const [showGroups, setShowGroups] = useState(false);
     const [showSelected, setShowSelected] = useState(false);
+    const [showLoader, setShowLoader] = useState(false)
 
     useEffect(() => {
         setAllSpecies(allSpeciesData);
@@ -55,31 +67,48 @@ const compareOrtho = () => {
         HandleSelected();
     }, [selectedGenes]);
 
-    const downloadGraph = () => {
-        const svgElement = currentSVG.current;
-        if (!svgElement) return;
-        const svgXML = new XMLSerializer().serializeToString(svgElement);
-        const img = new Image();
-        img.src = 'data:image/svg+xml;base64,' + btoa(svgXML);
 
-        img.onload = () => {
-            const canvas = document.createElement('canvas');
-            const context = canvas.getContext('2d');
-            canvas.width = svgElement.clientWidth;
-            canvas.height = svgElement.clientHeight;
-            context.drawImage(img, 0, 0);
-            canvas.toBlob(blob => {
-                saveAs(blob, 'graph.png');
-            });
-        };
-    };
+    const handleGraphNum = (svg) => {
+        if (currentSVG.current) {
+            currentSVG.current.style.display = "none";
+        }
+        if (svg.current) {
+            svg.current.style.display = "block";
+        }
+        if (currentSVG === svgRef1) {
+            setSelectedGenes1(selectedGenes)
+            setSelectedSpeciesGenes1(selectedSpeciesGenes)
+        } else if (currentSVG === svgRef2) {
+            setSelectedGenes2(selectedGenes)
+            setSelectedSpeciesGenes2(selectedSpeciesGenes)
+        } else {
+            setSelectedGenes3(selectedGenes)
+            setSelectedSpeciesGenes3(selectedSpeciesGenes)
+        }
 
+        if (svg === svgRef1) {
+            setCurrentSVG(svgRef1)
+            setSelectedGenes(selectedGenes1)
+            setSelectedSpeciesGenes(selectedSpeciesGenes1)
+        }
+        else if (svg === svgRef2) {
+            setCurrentSVG(svgRef2)
+            setSelectedGenes(selectedGenes2)
+            setSelectedSpeciesGenes(selectedSpeciesGenes2)
+        }
+        else {
+            setCurrentSVG(svgRef3)
+            setSelectedGenes(selectedGenes3)
+            setSelectedSpeciesGenes(selectedSpeciesGenes3)
+        }
+    }
+
+    
     const handleSpeciesChange = (e) => {
         const selected = e.target.value;
         setSpecies(selected);
         handleDataChange(selected);
     };
-
 
     const handleRemoveGene = (indexToRemove) => {
         setSelectedGenes(selectedGenes => selectedGenes.filter((item, index) => index !== indexToRemove));
@@ -91,8 +120,7 @@ const compareOrtho = () => {
     };
 
     const handleNameChange = () => {
-        setTaxoTranslator(taxoTranslator === taxo ? commonNames : taxo);
-        
+        setTaxoTranslator(taxoTranslator === taxo ? commonNames : taxo);  
     };
 
     const handleGeneChange = (gene) => {
@@ -115,7 +143,7 @@ const compareOrtho = () => {
 
     const HandleSelectedDisplay = () => {
         setShowGroups(false);
-        setShowSelected(true);
+        setShowSelected(!showSelected);
     }
 
     const handleDataChange = (item) => {
@@ -181,30 +209,54 @@ const compareOrtho = () => {
             });
     };
 
+    
+
     const handleLoading = () => {
         d3.select(currentSVG.current).selectAll("*").remove();
         setShowLoader(true);
             
     };
 
-    const setGraphNum = (ref) => {
-        if (currentSVG.current) {
-            currentSVG.current.style.display = "none";
-        }
-        if (ref.current) {
-            ref.current.style.display = "block";
-        }
-        setCurrentSVG(ref);
-    };
+    
 
     const clearCurrent = () => {
         d3.select(currentSVG.current).selectAll("*").remove();
-    }
-
-    const clearGenes = () => {
         setSelectedSpeciesGenes([]);
         setSelectedGenes([]);
+        if (currentSVG === svgRef1) {
+            setSelectedGenes1([])
+            setSelectedSpeciesGenes1([])
+        } else if (currentSVG === svgRef2) {
+            setSelectedGenes2([])
+            setSelectedSpeciesGenes2([])
+        } else {
+            setSelectedGenes3([])
+            setSelectedSpeciesGenes3([])
+        }   
     }
+
+
+    const downloadGraph = () => {
+        if (selectedGenes.length > 0) {
+        const svgElement = currentSVG.current;
+        if (!svgElement) return;
+        const svgXML = new XMLSerializer().serializeToString(svgElement);
+        const img = new Image();
+        img.src = 'data:image/svg+xml;base64,' + btoa(svgXML);
+
+        img.onload = () => {
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            canvas.width = svgElement.clientWidth;
+            canvas.height = svgElement.clientHeight;
+            context.drawImage(img, 0, 0);
+            canvas.toBlob(blob => {
+                saveAs(blob, 'graph.png');
+            });
+        };
+    };}
+
+    
 
     const pullOrthoData = async (sortedArray) => {
         const fetchPromises = sortedArray.map(async ([species, gene]) => {
@@ -242,9 +294,9 @@ const compareOrtho = () => {
             <Navbar />
             <div id="info-box" ></div>
             <span className='graphButtons'>
-                <button onClick={() => setGraphNum(svgRef1)}>Graph 1</button>
-                <button onClick={() => setGraphNum(svgRef2)}>Graph 2</button>
-                <button onClick={() => setGraphNum(svgRef3)}>Graph 3</button>
+                <button onClick={() => handleGraphNum(svgRef1)}>Graph 1</button>
+                <button onClick={() => handleGraphNum(svgRef2)}>Graph 2</button>
+                <button onClick={() => handleGraphNum(svgRef3)}>Graph 3</button>
             </span>
             <div className='Left_Column'>
                 <select
@@ -266,8 +318,9 @@ const compareOrtho = () => {
                     <input type="text" value={newId} onChange={handleInputChange} placeholder="Enter ID" />
                 </div>
                 <button onClick={handleNameChange}>Toggle Name</button>
-                <button onClick={clearCurrent}>Clear Graph</button>
-                <button onClick={clearGenes}>Clear Selected</button>
+                <button onClick={clearCurrent}>Clear Selected</button>
+                <button onClick={HandleSelectedDisplay}>Show Selected</button>
+
 
                 <ul className="GeneNamesUl">
                     {currentGenes
@@ -319,7 +372,8 @@ const compareOrtho = () => {
                         </ul>
                     </div>
                 )}
-                <button onClick={HandleSelectedDisplay}>Show Selected</button>
+            <button onClick={downloadGraph} class="Download">Download Graph</button>
+
             </div>
             <div className="G_container">
                 <div className="Graph">
@@ -329,7 +383,6 @@ const compareOrtho = () => {
                     <svg id="ID2" ref={svgRef2} style={{ display: "none" }}></svg>
                     <svg id="ID3" ref={svgRef3} style={{ display: "none" }}></svg>
                 </div>
-                <button onClick={downloadGraph}>Download Graph</button>
             </div>
         </>
     );

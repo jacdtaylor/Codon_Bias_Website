@@ -169,16 +169,16 @@ const Filter = () => {
                 </div>
             <container className="Column_Buttons">
                 <button onClick={handleAddId}>Add ID</button>
-                <br />
+                
                 <button className="download" onClick={() => downloadGraph()}>Download</button>
-                <br />
+                
                 <button className="clear" onClick={() => setSelectedIds([])}>Clear All</button>
-                <br />
+                
                 <button className="toggle" onClick={() => HandleCountToggle()}>Toggle</button>
-                <br />
+               
                 <button className="Cluster" onClick={() => HandleCluster()}>Cluster</button>
-                <br />
-                {!isVisible && (<button onClick={() => handleClick()}>Show Selected Genes</button>)}
+                
+                <button onClick={() => handleClick()}>Show Selected</button>
              </container>
                 <div>
                 {newId && (

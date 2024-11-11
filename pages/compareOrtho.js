@@ -10,6 +10,7 @@ import taxo from '../data/taxoTranslator.json';
 import commonNames from '../data/commonNameTranslator.json'
 import groupDivider from '../data/orthoDivide.json';
 import orthoWorker from 'worker-loader!../components/orthoWorker.js'; // Import the worker
+import { Container } from 'postcss';
 
 
 const compareOrtho = () => {
@@ -317,10 +318,11 @@ const compareOrtho = () => {
                 <div className="input-container">
                     <input type="text" value={newId} onChange={handleInputChange} placeholder="Enter ID" />
                 </div>
+                <container className="Column_Buttons">
                 <button onClick={handleNameChange}>Toggle Name</button>
                 <button onClick={clearCurrent}>Clear Selected</button>
                 <button onClick={HandleSelectedDisplay}>Show Selected</button>
-
+                </container>
 
                 <ul className="GeneNamesUl">
                     {currentGenes

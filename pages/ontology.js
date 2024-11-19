@@ -1,13 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Navbar from "../components/navbar";
 import go_ref from "../data/go_terms_reference.json";
-import { drawChart } from '../components/ontoHeatMap';
+import { drawChart } from '../components/orthoHeatMap';
 import taxo from '../data/taxoTranslator.json';
 import Order from "../data/codonOrder.json";
 import commonNames from '../data/commonNameTranslator.json'
+import * as d3 from 'd3';
 
 
-const Filter = () => {
+const Ontology = () => {
 
   // for data
   const [data, setData] = useState({}); // State to store the fetched data
@@ -18,11 +19,13 @@ const Filter = () => {
   const graph = useRef();
   const [codonOrder, setCodonOrder] = useState([]);
   const [taxoTranslator, setTaxoTranslator] = useState({});
+  const [reverseTranslator, setReverseTranslator] = useState({})
 
   // for interface
   const [error, setError] = useState(null); // State to store any error
   const [loading, setLoading] = useState(false); // State to track loading
   const [isVisible, setVisibility] = useState(false)
+  const [showLoader, setShowLoader] = useState(false)
 
   // for dropdown
   const options = Object.keys(go_ref);
@@ -32,7 +35,16 @@ const Filter = () => {
   useEffect(() => {
     setCodonOrder(Order);
     setTaxoTranslator(taxo);
+    setReverseTranslator(reverseTranslate(taxoTranslator));
 }, []);
+
+  function reverseTranslate(taxoTranslator) {
+    var reverseRef = {}
+    for (const key of Object.keys(taxoTranslator)) {
+      reverseRef[taxoTranslator[key]] = key
+    }
+    return reverseRef
+  }
 
   // Function to fetch the data based on the user input ID
   async function getData() {
@@ -156,16 +168,69 @@ const Filter = () => {
     setSpeciesAndGenes({})
   }
 
-  const HandleGraph = (onLoad) => {
-      if (speciesAndGenes.length == 0) {
-          alert("No Species Selected");
-      } else {
-      // fix this later
+  const pullOrthoData = async (sortedArray) => {
+    const fetchPromises = sortedArray.map(async ([species, gene]) => {
+        try {
+            const response = await fetch(`speciesIndividualJSONS/${species}JSON.json`);
+            if (!response.ok) {
+                throw new Error("Failed to fetch species data");
+            }
+            const data = await response.json();
+            const proportionData = data[gene][1];
 
-      // setShowLoader(false)
-      // drawChart(speciesAndGenes, graph, taxoTranslator);}
+            // Construct AddedData without directly modifying oData in parallel
+            const AddedData = codonOrder.reduce((acc, key, index) => {
+                acc[key] = proportionData[index];
+                return acc;
+            }, { Species: species, Gene: gene });
+
+            return AddedData;
+            } catch (error) {
+                console.error("Error fetching data for", species, gene, error);
+                return null; // Return null to filter out unsuccessful fetches
+            }
+        });
+
+      // Wait for all fetches to complete and filter out any null results
+      const results = await Promise.all(fetchPromises);
+      const oData = results.filter(Boolean); // Filter out nulls for unsuccessful fetches
+      return oData;
+    };
+
+  const HandleGraph = async (onLoad) => {
+    if (speciesAndGenes.length === 0) {
+      alert("No Species Selected");
+      return; // Exit early if no species are selected
+    }
+  
+    handleLoading(); // Clear the graph and show the loader
+  
+    try {
+      const array = [];
+      for (const key of Object.keys(speciesAndGenes)) {
+        for (const gene of speciesAndGenes[key]) {
+          array.push([reverseTranslator[key], gene]);
+        }
+      }
+  
+      console.log(array);
+  
+      // Fetch and process data
+      const formatted = await pullOrthoData(array);
+      setShowLoader(false); // Hide the loader after data is fetched
+  
+      // Draw the chart with the fetched data
+      drawChart(formatted, graph, taxoTranslator);
+    } catch (error) {
+      console.error("Error fetching or processing data:", error);
+      setShowLoader(false); // Hide the loader on error
+    }
   };
-}
+
+  const handleLoading = () => {
+    d3.select(graph.current).selectAll("*").remove();
+    setShowLoader(true);
+  };
 
 
   return (
@@ -255,7 +320,7 @@ const Filter = () => {
 
       <div>
         <div style={{paddingLeft: '60px'}}>
-          <button onClick={HandleGraph}>
+          <button onClick={() => {HandleGraph(); }}>
             Graph Data
           </button>
         </div>
@@ -272,12 +337,14 @@ const Filter = () => {
             {loading && <p>Loading...</p>}
     
             {/* Display the processed species and genes if they exist */}
-            {speciesAndGenes && <pre className='Graph'>{JSON.stringify(speciesAndGenes, null, 2)}</pre>}
-            {/* <svg ref={graph}></svg> */}
+            {/*speciesAndGenes && <pre className='Graph'>{JSON.stringify(speciesAndGenes, null, 2)}</pre>*/}
+            {showLoader &&
+                    <div className="loader"></div>}
+            <svg ref={graph}></svg>
           </div>
         </>
       );
     }
 
   
-export default Filter;
+export default Ontology;

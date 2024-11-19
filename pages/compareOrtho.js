@@ -379,7 +379,7 @@ const compareOrtho = () => {
             <div className="G_container">
                 <div className="Graph">
                     {showLoader &&
-                    <div class="loader"></div>}
+                    <div className="loader"></div>}
                     <svg id="ID1" ref={svgRef1}></svg>
                     <svg id="ID2" ref={svgRef2} style={{ display: "none" }}></svg>
                     <svg id="ID3" ref={svgRef3} style={{ display: "none" }}></svg>

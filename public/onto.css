@@ -1,0 +1,232 @@
+/* General styling */
+body {
+    background-image: radial-gradient(circle at 0% 0%, #373b52, #3c3f55 51%, #71748f);
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+  }
+  
+  .container {
+    margin: 0 auto;
+    overflow-y: auto;
+    height: 100vh;
+    overflow-x: hidden;
+  }
+  
+  /* Fixed Left Column */
+  .Left_Column {
+    position: fixed;
+    left: 0;
+    top: 50px;
+    width: 250px;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #161720;
+    color: #e0eaff;
+    overflow-y: auto;
+    z-index: 10;
+  }
+  
+  /* Buttons Layout - 2 rows, 3 columns */
+  .Column_Buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .Square_Buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+  button {
+    height: 45px;
+    background-color: rgba(57, 63, 84, 0.8);
+    color: #e0eaff;
+    border: none;
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: rgba(76, 81, 99, 0.9);
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Input Styling */
+  .input-container input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgba(57, 63, 84, 0.8);
+    color: #bfd2ff;
+    margin-bottom: 15px;
+  }
+  
+  /* Gene Suggestions List */
+  .GeneNamesUl {
+    width: 100%;
+    list-style-type: none;
+    padding: 0;
+    margin: 5px 0;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .GeneNamesLi {
+    background-color: rgba(57, 63, 84, 0.8);
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 7px;
+  }
+  
+  .GeneNamesLi:hover {
+    background-color: rgba(76, 81, 99, 0.8);
+  }
+  
+  /* Checkbox Container (Selected Genes List) */
+  .checkbox-container {
+    position: fixed;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px;
+    max-height: 300px;
+    overflow-y: auto;
+    background-color: rgba(57, 63, 84, 1);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    color: #e0eaff;
+    z-index: 15;
+  }
+  
+  .checkbox-container button {
+    background-color: rgba(74, 80, 99, 0.8);
+    color: rgba(90, 97, 122, 0.8);
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  .checkbox-container button:hover {
+    color: white;
+  }
+  
+  .checkbox-container .CloseMenu {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(57, 63, 84, 0.8);
+  }
+  
+  /* Scrollbar Styling */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(200, 212, 255, 0.8);
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: rgba(76, 81, 99, 0.8);
+  }
+  
+  /* SVG Graph Area */
+  .Graph {
+    position: relative;
+    left: 270px; /* Ensures space next to the fixed left column */
+    padding: 20px;
+    overflow-y: auto;
+  }
+  
+  /* Info Box Styling */
+  #info-box {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 15;
+  }
+  
+  /* Range Slider Styling */
+  .range_container {
+    position: relative;
+    width: 100%;
+    margin: 20px 0;
+  }
+  
+  .sliders_control {
+    position: relative;
+    height: 50px;
+  }
+  
+  .sliders_control input[type=range] {
+    width: 100%;
+    height: 30px;
+    pointer-events: none;
+  }
+  
+  .sliders_control input#toSlider::-webkit-slider-thumb,
+  .sliders_control input#toSlider::-moz-range-thumb {
+    background: red;
+    pointer-events: all;
+  }
+  
+  .sliders_control input#fromSlider::-webkit-slider-thumb,
+  .sliders_control input#fromSlider::-moz-range-thumb {
+    background: blue;
+    pointer-events: all;
+  }
+  
+  .scroll-box {
+    padding: '0';
+    margin: '0';
+    border: '1px solid #ccc';
+    border-radius: '4px';
+    max-height: '150px';
+    overflow-y: 'auto';
+    position: 'absolute';
+    width: '225px'
+  }
+
+  .loader {
+    border: 9px solid #373b52; /* Light grey */
+    border-top: 9px solid #ccc; /* Blue */
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    animation: spin 2s linear infinite;
+    position: fixed;
+    right: 600px; /* Adjust as needed */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%);
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }

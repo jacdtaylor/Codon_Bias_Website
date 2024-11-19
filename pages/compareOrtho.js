@@ -9,7 +9,6 @@ import { drawChart } from '../components/orthoHeatMap';
 import taxo from '../data/taxoTranslator.json';
 import commonNames from '../data/commonNameTranslator.json'
 import groupDivider from '../data/orthoDivide.json';
-import orthoWorker from 'worker-loader!../components/orthoWorker.js'; // Import the worker
 import { Container } from 'postcss';
 
 

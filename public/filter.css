@@ -40,6 +40,14 @@ body {
   margin-bottom: 20px;
 }
 
+.Square_Buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
 button {
   height: 45px;
   background-color: rgba(57, 63, 84, 0.8);
@@ -192,4 +200,15 @@ button:hover {
 .sliders_control input#fromSlider::-moz-range-thumb {
   background: blue;
   pointer-events: all;
+}
+
+.scroll-box {
+  padding: '0';
+  margin: '0';
+  border: '1px solid #ccc';
+  border-radius: '4px';
+  max-height: '150px';
+  overflow-y: 'auto';
+  position: 'absolute';
+  width: '225px'
 }

@@ -35,16 +35,16 @@ const Ontology = () => {
   useEffect(() => {
     setCodonOrder(Order);
     setTaxoTranslator(taxo);
-    setReverseTranslator(reverseTranslate(taxoTranslator));
 }, []);
 
-  function reverseTranslate(taxoTranslator) {
-    var reverseRef = {}
-    for (const key of Object.keys(taxoTranslator)) {
-      reverseRef[taxoTranslator[key]] = key
-    }
-    return reverseRef
+async function reverseTranslate(taxoTranslator) {
+  const reverseRef = {};
+  for (const key of Object.keys(taxoTranslator)) {
+    reverseRef[taxoTranslator[key]] = key;
   }
+  setReverseTranslator(reverseRef); // Still asynchronous
+  return reverseRef; // Return the updated object
+}
 
   // Function to fetch the data based on the user input ID
   async function getData() {
@@ -115,20 +115,20 @@ const Ontology = () => {
   };
 
     // Update suggestions based on input
-    const handleInputChange1 = (e) => {
+  const handleInputChange1 = (e) => {
       set_trait(e.target.value)
   
       // Filter the options based on user input
       if (trait.length > 0) {
-        const filtered = options.filter((option) =>
+      const filtered = options.filter((option) =>
           option.toLowerCase().includes(trait.toLowerCase())
-        );
-        setFilteredOptions(filtered);
+      );
+      setFilteredOptions(filtered);
         setShowSuggestions(true);
-      } else {
+    } else {
         setShowSuggestions(false);
-      }
-    };
+    }
+  };
   
     // Handle click on a suggestion
     const handleSuggestionClick = (suggestion) => {
@@ -197,40 +197,48 @@ const Ontology = () => {
       return oData;
     };
 
-  const HandleGraph = async (onLoad) => {
-    if (speciesAndGenes.length === 0) {
-      alert("No Species Selected");
-      return; // Exit early if no species are selected
-    }
-  
-    handleLoading(); // Clear the graph and show the loader
-  
-    try {
-      const array = [];
-      for (const key of Object.keys(speciesAndGenes)) {
-        for (const gene of speciesAndGenes[key]) {
-          array.push([reverseTranslator[key], gene]);
-        }
+    const HandleGraph = async () => {
+      if (Object.keys(speciesAndGenes).length === 0) {
+        alert("No Species Selected");
+        return;
       }
-  
-      console.log(array);
-  
-      // Fetch and process data
-      const formatted = await pullOrthoData(array);
-      setShowLoader(false); // Hide the loader after data is fetched
-  
-      // Draw the chart with the fetched data
-      drawChart(formatted, graph, taxoTranslator);
-    } catch (error) {
-      console.error("Error fetching or processing data:", error);
-      setShowLoader(false); // Hide the loader on error
-    }
-  };
+    
+      handleLoading(); // Clear the graph and show the loader
+    
+      try {
+        const reverseRef = await reverseTranslate(taxoTranslator); // Wait for reverseTranslate
+    
+        const array = [];
+        for (const key of Object.keys(speciesAndGenes)) {
+          for (const gene of speciesAndGenes[key]) {
+            array.push([reverseRef[key], gene]);
+          }
+        }
+    
+        console.log("Array for pullOrthoData:", array);
+    
+        // Fetch and process data
+        const formatted = await pullOrthoData(array);
+        console.log("Formatted data:", formatted);
+    
+        if (formatted.length === 0) {
+          alert("No data to display");
+          setShowLoader(false);
+          return;
+        }
+    
+        setShowLoader(false);
+        drawChart(formatted, graph, taxoTranslator);
+      } catch (error) {
+        console.error("Error in HandleGraph:", error);
+        setShowLoader(false);
+      }
+    };
 
-  const handleLoading = () => {
-    d3.select(graph.current).selectAll("*").remove();
-    setShowLoader(true);
-  };
+    const handleLoading = () => {
+      d3.select(graph.current).selectAll("*").remove();
+      setShowLoader(true);
+    };
 
 
   return (
@@ -243,28 +251,28 @@ const Ontology = () => {
             </h1>
 
             <div className='input-container'>
-              <input
-                type="text"
-                value={trait}
-                onChange={handleInputChange1}
-                placeholder="Enter gene function or trait"
-              />
+    <input
+      type="text"
+      value={trait}
+      onChange={handleInputChange1}
+      placeholder="Enter gene function or trait"
+    />
 
-              {showSuggestions && filteredOptions.length > 0 && (
-                <ul className='scroll-box'>
-                  {filteredOptions.map((option, index) => (
-                    <li
+    {showSuggestions && filteredOptions.length > 0 && (
+  <ul className='scroll-box'>
+    {filteredOptions.map((option, index) => (
+      <li
                       key={index} // Corrected syntax
                       onClick={() => handleSuggestionClick(option)} // Corrected syntax
-                      style={{ padding: '8px', cursor: 'pointer', borderBottom: '1px solid #ccc' }}
-                    >
-                      {option}
-                    </li>
-                  ))}
-                </ul>
-              )}
+        style={{ padding: '8px', cursor: 'pointer', borderBottom: '1px solid #ccc' }}
+      >
+        {option}
+      </li>
+    ))}
+  </ul>
+)}
 
-            </div>
+  </div>
 
           {/* Button to trigger fetch */}
           <div style={{paddingLeft: '60px'}}>

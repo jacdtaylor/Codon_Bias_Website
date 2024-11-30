@@ -1,27 +1,50 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Navbar from "../components/navbar";
 import go_ref from "../data/go_terms_reference.json";
-import DropdownWithSuggestions from '../components/dropdown_suggest';
-import Select from 'react-select';
+import { drawChart } from '../components/orthoHeatMap';
+import taxo from '../data/taxoTranslator.json';
+import Order from "../data/codonOrder.json";
+import commonNames from '../data/commonNameTranslator.json'
+import * as d3 from 'd3';
 
 
-const Filter = () => {
+const Ontology = () => {
+
+  // for data
   const [data, setData] = useState({}); // State to store the fetched data
+  const [scientific_name, setScientificName] = useState(null);
   const [scientific_names, setScientificNames] = useState([]);
-  const [error, setError] = useState(null); // State to store any error
-  const [loading, setLoading] = useState(false); // State to track loading
   const [trait, set_trait] = useState('');
   const [speciesAndGenes, setSpeciesAndGenes] = useState({});
-  const [scientific_name, setScientificName] = useState('');
+  const graph = useRef();
+  const [codonOrder, setCodonOrder] = useState([]);
+  const [taxoTranslator, setTaxoTranslator] = useState({});
+  const [reverseTranslator, setReverseTranslator] = useState({})
+
+  // for interface
+  const [error, setError] = useState(null); // State to store any error
+  const [loading, setLoading] = useState(false); // State to track loading
   const [isVisible, setVisibility] = useState(false)
+  const [showLoader, setShowLoader] = useState(false)
 
   // for dropdown
   const options = Object.keys(go_ref);
-
   const [filteredOptions, setFilteredOptions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
-  const [filteredOptions2, setFilteredOptions2] = useState([]);
-  const [showSuggestions2, setShowSuggestions2] = useState(true);
+
+  useEffect(() => {
+    setCodonOrder(Order);
+    setTaxoTranslator(taxo);
+}, []);
+
+async function reverseTranslate(taxoTranslator) {
+  const reverseRef = {};
+  for (const key of Object.keys(taxoTranslator)) {
+    reverseRef[taxoTranslator[key]] = key;
+  }
+  setReverseTranslator(reverseRef); // Still asynchronous
+  return reverseRef; // Return the updated object
+}
 
   // Function to fetch the data based on the user input ID
   async function getData() {
@@ -36,6 +59,7 @@ const Filter = () => {
     try {
       const result = await fetchData();
       formatData(result); // Set the fetched data in state
+      setSpeciesAndGenes({})
     } catch (error) {
       setError('Could not fetch data. Try again later.');
     } finally {
@@ -91,35 +115,20 @@ const Filter = () => {
   };
 
     // Update suggestions based on input
-    const handleInputChange1 = (e) => {
+  const handleInputChange1 = (e) => {
       set_trait(e.target.value)
   
       // Filter the options based on user input
       if (trait.length > 0) {
-        const filtered = options.filter((option) =>
+      const filtered = options.filter((option) =>
           option.toLowerCase().includes(trait.toLowerCase())
-        );
-        setFilteredOptions(filtered);
+      );
+      setFilteredOptions(filtered);
         setShowSuggestions(true);
-      } else {
+    } else {
         setShowSuggestions(false);
-      }
-    };
-
-    // const handleInputChange2 = (e) => {
-    //   setScientificName(e.target.value)
-  
-    //   // Filter the options based on user input
-    //   // if (scientific_name.length > 0) {
-    //     const filtered = scientific_names.filter((option) =>
-    //       option.toLowerCase().includes(scientific_name.toLowerCase())
-    //     );
-    //     setFilteredOptions2(filtered);
-    //     setShowSuggestions2(true);
-    //   // } else {
-    //   //   setShowSuggestions2(false);
-    //   // }
-    // };
+    }
+  };
   
     // Handle click on a suggestion
     const handleSuggestionClick = (suggestion) => {
@@ -151,55 +160,123 @@ const Filter = () => {
       });
     };
 
+  const selectAll = () => {
+    setSpeciesAndGenes(data)
+  }
+
+  const clearAll = () => {
+    setSpeciesAndGenes({})
+  }
+
+  const pullOrthoData = async (sortedArray) => {
+    const fetchPromises = sortedArray.map(async ([species, gene]) => {
+        try {
+            const response = await fetch(`speciesIndividualJSONS/${species}JSON.json`);
+            if (!response.ok) {
+                throw new Error("Failed to fetch species data");
+            }
+            const data = await response.json();
+            const proportionData = data[gene][1];
+
+            // Construct AddedData without directly modifying oData in parallel
+            const AddedData = codonOrder.reduce((acc, key, index) => {
+                acc[key] = proportionData[index];
+                return acc;
+            }, { Species: species, Gene: gene });
+
+            return AddedData;
+            } catch (error) {
+                console.error("Error fetching data for", species, gene, error);
+                return null; // Return null to filter out unsuccessful fetches
+            }
+        });
+
+      // Wait for all fetches to complete and filter out any null results
+      const results = await Promise.all(fetchPromises);
+      const oData = results.filter(Boolean); // Filter out nulls for unsuccessful fetches
+      return oData;
+    };
+
+    const HandleGraph = async () => {
+      if (Object.keys(speciesAndGenes).length === 0) {
+        alert("No Species Selected");
+        return;
+      }
+    
+      handleLoading(); // Clear the graph and show the loader
+    
+      try {
+        const reverseRef = await reverseTranslate(taxoTranslator); // Wait for reverseTranslate
+    
+        const array = [];
+        for (const key of Object.keys(speciesAndGenes)) {
+          for (const gene of speciesAndGenes[key]) {
+            array.push([reverseRef[key], gene]);
+          }
+        }
+    
+        console.log("Array for pullOrthoData:", array);
+    
+        // Fetch and process data
+        const formatted = await pullOrthoData(array);
+        console.log("Formatted data:", formatted);
+    
+        if (formatted.length === 0) {
+          alert("No data to display");
+          setShowLoader(false);
+          return;
+        }
+    
+        setShowLoader(false);
+        drawChart(formatted, graph, taxoTranslator);
+      } catch (error) {
+        console.error("Error in HandleGraph:", error);
+        setShowLoader(false);
+      }
+    };
+
+    const handleLoading = () => {
+      d3.select(graph.current).selectAll("*").remove();
+      setShowLoader(true);
+    };
+
 
   return (
         <>
           <link rel="stylesheet" href="filter.css" />
           <Navbar />
           <div className="Left_Column">
-            <h1 style={{ width: '100%', padding: '30px', fontSize: '20px'}}>
+            <h1 style={{ width: '100%', padding: '10px', paddingBottom: '20px', fontSize: '20px'}}>
               Search by Gene Function
             </h1>
 
-            <div style={{ width: '300px'}}>
-              <input
-                type="text"
-                value={trait}
-                onChange={handleInputChange1}
-                placeholder="Enter gene function or trait"
-                style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
-              />
+            <div className='input-container'>
+    <input
+      type="text"
+      value={trait}
+      onChange={handleInputChange1}
+      placeholder="Enter gene function or trait"
+    />
 
-              {showSuggestions && filteredOptions.length > 0 && (
-                <ul style={{
-                  listStyle: 'none',
-                  padding: '0',
-                  margin: '0',
-                  border: '1px solid #ccc',
-                  borderRadius: '4px',
-                  maxHeight: '150px',
-                  overflowY: 'auto',
-                  position: 'absolute',
-                  width: '300px'
-                }}>
-                  {filteredOptions.map((option, index) => (
-                    <li
+    {showSuggestions && filteredOptions.length > 0 && (
+  <ul className='scroll-box'>
+    {filteredOptions.map((option, index) => (
+      <li
                       key={index} // Corrected syntax
                       onClick={() => handleSuggestionClick(option)} // Corrected syntax
-                      style={{ padding: '8px', cursor: 'pointer', borderBottom: '1px solid #ccc' }}
-                    >
-                      {option}
-                    </li>
-                  ))}
-                </ul>
-              )}
+        style={{ padding: '8px', cursor: 'pointer', borderBottom: '1px solid #ccc' }}
+      >
+        {option}
+      </li>
+    ))}
+  </ul>
+)}
 
-            </div>
+  </div>
 
           {/* Button to trigger fetch */}
-          <div style={{ width: '150px'}}>
-            <button onClick={getData} 
-              style={{ width: '100%', padding: '8px', marginLeft: '50px', marginTop: '175px', borderRadius: '4px', border: '1px solid #ccc' }}>
+          <div style={{paddingLeft: '60px'}}>
+            <button onClick={getData}>
               Fetch Data
             </button>
           </div>
@@ -207,7 +284,7 @@ const Filter = () => {
   {isVisible &&
     <div>
     {/* Select Species Section */}
-    <h1 style={{ width: '100%', padding: '30px', fontSize: '20px', marginTop: '25px'}}>
+    <h1 style={{ width: '100%', padding: '10px', paddingBottom: '20px', fontSize: '20px', marginTop: '25px'}}>
       Select species
     </h1>
 
@@ -227,10 +304,39 @@ const Filter = () => {
             </div>
         ))}
       </div>
+      
+    </div>}
+    {isVisible && 
+    <div className='extra-buttons'>
+
+      <div className='Square_Buttons'
+      style={{paddingLeft: '25px'}}>
+
+        <div>
+          <button onClick={selectAll}>
+            Select All
+          </button>
+        </div>
+
+        <div>
+          <button onClick={clearAll}>
+            Clear All
+          </button>
+        </div>
+
+      </div>
+
+      <div>
+        <div style={{paddingLeft: '60px'}}>
+          <button onClick={() => {HandleGraph(); }}>
+            Graph Data
+          </button>
+        </div>
+      </div>
     </div>}
     </div>
 
-          <div className='Graph'>
+          <div className="Graph">
     
             {/* Display error if it exists */}
             {error && <p>Error: {error}</p>}
@@ -239,11 +345,14 @@ const Filter = () => {
             {loading && <p>Loading...</p>}
     
             {/* Display the processed species and genes if they exist */}
-            {speciesAndGenes && <pre className='Graph'>{JSON.stringify(speciesAndGenes, null, 2)}</pre>}
+            {/*speciesAndGenes && <pre className='Graph'>{JSON.stringify(speciesAndGenes, null, 2)}</pre>*/}
+            {showLoader &&
+                    <div className="loader"></div>}
+            <svg ref={graph}></svg>
           </div>
         </>
       );
     }
 
   
-export default Filter;
+export default Ontology;

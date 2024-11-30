@@ -208,16 +208,14 @@ const compareOrtho = () => {
                     });
             });
     };
-
-    
+   
 
     const handleLoading = () => {
         d3.select(currentSVG.current).selectAll("*").remove();
         setShowLoader(true);
             
     };
-
-    
+ 
 
     const clearCurrent = () => {
         d3.select(currentSVG.current).selectAll("*").remove();
@@ -256,7 +254,7 @@ const compareOrtho = () => {
         };
     };}
 
-    
+
 
     const pullOrthoData = async (sortedArray) => {
         const fetchPromises = sortedArray.map(async ([species, gene]) => {

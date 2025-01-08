@@ -47,6 +47,14 @@ const compareOrtho = () => {
     const [showSelected, setShowSelected] = useState(false);
     const [showLoader, setShowLoader] = useState(false)
 
+
+
+    
+
+
+
+
+
     useEffect(() => {
         setAllSpecies(allSpeciesData);
         setCodonOrder(Order);
@@ -123,8 +131,21 @@ const compareOrtho = () => {
         setTaxoTranslator(taxoTranslator === taxo ? commonNames : taxo);  
     };
 
-    const handleGeneChange = (gene) => {
-        const proportionData = currentSpeciesData[gene][1];
+    const handleGeneChange = async (gene) => {
+
+
+        const response = await fetch(`/api/dbQuery?species=${species}&gene=${gene}`);
+
+        if (!response.ok) {
+            throw new Error('Error fetching data');
+        }
+        const data = await response.json(); // Await the resolved JSON
+        const proportionData = data["Proportions"];
+
+        
+        
+
+        // const proportionData = currentSpeciesData[gene][1];
         const AddedData = codonOrder.reduce((acc, key, index) => {
             acc[key] = proportionData[index];
             return acc;
@@ -257,16 +278,18 @@ const compareOrtho = () => {
 
 
     const pullOrthoData = async (sortedArray) => {
-        const fetchPromises = sortedArray.map(async ([species, gene]) => {
+        const oData = [];
+        
+        // Helper function to process each item
+        const processItem = async ([species, gene]) => {
             try {
-                const response = await fetch(`speciesIndividualJSONS/${species}JSON.json`);
-                if (!response.ok) {
-                    throw new Error("Failed to fetch species data");
-                }
-                const data = await response.json();
-                const proportionData = data[gene][1];
+                const response = await fetch(`/api/dbQuery?species=${species}&gene=${gene}`);
+                if (!response.ok) throw new Error("Failed to fetch data from API");
     
-                // Construct AddedData without directly modifying oData in parallel
+                const data = await response.json();
+                const proportionData = data["Proportions"]; // Access the Proportions field
+    
+                // Construct AddedData without directly modifying oData
                 const AddedData = codonOrder.reduce((acc, key, index) => {
                     acc[key] = proportionData[index];
                     return acc;
@@ -275,15 +298,24 @@ const compareOrtho = () => {
                 return AddedData;
             } catch (error) {
                 console.error("Error fetching data for", species, gene, error);
-                return null; // Return null to filter out unsuccessful fetches
+                return null; // Return null for unsuccessful fetches
             }
-        });
+        };
     
-        // Wait for all fetches to complete and filter out any null results
-        const results = await Promise.all(fetchPromises);
-        const oData = results.filter(Boolean); // Filter out nulls for unsuccessful fetches
+        // Iterate through the sortedArray directly (without batching)
+        for (let i = 0; i < sortedArray.length; i++) {
+            const [species, gene] = sortedArray[i]; // Extract species and gene
+    
+            const result = await processItem([species, gene]);
+            if (result) {
+                oData.push(result); // Only add valid results
+            }
+        }
+    
         return oData;
     };
+    
+    
 
     return (
         <>

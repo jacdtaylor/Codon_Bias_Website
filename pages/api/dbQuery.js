@@ -26,7 +26,7 @@ export default async function handler(req, res) {
     const { species, gene } = req.query;
 
     try {
-        console.log(gene)
+       
       
 
         // Dynamically inject the validated table name into the query

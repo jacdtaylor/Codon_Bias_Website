@@ -42,7 +42,7 @@ const compareOrtho = () => {
     const [currentSpeciesData, setCurrentSpeciesData] = useState({});
 
     
-    
+
     const [showGroups, setShowGroups] = useState(false);
     const [showSelected, setShowSelected] = useState(false);
     const [showLoader, setShowLoader] = useState(false)
@@ -305,7 +305,7 @@ const compareOrtho = () => {
         // Iterate through the sortedArray directly (without batching)
         for (let i = 0; i < sortedArray.length; i++) {
             const [species, gene] = sortedArray[i]; // Extract species and gene
-    
+
             const result = await processItem([species, gene]);
             if (result) {
                 oData.push(result); // Only add valid results
@@ -409,7 +409,10 @@ const compareOrtho = () => {
             <div className="G_container">
                 <div className="Graph">
                     {showLoader &&
-                    <div className="loader"></div>}
+                    <div className="loader">
+                     
+                    </div>
+                    }
                     <svg id="ID1" ref={svgRef1}></svg>
                     <svg id="ID2" ref={svgRef2} style={{ display: "none" }}></svg>
                     <svg id="ID3" ref={svgRef3} style={{ display: "none" }}></svg>

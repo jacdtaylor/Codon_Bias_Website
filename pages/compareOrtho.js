@@ -202,32 +202,45 @@ const compareOrtho = () => {
         setShowGroups(true);
     };
 
-    const selectOrthoGroup = (id) => {
+    const selectOrthoGroup = async (id) => {
         let i = 0;
-        while (i < groupDivides.length) {
-            if (id < groupDivides[i]) {
-                break;
-            }
-            i++;
-        }
-        fetch(`OrthoGroups/GroupFile_${i}.json`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("Failed to fetch group data");
-                }
-                return response.json();
-            })
-            .then(data => {
-                pullOrthoData(data[id])
+
+
+        const response = await fetch(`/api/orthoQuery?orthoID=${id}`);
+        if (!response.ok) throw new Error("Failed to fetch data from API");
+    
+        const data = await response.json();
+        console.log(data)
+
+        pullOrthoData(data['species'])
                     .then(orthoData => {
                         setShowLoader(false);
                         setSelectedGenes(orthoData)
-                        drawChart(orthoData, currentSVG, taxoTranslator);
-                    })
-                    .catch(error => {
-                        console.error("Error fetching ortho data:", error);
-                    });
-            });
+                        drawChart(orthoData, currentSVG, taxoTranslator);})
+        // while (i < groupDivides.length) {
+        //     if (id < groupDivides[i]) {
+        //         break;
+        //     }
+        //     i++;
+        // }
+        // fetch(`OrthoGroups/GroupFile_${i}.json`)
+        //     .then(response => {
+        //         if (!response.ok) {
+        //             throw new Error("Failed to fetch group data");
+        //         }
+        //         return response.json();
+        //     })
+        //     .then(data => {
+        //         pullOrthoData(data[id])
+        //             .then(orthoData => {
+        //                 setShowLoader(false);
+        //                 setSelectedGenes(orthoData)
+        //                 drawChart(orthoData, currentSVG, taxoTranslator);
+        //             })
+        //             .catch(error => {
+        //                 console.error("Error fetching ortho data:", error);
+        //             });
+        //     });
     };
    
 

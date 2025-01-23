@@ -42,10 +42,18 @@ const compareOrtho = () => {
     const [currentSpeciesData, setCurrentSpeciesData] = useState({});
 
     
-    
+
     const [showGroups, setShowGroups] = useState(false);
     const [showSelected, setShowSelected] = useState(false);
     const [showLoader, setShowLoader] = useState(false)
+
+
+
+    
+
+
+
+
 
     useEffect(() => {
         setAllSpecies(allSpeciesData);
@@ -123,8 +131,21 @@ const compareOrtho = () => {
         setTaxoTranslator(taxoTranslator === taxo ? commonNames : taxo);  
     };
 
-    const handleGeneChange = (gene) => {
-        const proportionData = currentSpeciesData[gene][1];
+    const handleGeneChange = async (gene) => {
+
+
+        const response = await fetch(`/api/dbQuery?species=${species}&gene=${gene}`);
+
+        if (!response.ok) {
+            throw new Error('Error fetching data');
+        }
+        const data = await response.json(); // Await the resolved JSON
+        const proportionData = data["Proportions"];
+
+        
+        
+
+        // const proportionData = currentSpeciesData[gene][1];
         const AddedData = codonOrder.reduce((acc, key, index) => {
             acc[key] = proportionData[index];
             return acc;
@@ -146,21 +167,20 @@ const compareOrtho = () => {
         setShowSelected(!showSelected);
     }
 
-    const handleDataChange = (item) => {
-        fetch(`speciesIndividualJSONS/${item}JSON.json`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("Failed to fetch species data");
-                }
-                return response.json();
-            })
-            .then(data => {
-                setCurrentSpeciesData(data);
-                setCurrentGenes(Object.keys(data));
-            })
-            .catch(error => {
-                console.error("Error fetching species data:", error);
-            });
+    const handleDataChange = async (item) => {
+       
+            const response = await fetch(`/api/geneNameQuery?species=${item}`);
+
+            if (!response.ok) {
+                throw new Error('Error fetching data');
+            }
+            const data = await response.json(); // Await the resolved JSON
+            console.log(data)
+        
+
+                setCurrentGenes(data);
+        
+          
     };
 
     const HandleGraph = (onLoad) => {
@@ -174,50 +194,43 @@ const compareOrtho = () => {
     
 
 
-    const handleShowGroups = (id) => {
-        let groups = currentSpeciesData[id][0];
+    const handleShowGroups = async (id) => {
+        const response = await fetch(`/api/dbQuery?species=${species}&gene=${id}`);
+        if (!response.ok) throw new Error("Failed to fetch data from API");
+
+        const data = await response.json();
+        let groups = data["orthoGroups"];
+        console.log(groups)
         groups = groups.split(",");
         setPossibleGroups(groups);
         setShowGroups(true);
     };
 
-    const selectOrthoGroup = (id) => {
+    const selectOrthoGroup = async (id) => {
         let i = 0;
-        while (i < groupDivides.length) {
-            if (id < groupDivides[i]) {
-                break;
-            }
-            i++;
-        }
-        fetch(`OrthoGroups/GroupFile_${i}.json`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("Failed to fetch group data");
-                }
-                return response.json();
-            })
-            .then(data => {
-                pullOrthoData(data[id])
+
+
+        const response = await fetch(`/api/orthoQuery?orthoID=${id}`);
+        if (!response.ok) throw new Error("Failed to fetch data from API");
+    
+        const data = await response.json();
+        console.log(data)
+
+        pullOrthoData(data['species'])
                     .then(orthoData => {
                         setShowLoader(false);
                         setSelectedGenes(orthoData)
-                        drawChart(orthoData, currentSVG, taxoTranslator);
-                    })
-                    .catch(error => {
-                        console.error("Error fetching ortho data:", error);
-                    });
-            });
+                        drawChart(orthoData, currentSVG, taxoTranslator);})
+        
     };
-
-    
+   
 
     const handleLoading = () => {
         d3.select(currentSVG.current).selectAll("*").remove();
         setShowLoader(true);
             
     };
-
-    
+ 
 
     const clearCurrent = () => {
         d3.select(currentSVG.current).selectAll("*").remove();
@@ -256,19 +269,21 @@ const compareOrtho = () => {
         };
     };}
 
-    
+
 
     const pullOrthoData = async (sortedArray) => {
-        const fetchPromises = sortedArray.map(async ([species, gene]) => {
+        const oData = [];
+        
+        // Helper function to process each item
+        const processItem = async ([species, gene]) => {
             try {
-                const response = await fetch(`speciesIndividualJSONS/${species}JSON.json`);
-                if (!response.ok) {
-                    throw new Error("Failed to fetch species data");
-                }
-                const data = await response.json();
-                const proportionData = data[gene][1];
+                const response = await fetch(`/api/dbQuery?species=${species}&gene=${gene}`);
+                if (!response.ok) throw new Error("Failed to fetch data from API");
     
-                // Construct AddedData without directly modifying oData in parallel
+                const data = await response.json();
+                const proportionData = data["Proportions"]; // Access the Proportions field
+    
+                // Construct AddedData without directly modifying oData
                 const AddedData = codonOrder.reduce((acc, key, index) => {
                     acc[key] = proportionData[index];
                     return acc;
@@ -277,15 +292,24 @@ const compareOrtho = () => {
                 return AddedData;
             } catch (error) {
                 console.error("Error fetching data for", species, gene, error);
-                return null; // Return null to filter out unsuccessful fetches
+                return null; // Return null for unsuccessful fetches
             }
-        });
+        };
     
-        // Wait for all fetches to complete and filter out any null results
-        const results = await Promise.all(fetchPromises);
-        const oData = results.filter(Boolean); // Filter out nulls for unsuccessful fetches
+        // Iterate through the sortedArray directly (without batching)
+        for (let i = 0; i < sortedArray.length; i++) {
+            const [species, gene] = sortedArray[i]; // Extract species and gene
+
+            const result = await processItem([species, gene]);
+            if (result) {
+                oData.push(result); // Only add valid results
+            }
+        }
+    
         return oData;
     };
+    
+    
 
     return (
         <>
@@ -379,7 +403,10 @@ const compareOrtho = () => {
             <div className="G_container">
                 <div className="Graph">
                     {showLoader &&
-                    <div className="loader"></div>}
+                    <div className="loader">
+                     
+                    </div>
+                    }
                     <svg id="ID1" ref={svgRef1}></svg>
                     <svg id="ID2" ref={svgRef2} style={{ display: "none" }}></svg>
                     <svg id="ID3" ref={svgRef3} style={{ display: "none" }}></svg>

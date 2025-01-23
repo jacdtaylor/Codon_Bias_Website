@@ -8,7 +8,7 @@ import Image from "next/image";
 export default function Navbar() {
   // add new pages and links here
   // be sure the page name in pageNames is in the same index as its link in links
-  const pageNames = ["Filter","Select Multiple","Compare Orthologs", "Ontology"];
+  const pageNames = ["Compare Genes","Genome-Wide Search by Trait","Search by Ortholog Group", "Search by Gene Function"];
   const links = ["/filter", "/selectMultiple","/compareOrtho", '/ontology']
 
   return (

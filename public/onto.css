@@ -225,6 +225,18 @@ body {
     top: 50%; /* Center vertically */
     transform: translateY(-50%);
   }
+
+  .download {
+    margin-left: 675px;
+    height: 45px;
+    background-color: #373b52;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  }
   
   @keyframes spin {
     0% { transform: rotate(0deg); }

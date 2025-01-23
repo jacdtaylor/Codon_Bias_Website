@@ -4,8 +4,9 @@ import go_ref from "../data/go_terms_reference.json";
 import { drawChart } from '../components/orthoHeatMap';
 import taxo from '../data/taxoTranslator.json';
 import Order from "../data/codonOrder.json";
-import commonNames from '../data/commonNameTranslator.json'
+import commonNames from '../data/commonNameTranslator.json';
 import * as d3 from 'd3';
+import { saveAs } from 'file-saver';
 
 
 const Ontology = () => {
@@ -26,6 +27,7 @@ const Ontology = () => {
   const [loading, setLoading] = useState(false); // State to track loading
   const [isVisible, setVisibility] = useState(false)
   const [showLoader, setShowLoader] = useState(false)
+  const [showDownload, setShowDownload] = useState(false)
 
   // for dropdown
   const options = Object.keys(go_ref);
@@ -35,7 +37,15 @@ const Ontology = () => {
   useEffect(() => {
     setCodonOrder(Order);
     setTaxoTranslator(taxo);
-}, []);
+  }, []);
+
+  useEffect(() => {
+      if (Object.keys(speciesAndGenes).length > 0) {
+          HandleGraph();
+      } else {
+          d3.select(graph.current).selectAll("*").remove();
+      }
+  }, [taxoTranslator, speciesAndGenes]);
 
 async function reverseTranslate(taxoTranslator) {
   const reverseRef = {};
@@ -206,9 +216,11 @@ async function reverseTranslate(taxoTranslator) {
       handleLoading(); // Clear the graph and show the loader
     
       try {
-        const reverseRef = await reverseTranslate(taxoTranslator); // Wait for reverseTranslate
-    
+        const reverseRef = await reverseTranslate(taxo); // Wait for reverseTranslate
+        
         const array = [];
+
+        console.log(Object.keys(speciesAndGenes));
         for (const key of Object.keys(speciesAndGenes)) {
           for (const gene of speciesAndGenes[key]) {
             array.push([reverseRef[key], gene]);
@@ -220,6 +232,8 @@ async function reverseTranslate(taxoTranslator) {
         // Fetch and process data
         const formatted = await pullOrthoData(array);
         console.log("Formatted data:", formatted);
+
+        
     
         if (formatted.length === 0) {
           alert("No data to display");
@@ -229,6 +243,7 @@ async function reverseTranslate(taxoTranslator) {
     
         setShowLoader(false);
         drawChart(formatted, graph, taxoTranslator);
+        setShowDownload(true);
       } catch (error) {
         console.error("Error in HandleGraph:", error);
         setShowLoader(false);
@@ -237,14 +252,40 @@ async function reverseTranslate(taxoTranslator) {
 
     const handleLoading = () => {
       d3.select(graph.current).selectAll("*").remove();
+      setShowDownload(false);
       setShowLoader(true);
     };
+
+    const handleNameChange = () => {
+      setTaxoTranslator(taxoTranslator === taxo ? commonNames : taxo);  
+    };
+
+    const downloadGraph = () => {
+        if (Object.keys(speciesAndGenes).length > 0) {
+        const svgElement = graph.current;
+        if (!svgElement) return;
+        const svgXML = new XMLSerializer().serializeToString(svgElement);
+        const img = new Image();
+        img.src = 'data:image/svg+xml;base64,' + btoa(svgXML);
+
+        img.onload = () => {
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            canvas.width = svgElement.clientWidth;
+            canvas.height = svgElement.clientHeight;
+            context.drawImage(img, 0, 0);
+            canvas.toBlob(blob => {
+                saveAs(blob, 'graph.png');
+            });
+        };
+    };}
 
 
   return (
         <>
-          <link rel="stylesheet" href="filter.css" />
+          <link rel="stylesheet" href="onto.css" />
           <Navbar />
+          <div id="info-box" ></div>
           <div className="Left_Column">
             <h1 style={{ width: '100%', padding: '10px', paddingBottom: '20px', fontSize: '20px'}}>
               Search by Gene Function
@@ -255,7 +296,7 @@ async function reverseTranslate(taxoTranslator) {
       type="text"
       value={trait}
       onChange={handleInputChange1}
-      placeholder="Enter gene function or trait"
+      placeholder="Enter gene function"
     />
 
     {showSuggestions && filteredOptions.length > 0 && (
@@ -326,10 +367,19 @@ async function reverseTranslate(taxoTranslator) {
 
       </div>
 
-      <div>
-        <div style={{paddingLeft: '60px'}}>
+      <div  className='Square_Buttons' 
+        style={{paddingLeft: '60px'}}>
+        <div>
           <button onClick={() => {HandleGraph(); }}>
             Graph Data
+          </button>
+        </div>
+      </div>
+      <div  className='Square_Buttons' 
+        style={{paddingLeft: '60px'}}>
+        <div>
+          <button onClick={() => {handleNameChange(); }}>
+            Toggle Name
           </button>
         </div>
       </div>
@@ -350,6 +400,11 @@ async function reverseTranslate(taxoTranslator) {
                     <div className="loader"></div>}
             <svg ref={graph}></svg>
           </div>
+          {showDownload && <div>
+              <button className='download' onClick={() => {downloadGraph(); }}>
+                Download Graph
+              </button>
+            </div>}
         </>
       );
     }

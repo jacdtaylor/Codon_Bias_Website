@@ -127,7 +127,7 @@ const drawChart = (data, svgCurrent, taxoKey) => {
                 //  infoBox.style("left", `${event.pageX - 415}px`) // Adjust for padding
                 //     .style("top", `${event.pageY - yOffset}px`)
                 //     .style("max-width", "400px")
-      //               .style("visibility", "visible");
+                //     .style("visibility", "visible");
       })  
       .on("mouseout", function(event, d) {
         d3.select(this).style("stroke", "none");

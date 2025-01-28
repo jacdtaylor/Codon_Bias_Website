@@ -1,50 +1,44 @@
 import Image from "next/image";
 import Container from "./container";
-import heroImg from "../public/img/hero.png";
+import heroImg from "../public/img/Tessa's First Illustration (1).png";
 import DropDown from "./dropdown";
+import DarkSwitch from "./DarkSwitch"
 
 const Hero = () => {
   return (
     <>
       <Container className="flex flex-wrap ">
-        <div className="flex items-center w-full lg:w-1/2">
+        <div className="flex items-center w-full lg:w-2/5">
           <div className="max-w-2xl mb-8">
-            <h1 className="text-4xl font-bold leading-snug tracking-tight text-gray-800 lg:text-4xl lg:leading-tight xl:text-6xl xl:leading-tight dark:text-white">
-              What is <span className="text-4xl font-bold leading-snug tracking-tight text-indigo-600 lg:text-4xl lg:leading-tight xl:text-6xl xl:leading-tight dark:text-white">Codon Bias</span>?
+            <h1 className="text-4xl font-bold leading-snug tracking-tight text-gray-300 lg:text-4xl lg:leading-tight xl:text-6xl xl:leading-tight dark:text-white">
+              What is <span className="text-4xl font-bold leading-snug tracking-tight text-indigo-500 lg:text-4xl lg:leading-tight xl:text-6xl xl:leading-tight dark:text-white">Codon Bias</span>?
             </h1>
-            <p className="py-5 text-xl leading-normal text-gray-500 lg:text-xl xl:text-2xl dark:text-gray-300">
+            <p className="py-5 text-xl leading-normal text-gray-400 lg:text-xl xl:text-2xl dark:text-gray-300">
               When DNA has been transcribed
-              into RNA and that RNA is being translated into protein, certain codons
-              in the RNA call for certain amino acids. However, not every codon codes 
-              for a different amino acid. Codons that code for the same amino acid are 
-              called synonmous codons.
+              into RNA and RNA is being translated into protein, certain codons
+              in the RNA call for certain amino acids. However, not every codon encodes 
+              a different amino acid. Codons that code for the same amino acid are 
+              called synonymous codons.
             </p>
-            <p className="py-5 text-xl leading-normal text-gray-500 lg:text-xl xl:text-2xl dark:text-gray-300">
-              Codon Bias is the interesting phenomenon where one or more of these synonomous 
-              codons are seemingly preferred over others, even though they provide the 
-              same amino acid. The effects of codon bias are still being discovered.
+            <p className="py-5 text-xl leading-normal text-gray-400 lg:text-xl xl:text-2xl dark:text-gray-300">
+              Codon bias is the preference for certain synonymous codons over others 
+              within a species. The causes and effects of codon bias are still being discovered.
             </p>
 
-            <div className="flex flex-col items-start space-y-3 sm:space-x-4 sm:space-y-0 sm:items-center sm:flex-row">
+            {/* <div className="flex flex-col items-start space-y-3 sm:space-x-4 sm:space-y-0 sm:items-center sm:flex-row">
               <p className="py-5 text-xl leading-normal text-indigo-600 lg:text-xl xl:text-2xl dark:text-gray-300"> 
                 X-Axis:
               </p>
               <DropDown />
-              </div>
-            <div className="flex flex-col items-start space-y-3 sm:space-x-4 sm:space-y-0 sm:items-center sm:flex-row"></div>
+              </div> */}
+            {/* <div className="flex flex-col items-start space-y-3 sm:space-x-4 sm:space-y-0 sm:items-center sm:flex-row"></div>
               <p className="py-5 text-xl leading-normal text-indigo-600 lg:text-xl xl:text-2xl dark:text-gray-300"> 
                 Y-Axis: <span className="py-5 text-xl leading-normal text-gray-500 lg:text-xl xl:text-2xl dark:text-gray-300"> Codon Proportions</span>
-                </p>
-              {/* <a
-                target="_blank"
-                rel="noopener"
-                className="px-8 py-4 text-lg font-medium text-center text-white bg-indigo-600 rounded-md ">
-                Codon Proportions
-              </a> */}
+                </p>  */}
             </div>
           </div>
-        {/* <div className="flex items-center justify-center w-full lg:w-1/2">
-          <div className="">            
+        <div className="flex items-center justify-center w-full lg:w-2/5">
+          <div className="Graph">            
           <Image
               src={heroImg}
               width="616"
@@ -55,22 +49,22 @@ const Hero = () => {
               placeholder="blur"
             />
           </div>
-        </div> */}
+        </div>
       </Container>
       <Container>
         <div className="flex flex-col justify-center">
 
           <div className="flex flex-wrap justify-center gap-5 mt-10 md:justify-around">
-            <div className="text-gray-400 dark:text-gray-400">
+            <div className="text-gray-300 dark:text-gray-400">
             <a
                 href="https://github.com/jacdtaylor/Codon_Bias_Website/"
                 target="_blank"
                 rel="noopener"
-                className="flex items-center space-x-2 text-gray-500 dark:text-gray-400">
+                className="flex items-center space-x-2 text-gray-300 dark:text-gray-400">
                 <svg
                   role="img"
-                  width="24"
-                  height="24"
+                  width="10"
+                  height="10"
                   className="w-5 h-5"
                   viewBox="0 0 24 24"
                   fill="currentColor"

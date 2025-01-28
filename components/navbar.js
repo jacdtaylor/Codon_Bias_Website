@@ -8,8 +8,8 @@ import Image from "next/image";
 export default function Navbar() {
   // add new pages and links here
   // be sure the page name in pageNames is in the same index as its link in links
-  const pageNames = ["Compare Genes","Genome-Wide Search by Trait","Search by Ortholog Group", "Search by Gene Function", "Genome-Wide Selection"];
-  const links = ["/filter", "/selectMultiple","/compareOrtho", '/ontology', "/genomewide"]
+  const pageNames = ["Compare Genes", "Genome-Wide Selection", "Genome-Wide Search by Trait","Search by Ortholog Group", "Search by Gene Function"];
+  const links = ["/filter", "/genomewide", "/selectMultiple","/compareOrtho", '/ontology']
 
   return (
     <div className="sticky top-0 z-50">
@@ -51,7 +51,7 @@ export default function Navbar() {
                   </svg>
                 </Disclosure.Button>
 
-                <Disclosure.Panel className="flex flex-wrap w-full my-5 lg:hidden">
+                <Disclosure.Panel className="flex flex-wrap items-center justify-center w-full my-5 lg:hidden">
                   <>
                     {pageNames.map((name, index) => (
                       <Link 
@@ -60,13 +60,10 @@ export default function Navbar() {
                         className="w-full px-4 py-2 -ml-4 text-gray-500 rounded-md hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none">
                         {name}
                       </Link>
+                      
                     ))}
-                    <Link 
-                      href="/login"
-                      className="w-full px-4 py-2 -ml-4 text-gray-500 rounded-md hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none">
-                      Log In
-                    </Link>
                   </>
+                  
                 </Disclosure.Panel>
               </div>
             </>
@@ -79,7 +76,7 @@ export default function Navbar() {
               <li className="mr-3 nav__item" key={index}>
                 <Link 
                   href={links[index]}
-                  className="inline-block px-4 py-2 text-lg font-normal text-gray-800 no-underline rounded-md hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none">
+                  className="inline-block px-4 py-2 text-md font-normal text-gray-800 no-underline rounded-md hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none">
                   {name}
                 </Link>
               </li>
@@ -89,11 +86,6 @@ export default function Navbar() {
         <div className="hidden text-center lg:flex lg:items-center w-full flex-grow lg:w-auto">
           <div className="text-xl lg:flex-grow">
           </div>
-          <Link 
-            href="/login"
-            className="justify-end inline-block px-8 py-2 text-lg font-normal text-gray-800 no-underline rounded-md hover:text-indigo-500 focus:text-indigo-500 focus:bg-indigo-100 focus:outline-none">
-            Log In
-          </Link>
         </div>
       </nav>
     {/* </div> */}

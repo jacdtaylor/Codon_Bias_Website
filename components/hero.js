@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Container from "./container";
-import heroImg from "../public/img/Tessa's First Illustration (1).png";
+import heroImg from "../public/img/translation.png";
 import DropDown from "./dropdown";
 import DarkSwitch from "./DarkSwitch"
 
@@ -8,7 +8,7 @@ const Hero = () => {
   return (
     <>
       <Container className="flex flex-wrap ">
-        <div className="flex items-center w-full lg:w-2/5">
+        <div className="flex items-center w-full lg:w-1/3">
           <div className="max-w-2xl mb-8">
             <h1 className="text-4xl font-bold leading-snug tracking-tight text-gray-300 lg:text-4xl lg:leading-tight xl:text-6xl xl:leading-tight dark:text-white">
               What is <span className="text-4xl font-bold leading-snug tracking-tight text-indigo-500 lg:text-4xl lg:leading-tight xl:text-6xl xl:leading-tight dark:text-white">Codon Bias</span>?
@@ -37,7 +37,7 @@ const Hero = () => {
                 </p>  */}
             </div>
           </div>
-        <div className="flex items-center justify-center w-full lg:w-2/5">
+        <div className="flex items-center justify-center w-full lg:w-2/3">
           <div className="Graph">            
           <Image
               src={heroImg}

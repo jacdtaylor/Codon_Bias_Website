@@ -16,6 +16,7 @@ try:
     user=configs.get("db.user").data,
     password=configs.get("db.password").data,
     database=configs.get("db.name").data)
+  print("I'm doing this wrong")
 except:
   dbCreate = mysql.connector.connect(
     host=configs.get("db.host").data,
@@ -23,6 +24,14 @@ except:
     password=configs.get("db.password").data)
   createCursor = dbCreate.cursor()
   createCursor.execute(f"CREATE DATABASE {configs.get('db.name').data}")
+
+  mydb = mysql.connector.connect(
+        host=configs.get("db.host").data,
+        user=configs.get("db.user").data,
+        password=configs.get("db.password").data,
+        database=configs.get('db.name').data
+    )
+  print(f"Connected to database '{configs.get('db.name').data}' successfully.")
 
 
 

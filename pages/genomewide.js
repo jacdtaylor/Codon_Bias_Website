@@ -71,6 +71,7 @@ const genomeWide = () => {
     const handleSpeciesChange = (e) => {
         const selectedSpecies = Array.from(e.target.selectedOptions, option => option.value);
         setSpecies([...species ,...selectedSpecies]);
+        console.log([...species ,...selectedSpecies])
     };
 
     function convertIdentifier(input) {
@@ -94,7 +95,7 @@ const genomeWide = () => {
     
             // Update state using a callback to ensure the latest state is used
             setCurrentGenes((prevGenes) => {
-                const updatedGenes = [...prevGenes, ...dataArray];
+                const updatedGenes = [ ...dataArray];
                 console.log("Updated Genes:", updatedGenes);
     
                 // Trigger graph rendering after state update

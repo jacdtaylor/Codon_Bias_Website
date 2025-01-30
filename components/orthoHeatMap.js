@@ -1,7 +1,7 @@
 import * as d3 from 'd3';
 import codonJSON from "../data/codonJSON.json";
 import sortedNameList from "../data/sortedNameList.json"
-
+import expected from "../data/expectedProportions.json"
 
 
 
@@ -9,9 +9,10 @@ import sortedNameList from "../data/sortedNameList.json"
 const drawChart = (data, svgCurrent, taxoKey) => {
     // Clear existing svg content
     d3.select(svgCurrent.current).selectAll("*").remove();
-    // data.sort((a, b) => order.indexOf(a.Gene) - order.indexOf(b.Gene));
-    data.sort((a, b) => sortedNameList.indexOf(a.Species) - sortedNameList.indexOf(b.Species));
+    data.sort((a, b) => a.Gene.localeCompare(b.Gene));
 
+
+   
     
     const speciesNames = data.map(d => `${taxoKey[d.Species]} - ${d.Gene}`);
     const codons = Object.keys(codonJSON);
@@ -42,33 +43,32 @@ const drawChart = (data, svgCurrent, taxoKey) => {
         .padding(0);
 
 
-    const color = d3.scaleSequential(d3.interpolateYlGnBu).domain([0, 1]);
-
-    
-
-    // Add rectangles for heatmap
-    
-    svg.selectAll("rect")
-        .data(data)
-        .enter().append("g")
-        .selectAll("rect")
-        .data(d => codons.map(codon => 
-          ({ Species: d.Species, Gene: d.Gene, codon, value: d[codon].split("|")[0], count: d[codon].split("|")[1],
-          totalCount: totalCodonCounts.find(tc => tc.Gene === d.Gene).totalCount})))
-        .enter().append("rect")
-        .attr("x", d => x(d.codon))
-        .attr("y", d => y(`${taxoKey[d.Species]} - ${d.Gene}`))
-        .attr("width", x.bandwidth())
-        .attr("height", 
-        y.bandwidth())
-
-
-        // Adjust Coloring for Expected Proportion
-      //   .style("fill", d => color( (d.value * (toInteger(codonJSON[d.codon].split("|")[1])+1)) / 2))
-
-
-        .style("fill", d => color( (d.value ))) // Default Coloring
-
+        const minDeviation = -1; // Adjust based on expected range
+        const maxDeviation = 1;  // Adjust based on expected range
+        
+        const color = d3.scaleDiverging()
+            .domain([maxDeviation, 0, minDeviation]) 
+            .interpolator(d3.interpolateRdYlBu); // Red for below expected, blue for above expected
+        
+        svg.selectAll("rect")
+            .data(data)
+            .enter().append("g")
+            .selectAll("rect")
+            .data(d => codons.map(codon => ({
+                Species: d.Species,
+                Gene: d.Gene,
+                codon,
+                value: d[codon].split("|")[0],
+                count: d[codon].split("|")[1],
+                expectedValue: expected[codon] || 0
+            })))
+            .enter().append("rect")
+            .attr("x", d => x(d.codon))
+            .attr("y", d => y(`${taxoKey[d.Species]} - ${d.Gene}`))
+            .attr("width", x.bandwidth())
+            .attr("height", y.bandwidth())
+            .style("fill", d => color((d.value - d.expectedValue)/(d.expectedValue))) // Now using a diverging scale
+        
         // Highlight on hover
         .on("mouseover", function(event, d) {
             d3.select(this).style("stroke", "black").style("stroke-width", 2);

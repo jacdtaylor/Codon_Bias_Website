@@ -13,6 +13,8 @@ const drawChart = (data, svgRef, order) => {
     const speciesNames = data.map(d => d.Name);
     const codons = Object.keys(data[0]).filter(key => key !== 'Species' && key !== 'ID' && key !== 'Name');
     const squareLength = (speciesNames.length < 10) ? (450/speciesNames.length) : (15);
+    // console.log(squareLength)
+    // console.log(speciesNames)
     const margin = { top: 50, right: 0, bottom: 200, left: 175 };
     const width = codons.length * 10;
     const height = speciesNames.length * squareLength;

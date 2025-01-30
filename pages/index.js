@@ -23,7 +23,7 @@ const Home = () => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
+      <link rel="stylesheet" href="filter.css" />
       <Navbar />
       <Hero />
       <SectionTitle

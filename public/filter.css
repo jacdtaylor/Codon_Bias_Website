@@ -1,6 +1,6 @@
 /* General styling */
 body {
-  background-image: radial-gradient(circle at 0% 0%, #373b52, #3c3f55 51%, #71748f);
+  background-image: radial-gradient(circle at 0% 0%, #3c3f55 51%, #71748f); /* #373b52 taken out from first place */
   min-height: 100vh;
   margin: 0;
   padding: 0;

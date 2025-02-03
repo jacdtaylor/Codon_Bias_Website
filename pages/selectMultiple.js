@@ -5,7 +5,6 @@ import mammaliaData from '../data/proportions/mammalia_data.json';
 import vertebrateData from '../data/proportions/vertebrateJSON.json';
 import Navbar from "../components/navbar";
 import { drawChart } from "../components/drawGraph.js";
-import DarkSwitch from "../components/DarkSwitch.js";
 
 const Dropdown = () => {
   // State variables and refs

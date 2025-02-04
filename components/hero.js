@@ -2,7 +2,6 @@ import Image from "next/image";
 import Container from "./container";
 import heroImg from "../public/img/translation.png";
 import DropDown from "./dropdown";
-import DarkSwitch from "./DarkSwitch"
 
 const Hero = () => {
   return (
@@ -10,30 +9,30 @@ const Hero = () => {
       <Container className="flex flex-wrap ">
         <div className="flex items-center w-full lg:w-1/3">
           <div className="max-w-2xl mb-8">
-            <h1 className="text-4xl font-bold leading-snug tracking-tight text-gray-300 lg:text-4xl lg:leading-tight xl:text-6xl xl:leading-tight dark:text-white">
-              What is <span className="text-4xl font-bold leading-snug tracking-tight text-indigo-500 lg:text-4xl lg:leading-tight xl:text-6xl xl:leading-tight dark:text-white">Codon Usage Bias</span>?
+            <h1 className="text-4xl font-bold leading-snug tracking-tight text-gray-300 lg:text-4xl lg:leading-tight xl:text-6xl xl:leading-tight">
+              What is <span className="text-4xl font-bold leading-snug tracking-tight text-indigo-500 lg:text-4xl lg:leading-tight xl:text-6xl xl:leading-tight">Codon Usage Bias</span>?
             </h1>
-            <p className="py-5 text-xl leading-normal text-gray-400 lg:text-xl xl:text-2xl dark:text-gray-300">
+            <p className="py-5 text-xl leading-normal text-gray-400 lg:text-xl xl:text-2xl">
               When DNA has been transcribed
               into RNA and RNA is being translated into protein, certain codons
               in the RNA call for certain amino acids. However, not every codon encodes 
               a different amino acid. Codons that code for the same amino acid are 
               called synonymous codons.
             </p>
-            <p className="py-5 text-xl leading-normal text-gray-400 lg:text-xl xl:text-2xl dark:text-gray-300">
+            <p className="py-5 text-xl leading-normal text-gray-400 lg:text-xl xl:text-2xl">
               Codon bias is the preference for certain synonymous codons over others 
               within a species. The causes and effects of codon bias are still being discovered.
             </p>
 
             {/* <div className="flex flex-col items-start space-y-3 sm:space-x-4 sm:space-y-0 sm:items-center sm:flex-row">
-              <p className="py-5 text-xl leading-normal text-indigo-600 lg:text-xl xl:text-2xl dark:text-gray-300"> 
+              <p className="py-5 text-xl leading-normal text-indigo-600 lg:text-xl xl:text-2xl"> 
                 X-Axis:
               </p>
               <DropDown />
               </div> */}
             {/* <div className="flex flex-col items-start space-y-3 sm:space-x-4 sm:space-y-0 sm:items-center sm:flex-row"></div>
-              <p className="py-5 text-xl leading-normal text-indigo-600 lg:text-xl xl:text-2xl dark:text-gray-300"> 
-                Y-Axis: <span className="py-5 text-xl leading-normal text-gray-500 lg:text-xl xl:text-2xl dark:text-gray-300"> Codon Proportions</span>
+              <p className="py-5 text-xl leading-normal text-indigo-600 lg:text-xl xl:text-2xl"> 
+                Y-Axis: <span className="py-5 text-xl leading-normal text-gray-500 lg:text-xl xl:text-2xl"> Codon Proportions</span>
                 </p>  */}
             </div>
           </div>
@@ -55,12 +54,12 @@ const Hero = () => {
         <div className="flex flex-col justify-center">
 
           <div className="flex flex-wrap justify-center gap-5 mt-10 md:justify-around">
-            <div className="text-gray-300 dark:text-gray-400">
+            <div className="text-gray-300">
             <a
                 href="https://github.com/jacdtaylor/Codon_Bias_Website/"
                 target="_blank"
                 rel="noopener"
-                className="flex items-center space-x-2 text-gray-300 dark:text-gray-400">
+                className="flex items-center space-x-2 text-gray-300">
                 <svg
                   role="img"
                   width="10"

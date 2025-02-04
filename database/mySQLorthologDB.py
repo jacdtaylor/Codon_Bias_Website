@@ -5,7 +5,7 @@ import json
 
 
 configs = Properties()
-with open(".\database\db.properties", "rb") as read_props:
+with open("./database/db.properties", "rb") as read_props:
     configs.load(read_props)
 
 
@@ -34,7 +34,7 @@ except:
 
 
 
-JSONfiles = os.listdir('.\public\OrthoGroups')
+JSONfiles = os.listdir('./public/OrthoGroups')
 myCursor = mydb.cursor()
 
 deleteTable = f"DROP TABLE IF EXISTS orthogroups"
@@ -46,7 +46,7 @@ dataTable=[]
 for fileName in JSONfiles:
   
  
-    with open(f".\public\OrthoGroups\{fileName}") as f:
+    with open(f"./public/OrthoGroups/{fileName}") as f:
         data = json.load(f)
         for ID in data:
             groupData = data[ID]

@@ -5,8 +5,6 @@ import catData from "../data/cleanedTraitData.json";
 import mammaliaData from '../data/proportions/mammalia_data.json';
 import Navbar from "../components/navbar";
 import { drawChart } from "../components/drawGraph.js";
-import DarkSwitch from "../components/DarkSwitch.js";
-
 
 const Filter = () => {
   const [data, setData] = useState(null); // State to store the fetched data

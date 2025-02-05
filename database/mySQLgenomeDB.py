@@ -24,6 +24,14 @@ except:
   createCursor = dbCreate.cursor()
   createCursor.execute(f"CREATE DATABASE {configs.get('db.name').data}")
 
+  mydb = mysql.connector.connect(
+        host=configs.get("db.host").data,
+        user=configs.get("db.user").data,
+        password=configs.get("db.password").data,
+        database=configs.get('db.name').data
+    )
+  print(f"Connected to database '{configs.get('db.name').data}' successfully.")
+
 
 
 myCursor = mydb.cursor()

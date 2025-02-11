@@ -9,8 +9,7 @@ import { drawChart } from '../components/orthoHeatMap';
 import taxo from '../data/taxoTranslator.json';
 import commonNames from '../data/commonNameTranslator.json';
 import groupDivider from '../data/orthoDivide.json';
-import TaxoClade from '../components/taxoClade.js'; // Import the TaxoClade component
-// Note: Ensure that your file structure matches this import path.
+import cladeDict from '../data/cladeJSON.json'
 
 const compareOrtho = () => {
 
@@ -104,6 +103,18 @@ const compareOrtho = () => {
             setSelectedSpeciesGenes(selectedSpeciesGenes3);
         }
     };
+
+
+    function extractTaxId(code) {
+        if (typeof code !== 'string') {
+          console.warn("extractTaxId: Expected a string but got:", code);
+          return null;
+        }
+      
+        const match = code.split("at")[1];
+        console.log(match)
+        return match 
+      }
 
     const handleSpeciesChange = (e) => {
         const selected = e.target.value;
@@ -339,8 +350,8 @@ const compareOrtho = () => {
                                         setShowGroups(false); 
                                         handleLoading(); 
                                     }}>
-                                        {/* Use the TaxoClade component to render the taxonomic clade */}
-                                        <TaxoClade code={id} />
+                                        {cladeDict[extractTaxId(id)]}
+                                        
                                     </button>
                                 </li>
                             ))}

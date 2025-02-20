@@ -226,6 +226,17 @@ button:hover {
   transform: translate(-50%, -50%);
 }
 
+.Species_Input {
+  margin-bottom: 20px;
+  width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgba(57, 63, 84, 0.8);
+    color: #bfd2ff;
+    margin-right: 10px;
+}
+
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }

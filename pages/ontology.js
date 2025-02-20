@@ -316,7 +316,7 @@ async function reverseTranslate(taxoTranslator) {
   </div>
 
           {/* Button to trigger fetch */}
-          <div style={{paddingLeft: '60px'}}>
+          <div style={{paddingLeft: '110px'}}>
             <button onClick={getData}>
               Fetch Data
             </button>
@@ -351,7 +351,7 @@ async function reverseTranslate(taxoTranslator) {
     <div className='extra-buttons'>
 
       <div className='Square_Buttons'
-      style={{paddingLeft: '25px'}}>
+      style={{paddingLeft: '50px'}}>
 
         <div>
           <button onClick={selectAll}>
@@ -368,7 +368,7 @@ async function reverseTranslate(taxoTranslator) {
       </div>
 
       <div  className='Square_Buttons' 
-        style={{paddingLeft: '60px'}}>
+        style={{paddingLeft: '110px'}}>
         <div>
           <button onClick={() => {HandleGraph(); }}>
             Graph Data
@@ -376,7 +376,7 @@ async function reverseTranslate(taxoTranslator) {
         </div>
       </div>
       <div  className='Square_Buttons' 
-        style={{paddingLeft: '60px'}}>
+        style={{paddingLeft: '105px'}}>
         <div>
           <button onClick={() => {handleNameChange(); }}>
             Toggle Name

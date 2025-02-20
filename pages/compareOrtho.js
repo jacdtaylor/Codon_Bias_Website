@@ -177,10 +177,8 @@ const compareOrtho = () => {
             const data = await response.json(); // Await the resolved JSON
             console.log(data)
         
-
                 setCurrentGenes(data);
         
-          
     };
 
     const HandleGraph = (onLoad) => {

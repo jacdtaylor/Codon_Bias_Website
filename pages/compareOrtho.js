@@ -7,10 +7,9 @@ import allSpeciesData from "../data/speciesList.json";
 import Order from "../data/codonOrder.json";
 import { drawChart } from '../components/orthoHeatMap';
 import taxo from '../data/taxoTranslator.json';
-import commonNames from '../data/commonNameTranslator.json'
+import commonNames from '../data/commonNameTranslator.json';
 import groupDivider from '../data/orthoDivide.json';
-import { Container } from 'postcss';
-
+import cladeDict from '../data/cladeJSON.json'
 
 const compareOrtho = () => {
 
@@ -26,7 +25,6 @@ const compareOrtho = () => {
     const [selectedGenes3, setSelectedGenes3] = useState([]);
     const [selectedSpeciesGenes3, setSelectedSpeciesGenes3] = useState([]);
 
-
     const [selectedGenes, setSelectedGenes] = useState([]);
     const [selectedSpeciesGenes, setSelectedSpeciesGenes] = useState([]);
 
@@ -41,19 +39,9 @@ const compareOrtho = () => {
     const [currentGenes, setCurrentGenes] = useState([]);
     const [currentSpeciesData, setCurrentSpeciesData] = useState({});
 
-    
-
     const [showGroups, setShowGroups] = useState(false);
     const [showSelected, setShowSelected] = useState(false);
-    const [showLoader, setShowLoader] = useState(false)
-
-
-
-    
-
-
-
-
+    const [showLoader, setShowLoader] = useState(false);
 
     useEffect(() => {
         setAllSpecies(allSpeciesData);
@@ -75,6 +63,11 @@ const compareOrtho = () => {
         HandleSelected();
     }, [selectedGenes]);
 
+    // --- Taxonomic clade and digit extraction functions (now handled by TaxoClade component) ---
+    function extractDigits(code) {
+        const parts = code.split('@');
+        return parts.length > 1 ? parts[1] : null;
+    }
 
     const handleGraphNum = (svg) => {
         if (currentSVG.current) {
@@ -84,34 +77,45 @@ const compareOrtho = () => {
             svg.current.style.display = "block";
         }
         if (currentSVG === svgRef1) {
-            setSelectedGenes1(selectedGenes)
-            setSelectedSpeciesGenes1(selectedSpeciesGenes)
+            setSelectedGenes1(selectedGenes);
+            setSelectedSpeciesGenes1(selectedSpeciesGenes);
         } else if (currentSVG === svgRef2) {
-            setSelectedGenes2(selectedGenes)
-            setSelectedSpeciesGenes2(selectedSpeciesGenes)
+            setSelectedGenes2(selectedGenes);
+            setSelectedSpeciesGenes2(selectedSpeciesGenes);
         } else {
-            setSelectedGenes3(selectedGenes)
-            setSelectedSpeciesGenes3(selectedSpeciesGenes)
+            setSelectedGenes3(selectedGenes);
+            setSelectedSpeciesGenes3(selectedSpeciesGenes);
         }
 
         if (svg === svgRef1) {
-            setCurrentSVG(svgRef1)
-            setSelectedGenes(selectedGenes1)
-            setSelectedSpeciesGenes(selectedSpeciesGenes1)
+            setCurrentSVG(svgRef1);
+            setSelectedGenes(selectedGenes1);
+            setSelectedSpeciesGenes(selectedSpeciesGenes1);
         }
         else if (svg === svgRef2) {
-            setCurrentSVG(svgRef2)
-            setSelectedGenes(selectedGenes2)
-            setSelectedSpeciesGenes(selectedSpeciesGenes2)
+            setCurrentSVG(svgRef2);
+            setSelectedGenes(selectedGenes2);
+            setSelectedSpeciesGenes(selectedSpeciesGenes2);
         }
         else {
-            setCurrentSVG(svgRef3)
-            setSelectedGenes(selectedGenes3)
-            setSelectedSpeciesGenes(selectedSpeciesGenes3)
+            setCurrentSVG(svgRef3);
+            setSelectedGenes(selectedGenes3);
+            setSelectedSpeciesGenes(selectedSpeciesGenes3);
         }
-    }
+    };
 
-    
+
+    function extractTaxId(code) {
+        if (typeof code !== 'string') {
+          console.warn("extractTaxId: Expected a string but got:", code);
+          return null;
+        }
+      
+        const match = code.split("at")[1];
+        console.log(match)
+        return match 
+      }
+
     const handleSpeciesChange = (e) => {
         const selected = e.target.value;
         setSpecies(selected);
@@ -122,7 +126,6 @@ const compareOrtho = () => {
         setSelectedGenes(selectedGenes => selectedGenes.filter((item, index) => index !== indexToRemove));
     };
 
-
     const handleInputChange = (e) => {
         setNewId(e.target.value);
     };
@@ -132,20 +135,13 @@ const compareOrtho = () => {
     };
 
     const handleGeneChange = async (gene) => {
-
-
         const response = await fetch(`/api/dbQuery?species=${species}&gene=${gene}`);
-
         if (!response.ok) {
             throw new Error('Error fetching data');
         }
         const data = await response.json(); // Await the resolved JSON
         const proportionData = data["Proportions"];
 
-        
-        
-
-        // const proportionData = currentSpeciesData[gene][1];
         const AddedData = codonOrder.reduce((acc, key, index) => {
             acc[key] = proportionData[index];
             return acc;
@@ -165,32 +161,25 @@ const compareOrtho = () => {
     const HandleSelectedDisplay = () => {
         setShowGroups(false);
         setShowSelected(!showSelected);
-    }
+    };
 
     const handleDataChange = async (item) => {
-       
-            const response = await fetch(`/api/geneNameQuery?species=${item}`);
-
-            if (!response.ok) {
-                throw new Error('Error fetching data');
-            }
-            const data = await response.json(); // Await the resolved JSON
-            console.log(data)
-        
-                setCurrentGenes(data);
-        
+        const response = await fetch(`/api/geneNameQuery?species=${item}`);
+        if (!response.ok) {
+            throw new Error('Error fetching data');
+        }
+        const data = await response.json();
+        setCurrentGenes(data);
     };
 
-    const HandleGraph = (onLoad) => {
-        if (selectedGenes.length == 0) {
+    const HandleGraph = () => {
+        if (selectedGenes.length === 0) {
             alert("No Genes Selected");
         } else {
-        setShowLoader(false)
-        drawChart(selectedGenes, currentSVG, taxoTranslator);}
+            setShowLoader(false);
+            drawChart(selectedGenes, currentSVG, taxoTranslator);
+        }
     };
-    
-    
-
 
     const handleShowGroups = async (id) => {
         const response = await fetch(`/api/dbQuery?species=${species}&gene=${id}`);
@@ -198,76 +187,66 @@ const compareOrtho = () => {
 
         const data = await response.json();
         let groups = data["orthoGroups"];
-        console.log(groups)
         groups = groups.split(",");
         setPossibleGroups(groups);
         setShowGroups(true);
     };
 
     const selectOrthoGroup = async (id) => {
-        let i = 0;
-
-
         const response = await fetch(`/api/orthoQuery?orthoID=${id}`);
         if (!response.ok) throw new Error("Failed to fetch data from API");
     
         const data = await response.json();
-        console.log(data)
-
-        pullOrthoData(data['species'])
-                    .then(orthoData => {
-                        setShowLoader(false);
-                        setSelectedGenes(orthoData)
-                        drawChart(orthoData, currentSVG, taxoTranslator);})
-        
+        console.log(data);
+    
+        pullOrthoData(data['species']).then(orthoData => {
+            setShowLoader(false);
+            setSelectedGenes(orthoData);
+            drawChart(orthoData, currentSVG, taxoTranslator);
+        });
     };
-   
 
     const handleLoading = () => {
         d3.select(currentSVG.current).selectAll("*").remove();
         setShowLoader(true);
-            
     };
- 
 
     const clearCurrent = () => {
         d3.select(currentSVG.current).selectAll("*").remove();
         setSelectedSpeciesGenes([]);
         setSelectedGenes([]);
         if (currentSVG === svgRef1) {
-            setSelectedGenes1([])
-            setSelectedSpeciesGenes1([])
+            setSelectedGenes1([]);
+            setSelectedSpeciesGenes1([]);
         } else if (currentSVG === svgRef2) {
-            setSelectedGenes2([])
-            setSelectedSpeciesGenes2([])
+            setSelectedGenes2([]);
+            setSelectedSpeciesGenes2([]);
         } else {
-            setSelectedGenes3([])
-            setSelectedSpeciesGenes3([])
+            setSelectedGenes3([]);
+            setSelectedSpeciesGenes3([]);
         }   
-    }
-
+    };
 
     const downloadGraph = () => {
         if (selectedGenes.length > 0) {
-        const svgElement = currentSVG.current;
-        if (!svgElement) return;
-        const svgXML = new XMLSerializer().serializeToString(svgElement);
-        const img = new Image();
-        img.src = 'data:image/svg+xml;base64,' + btoa(svgXML);
+            const svgElement = currentSVG.current;
+            if (!svgElement) return;
+            const svgXML = new XMLSerializer().serializeToString(svgElement);
+            const img = new Image();
+            img.src = 'data:image/svg+xml;base64,' + btoa(svgXML);
 
-        img.onload = () => {
-            const canvas = document.createElement('canvas');
-            const context = canvas.getContext('2d');
-            canvas.width = svgElement.clientWidth;
-            canvas.height = svgElement.clientHeight;
-            context.drawImage(img, 0, 0);
-            canvas.toBlob(blob => {
-                saveAs(blob, 'graph.png');
-            });
-        };
-    };}
-
-
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                const context = canvas.getContext('2d');
+                canvas.width = svgElement.clientWidth;
+                canvas.height = svgElement.clientHeight;
+                context.drawImage(img, 0, 0);
+                canvas.toBlob(blob => {
+                    saveAs(blob, 'graph.png');
+                });
+            };
+        }
+    };
 
     const pullOrthoData = async (sortedArray) => {
         const oData = [];
@@ -279,9 +258,8 @@ const compareOrtho = () => {
                 if (!response.ok) throw new Error("Failed to fetch data from API");
     
                 const data = await response.json();
-                const proportionData = data["Proportions"]; // Access the Proportions field
+                const proportionData = data["Proportions"];
     
-                // Construct AddedData without directly modifying oData
                 const AddedData = codonOrder.reduce((acc, key, index) => {
                     acc[key] = proportionData[index];
                     return acc;
@@ -290,29 +268,25 @@ const compareOrtho = () => {
                 return AddedData;
             } catch (error) {
                 console.error("Error fetching data for", species, gene, error);
-                return null; // Return null for unsuccessful fetches
+                return null;
             }
         };
     
-        // Iterate through the sortedArray directly (without batching)
         for (let i = 0; i < sortedArray.length; i++) {
-            const [species, gene] = sortedArray[i]; // Extract species and gene
-
+            const [species, gene] = sortedArray[i];
             const result = await processItem([species, gene]);
             if (result) {
-                oData.push(result); // Only add valid results
+                oData.push(result);
             }
         }
     
         return oData;
     };
     
-    
-
     return (
         <>
-            <link rel="stylesheet" href="Ortho.css"></link>
-            <Head></Head>
+            <link rel="stylesheet" href="Ortho.css" />
+            <Head />
             <Navbar />
             <div id="info-box" ></div>
             <span className='graphButtons'>
@@ -340,9 +314,9 @@ const compareOrtho = () => {
                     <input type="text" value={newId} onChange={handleInputChange} placeholder="Enter ID" />
                 </div>
                 <container className="Column_Buttons">
-                <button onClick={handleNameChange}>Toggle Name</button>
-                <button onClick={clearCurrent}>Clear Selected</button>
-                <button onClick={HandleSelectedDisplay}>Show Selected</button>
+                    <button onClick={handleNameChange}>Toggle Name</button>
+                    <button onClick={clearCurrent}>Clear Selected</button>
+                    <button onClick={HandleSelectedDisplay}>Show Selected</button>
                 </container>
 
                 <ul className="GeneNamesUl">
@@ -371,15 +345,20 @@ const compareOrtho = () => {
                         <ul>
                             {possibleGroups.map((id, index) => (
                                 <li key={index}>
-                                    <button onClick={() => { selectOrthoGroup(id); setShowGroups(false); handleLoading(); }}>
-                                        {id}
+                                    <button onClick={() => { 
+                                        selectOrthoGroup(id); 
+                                        setShowGroups(false); 
+                                        handleLoading(); 
+                                    }}>
+                                        {cladeDict[extractTaxId(id)]}
+                                        
                                     </button>
                                 </li>
                             ))}
                         </ul>
                     </div>
                 )}
-               {showSelected && (
+                {showSelected && (
                     <div className="checkbox-container">
                         <button onClick={() => setShowSelected(false)} className="close-button">Close Menu</button>
                         <ul>
@@ -388,22 +367,20 @@ const compareOrtho = () => {
                                     <button>
                                         {taxoTranslator[item[0]]}, {item[1]}
                                     </button>
-                                    <button onClick={()=>handleRemoveGene(index)}>Remove</button>
-
+                                    <button onClick={() => handleRemoveGene(index)}>Remove</button>
                                 </li>
                             ))}
                         </ul>
                     </div>
                 )}
-            <button onClick={downloadGraph} class="Download">Download Graph</button>
-
+                <button onClick={downloadGraph} className="Download">Download Graph</button>
             </div>
             <div className="G_container">
                 <div className="Graph">
                     {showLoader &&
-                    <div className="loader">
-                     
-                    </div>
+                        <div className="loader">
+                            {/* Loader can be styled with CSS */}
+                        </div>
                     }
                     <svg id="ID1" ref={svgRef1}></svg>
                     <svg id="ID2" ref={svgRef2} style={{ display: "none" }}></svg>

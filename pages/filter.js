@@ -6,12 +6,11 @@ import Head from "next/head";
 import { ClusterCodonData } from "../components/cluster.js";
 import { saveAs } from 'file-saver';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-// import { drawChart } from '../components/humanHeatMap.js';
 import taxo from '../data/taxoTranslator.json';
 import VertebrateJSON from '../data/proportions/vertebrateExampleJSON.json'
 import Order from "../data/codonOrder.json";
 import allSpeciesData from "../data/speciesList.json";
-import drawChart from "../components/orthoHeatMap.js";
+import { drawChart } from "../components/orthoHeatMap.js";
 
 
 
@@ -19,8 +18,7 @@ import drawChart from "../components/orthoHeatMap.js";
 
 const Filter = () => {
 
-    const [filteredData, setFilteredData] = useState([]);
-    // const [selectedGenes, setSelectedGenes] = useState([]);
+    const [formattedData, setFormattedData] = useState([]);
     const [gene, setGene] = useState('');
     const [species, setSpecies] = useState('');
     const [currSpecGenes, setCurrSpecGenes] = useState([]);
@@ -32,20 +30,8 @@ const Filter = () => {
     const [codonOrder, setCodonOrder] = useState([]);
     const [taxoTranslator, setTaxoTranslator] = useState({});
     const [reverseTranslator, setReverseTranslator] = useState({});
-      const [showLoader, setShowLoader] = useState(false)
+    const [showLoader, setShowLoader] = useState(false)
     const graph = useRef();
-
-
-    // useEffect(() => {
-    //     setFilteredData(humanData);
-    //     // setFilteredData([...VertebrateJSON, ...humanData]);
-
-    // }, []);
-
-    // useEffect(() => {getAllGenes(humanData);}
-    // // useEffect(() => {getAllGenes([...VertebrateJSON, ...humanData]);}
-
-    //     , []);
 
     useEffect(() => {
         setAllSpecies(allSpeciesData || []);
@@ -59,27 +45,14 @@ const Filter = () => {
             handleDataChange(species);
         }
     }, [species]);
-    
 
-    // useEffect(() => {
-    //     if (typeof window !== 'undefined') {
-    //         setAllSpecies(allSpeciesData);
-    //         setCodonOrder(Order);
-    //         setTaxoTranslator(taxo);
-    //     }
-    // }, []);
-
-//   useEffect(() => {
-//       if (Object.keys(speciesAndGenes).length > 0) {
-//           HandleGraph();
-//       } else {
-//           d3.select(graph.current).selectAll("*").remove();
-//       }
-//   }, [taxoTranslator, speciesAndGenes]);
-
-    // useEffect(() => {
-    //     handleFilter();
-    // }, [selectedIds, countToggle]); // Trigger handleFilter whenever selectedIds change
+  useEffect(() => {
+      if (Object.keys(speciesAndGenes).length > 0) {
+          HandleGraph();
+      } else {
+          d3.select(graph.current).selectAll("*").remove();
+      }
+  }, [taxoTranslator, speciesAndGenes]);
 
     const handleAddId = () => {
         if (currSpecGenes.includes(gene) | gene.includes(",")) {
@@ -90,23 +63,11 @@ const Filter = () => {
             }));
             
             setGene('');
-            // setSpeciesAndGenes(prevIds => {
-            //     const updatedIds = [...new Set([...prevIds, ...idsToAdd])]; // Using Set to ensure unique values
-            //     setGene(''); // Reset gene after updating selectedIds
-            // });
         }
         else {
             alert("Gene Name Not Found.");
         }
     };
-
-    // const getAllGenes = (data) => {
-    //     const valueArray = [];
-    //     for (const Target of data) {
-    //         valueArray.push(Target["Gene"]);
-    //     }
-    //   setCurrSpecGenes(valueArray) 
-    // };
 
     const HandleCountToggle = () => {
         setCountToggle(!countToggle);
@@ -139,8 +100,8 @@ const Filter = () => {
             ...prevState,
             [species]: [...new Set([...(prevState[species] || []), suggestion])]
         }));
-        console.log('Translator:', taxoTranslator);
-        console.log('Reverse Translator:', reverseTranslator);
+        // console.log('Translator:', taxoTranslator);
+        // console.log('Reverse Translator:', reverseTranslator);
     };
     
 
@@ -148,56 +109,39 @@ const Filter = () => {
         setIsVisible(!isVisible);
       };
 
-    // const downloadGraph = () => {
-    //     // Select the SVG element
-    //     const svgElement = graph.current;
+    const downloadGraph = () => {
+        // Select the SVG element
+        const svgElement = graph.current;
     
-    //     // Get the SVG XML string
-    //     const svgXML = new XMLSerializer().serializeToString(svgElement);
+        // Get the SVG XML string
+        const svgXML = new XMLSerializer().serializeToString(svgElement);
     
-    //     // Create an image element
-    //     const img = new Image();
+        // Create an image element
+        const img = new Image();
     
-    //     // Set the image source to the SVG XML
-    //     img.src = 'data:image/svg+xml;base64,' + btoa(svgXML);
+        // Set the image source to the SVG XML
+        img.src = 'data:image/svg+xml;base64,' + btoa(svgXML);
     
-    //     // When the image loads
-    //     img.onload = () => {
-    //         // Create a canvas element
-    //         const canvas = document.createElement('canvas');
-    //         const context = canvas.getContext('2d');
+        // When the image loads
+        img.onload = () => {
+            // Create a canvas element
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
     
-    //         // Set canvas size to match SVG size
-    //         canvas.width = svgElement.clientWidth;
-    //         canvas.height = svgElement.clientHeight;
+            // Set canvas size to match SVG size
+            canvas.width = svgElement.clientWidth;
+            canvas.height = svgElement.clientHeight;
     
-    //         // Draw the image onto the canvas
-    //         context.drawImage(img, 0, 0);
+            // Draw the image onto the canvas
+            context.drawImage(img, 0, 0);
     
-    //         // Convert canvas to blob
-    //         canvas.toBlob(blob => {
-    //             // Save blob as file using FileSaver.js
-    //             saveAs(blob, 'graph.png');
-    //         });
-    //     };
-    // };
-    
-    
-    // const handleFilter = () => {
-    //     const filtered = filteredData.filter(item => {
-    //         const geneUpperCase = item.toUpperCase();
-    //         const selectedIdsLowerCase = selectedIds.map(id => id.toUpperCase());
-    //         return selectedIdsLowerCase.includes(geneUpperCase);
-    //     });
-    //     console.log(filtered);
-    //     if (filtered.length > 0) {
-    //         drawChart(filtered, speciesAndGenes, svgRef, countToggle);
-    //     } else {
-    //         console.warn('No data found for the selected IDs');
-    //         // Clear existing svg content if no data found
-    //         d3.select(graph.current).selectAll("*").remove();
-    //     }
-    // };
+            // Convert canvas to blob
+            canvas.toBlob(blob => {
+                // Save blob as file using FileSaver.js
+                saveAs(blob, 'graph.png');
+            });
+        };
+    };
 
     const handleGeneChange = async (gene) => {
         try {
@@ -274,18 +218,6 @@ const Filter = () => {
             console.error(error);
         }
     };
-    
-
-    // const HandleCluster = () => {
-    //     const filtered = filteredData.filter(item => {
-    //         const geneUpperCase = item.Gene.toUpperCase();
-    //         const selectedIdsLowerCase = selectedIds.map(id => id.toUpperCase());
-    //         return selectedIdsLowerCase.includes(geneUpperCase);
-    //     });
-    //     setSelectedIds(ClusterCodonData(filtered));
-        
-        
-    // }
 
     async function reverseTranslate(taxoTranslator) {
         const reverseRef = {};
@@ -302,76 +234,85 @@ const Filter = () => {
         setShowLoader(true);
         };
 
-    // const HandleGraph = async () => {
-    //     if (Object.keys(speciesAndGenes).length === 0) {
-    //       alert("No Species Selected");
-    //       return;
-    //     }
+    const HandleGraph = async () => {
+        if (Object.keys(speciesAndGenes).length === 0) {
+          alert("No Species Selected");
+          return;
+        }
       
-    //     handleLoading(); // Clear the graph and show the loader
+        // handleLoading(); // Clear the graph and show the loader
       
-    //     try {
-    //       const reverseRef = await reverseTranslate(taxo); // Wait for reverseTranslate
+        try {
           
-    //       const array = [];
+          const array = [];
   
-    //       console.log(Object.keys(speciesAndGenes));
-    //       for (const key of Object.keys(speciesAndGenes)) {
-    //         for (const gene of speciesAndGenes[key]) {
-    //           array.push([taxoTranslator[key], gene]);
-    //         }
-    //       }
+          console.log(Object.keys(speciesAndGenes));
+          for (const key of Object.keys(speciesAndGenes)) {
+            for (const gene of speciesAndGenes[key]) {
+              array.push([key, gene]);
+            }
+          }
       
-    //       console.log("Array for pullOrthoData:", array);
+          console.log("Array for pullOrthoData:", array[array.length - 1]);
       
-    //       // Fetch and process data
-    //       const formatted = await pullOrthoData(array);
-    //       console.log("Formatted data:", formatted);
+          // Fetch and process data
+          const formatted = await pullOrthoData(array);
+
+        //   setFormattedData(prevState => ({...prevState, formatted}))
+          
+          console.log("Formatted data:", formatted);
           
       
-    //       if (formatted.length === 0) {
-    //         alert("No data to display");
-    //         setShowLoader(false);
-    //         return;
-    //       }
+          if (formatted.length === 0) {
+            // alert("No data to display");
+            setShowLoader(false);
+            return;
+          }
       
-    //       setShowLoader(false);
-    //       drawChart(formatted, graph, taxoTranslator);
-    //     //   setShowDownload(true);
-    //     } catch (error) {
-    //       console.error("Error in HandleGraph:", error);
-    //       setShowLoader(false);
-    //     }
-    //   };
+          setShowLoader(false);
+          drawChart(formatted, graph, taxoTranslator);
+        //   setShowDownload(true);
+        } catch (error) {
+          console.error("Error in HandleGraph:", error);
+          setShowLoader(false);
+        }
+      };
 
       const pullOrthoData = async (sortedArray) => {
-        const fetchPromises = sortedArray.map(async ([species, gene]) => {
+        const oData = [];
+        
+        // Helper function to process each item
+        const processItem = async ([species, gene]) => {
             try {
-                const response = await fetch(`speciesIndividualJSONS/${species}JSON.json`);
-                if (!response.ok) {
-                    throw new Error("Failed to fetch species data");
-                }
-                const data = await response.json();
-                const proportionData = data[gene][1];
+                const response = await fetch(`/api/dbQuery?species=${species}&gene=${gene}`);
+                if (!response.ok) throw new Error("Failed to fetch data from API");
     
-                // Construct AddedData without directly modifying oData in parallel
+                const data = await response.json();
+                const proportionData = data["Proportions"];
+    
                 const AddedData = codonOrder.reduce((acc, key, index) => {
                     acc[key] = proportionData[index];
                     return acc;
                 }, { Species: species, Gene: gene });
     
                 return AddedData;
-                } catch (error) {
-                    console.error("Error fetching data for", species, gene, error);
-                    return null; // Return null to filter out unsuccessful fetches
-                }
-            });
-    
-          // Wait for all fetches to complete and filter out any null results
-          const results = await Promise.all(fetchPromises);
-          const oData = results.filter(Boolean); // Filter out nulls for unsuccessful fetches
-          return oData;
+            } catch (error) {
+                console.error("Error fetching data for", species, gene, error);
+                return null;
+            }
         };
+    
+        for (let i = 0; i < sortedArray.length; i++) {
+            const [species, gene] = sortedArray[i];
+            const result = await processItem([species, gene]);
+            if (result) {
+                oData.push(result);
+            }
+        }
+    
+        return oData;
+    };
+    
 
     return (
         <>
@@ -381,6 +322,9 @@ const Filter = () => {
             <Navbar />
             <div>
             <container className="Left_Column">
+            <h1 style={{ width: '100%', padding: '10px', paddingBottom: '20px', fontSize: '20px'}}>
+              Compare Genes
+            </h1>
                 <div className="input-container">
                 <select
                     className="Species_Input"
@@ -400,15 +344,13 @@ const Filter = () => {
                     
                 </div>
             <container className="Column_Buttons">
-                <button onClick={handleAddId}>Add ID</button>
+                {/* <button onClick={handleAddId}>Add ID</button> */}
                 
-                {/* <button className="download" onClick={() => downloadGraph()}>Download</button> */}
+                <button className="download" onClick={() => downloadGraph()}>Download</button>
                 
                 <button className="clear" onClick={() => setSpeciesAndGenes({})}>Clear All</button>
                 
-                <button className="toggle" onClick={() => HandleCountToggle()}>Toggle</button>
-               
-                {/* <button className="Cluster" onClick={() => HandleCluster()}>Cluster</button> */}
+                {/* <button className="toggle" onClick={() => HandleCountToggle()}>Toggle</button> */}
                 
                 <button onClick={() => handleClick()}>Show Selected</button>
              </container>
@@ -432,7 +374,7 @@ const Filter = () => {
                 <container className="Graph">
                 {showLoader &&
                     <div className="loader"></div>}
-                    {/* <svg ref={svgRef}></svg> */}
+                    <svg ref={graph}></svg>
                 </container>
                 <div id="info-box" ></div>
             </div>

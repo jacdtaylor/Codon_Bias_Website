@@ -158,7 +158,7 @@ const drawChart = (data, svgCurrent, taxoKey) => {
   const xAxisSvg = d3.select(svgCurrent.current.parentNode)
     .append("svg")
     .attr("class", "x-axis-svg")
-    .attr("width", totalWidth + margin.left + margin.right + 50)
+    .attr("width", totalWidth + margin.left + margin.right + 500)
     .attr("height", xAxisHeight)
     .style("position", "fixed")
     .style("bottom", "0px")

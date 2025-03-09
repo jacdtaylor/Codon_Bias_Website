@@ -330,6 +330,9 @@ const Dropdown = () => {
 
       <div>
         <div className="Left_Column">
+          <h1 style={{ width: '100%', padding: '10px', paddingBottom: '20px', fontSize: '20px'}}>
+                Genome-Wide Search By Trait
+              </h1>
           <select
             className="px-4 py-3 text-lg font-medium text-center text-gray-500 rounded-md"
             onChange={handleFilterChange}

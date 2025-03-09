@@ -295,6 +295,9 @@ const compareOrtho = () => {
                 <button onClick={() => handleGraphNum(svgRef3)}>Graph 3</button>
             </span>
             <div className='Left_Column'>
+                <h1 style={{ width: '100%', padding: '10px', paddingBottom: '20px', fontSize: '20px'}}>
+                Search by Ortholog Group
+                </h1>
                 <select
                     className="Species_Input"
                     onChange={handleSpeciesChange}

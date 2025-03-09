@@ -18,7 +18,6 @@ import { drawChart } from "../components/orthoHeatMap.js";
 
 const Filter = () => {
 
-    const [formattedData, setFormattedData] = useState([]);
     const [gene, setGene] = useState('');
     const [species, setSpecies] = useState('');
     const [currSpecGenes, setCurrSpecGenes] = useState([]);

@@ -16,7 +16,7 @@ const Home = () => {
   return (
     <>
       <Head>
-        <title>Codon Bias</title>
+        <title>CUBhub</title>
         <meta
           name="description"
           content="This is our website now!"

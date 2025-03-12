@@ -10,7 +10,7 @@ const Hero = () => {
         <div className="flex items-center w-full lg:w-1/3">
           <div className="max-w-2xl mb-8">
             <h1 className="text-4xl font-bold leading-snug tracking-tight text-gray-300 lg:text-4xl lg:leading-tight xl:text-6xl xl:leading-tight">
-              What is <span className="text-4xl font-bold leading-snug tracking-tight text-indigo-500 lg:text-4xl lg:leading-tight xl:text-6xl xl:leading-tight">Codon Bias</span>?
+              What is <span className="text-4xl font-bold leading-snug tracking-tight text-indigo-500 lg:text-4xl lg:leading-tight xl:text-6xl xl:leading-tight">Codon Usage Bias</span>?
             </h1>
             <p className="py-5 text-xl leading-normal text-gray-400 lg:text-xl xl:text-2xl">
               When DNA has been transcribed

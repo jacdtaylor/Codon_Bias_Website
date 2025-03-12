@@ -190,6 +190,9 @@ const genomeWide = () => {
                     />
                 </div>
 
+                <h1 style={{ width: '100%', padding: '10px', paddingBottom: '20px', fontSize: '20px'}}>
+                Genome-Wide Selection
+                </h1>
                 <select
                     className="Species_Input"
                     onChange={handleSpeciesChange}

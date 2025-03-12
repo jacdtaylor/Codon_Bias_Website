@@ -4,7 +4,7 @@ import os
 import json
 
 configs = Properties()
-with open(".\database\db.properties", "rb") as read_props:
+with open("./database/db.properties", "rb") as read_props:
     configs.load(read_props)
 
 try:

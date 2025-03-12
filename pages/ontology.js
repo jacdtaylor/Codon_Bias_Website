@@ -179,33 +179,39 @@ async function reverseTranslate(taxoTranslator) {
   }
 
   const pullOrthoData = async (sortedArray) => {
-    const fetchPromises = sortedArray.map(async ([species, gene]) => {
+    const oData = [];
+    
+    // Helper function to process each item
+    const processItem = async ([species, gene]) => {
         try {
-            const response = await fetch(`speciesIndividualJSONS/${species}JSON.json`);
-            if (!response.ok) {
-                throw new Error("Failed to fetch species data");
-            }
-            const data = await response.json();
-            const proportionData = data[gene][1];
+            const response = await fetch(`/api/dbQuery?species=${species}&gene=${gene}`);
+            if (!response.ok) throw new Error("Failed to fetch data from API");
 
-            // Construct AddedData without directly modifying oData in parallel
+            const data = await response.json();
+            const proportionData = data["Proportions"];
+
             const AddedData = codonOrder.reduce((acc, key, index) => {
                 acc[key] = proportionData[index];
                 return acc;
             }, { Species: species, Gene: gene });
 
             return AddedData;
-            } catch (error) {
-                console.error("Error fetching data for", species, gene, error);
-                return null; // Return null to filter out unsuccessful fetches
-            }
-        });
-
-      // Wait for all fetches to complete and filter out any null results
-      const results = await Promise.all(fetchPromises);
-      const oData = results.filter(Boolean); // Filter out nulls for unsuccessful fetches
-      return oData;
+        } catch (error) {
+            console.error("Error fetching data for", species, gene, error);
+            return null;
+        }
     };
+
+    for (let i = 0; i < sortedArray.length; i++) {
+        const [species, gene] = sortedArray[i];
+        const result = await processItem([species, gene]);
+        if (result) {
+            oData.push(result);
+        }
+    }
+
+    return oData;
+};
 
     const HandleGraph = async () => {
       if (Object.keys(speciesAndGenes).length === 0) {

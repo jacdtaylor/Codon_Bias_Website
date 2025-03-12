@@ -8,6 +8,8 @@ import { drawChart } from '../components/genomeGraph';
 import taxo from '../data/taxoTranslator.json';
 import commonNames from '../data/commonNameTranslator.json';
 import groupDivider from '../data/orthoDivide.json';
+import classTranslator from "../data/classTranslator.json"
+
 
 const genomeWide = () => {
     const svgRef1 = useRef();
@@ -21,7 +23,8 @@ const genomeWide = () => {
     const [allSpeciesData, setAllSpecies] = useState([]);
     const [filteredSpecies, setFilteredSpecies] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
-
+    const [currentClasses, setCurrentClasses] = useState(["mammalia","fungi","viridiplantae","vertebrate-other","invertebrate", "protozoa", "archaea"])
+    const allClasses = ["mammalia","fungi","viridiplantae","vertebrate-other","invertebrate", "protozoa", "archaea"];
     const [showGroups, setShowGroups] = useState(false);
 
     useEffect(() => {
@@ -38,6 +41,23 @@ const genomeWide = () => {
             d3.select(currentSVG.current).selectAll("*").remove();
         }
     }, [species]);
+
+
+
+   
+ 
+  
+    const handleCheckboxChange = (className) => {
+      setCurrentClasses((prev) =>
+        prev.includes(className)
+          ? prev.filter((cls) => cls !== className) // Remove if already selected
+          : [...prev, className] // Add if not selected
+      );
+    };
+  
+    const handleSelectAll = () => {
+      setCurrentClasses(currentClasses.length === allClasses.length ? [] : allClasses);
+    };
 
     const handleSpeciesList = async () => {
   
@@ -179,7 +199,9 @@ const genomeWide = () => {
             </span>
 
             <div className='Left_Column'>
-
+            <h1 style={{ width: '100%', padding: '10px', paddingBottom: '20px', fontSize: '20px'}}>
+                Genome-Wide Selection
+                </h1>
             <div className='input-container'>
                     <input
                         type='text'
@@ -190,9 +212,7 @@ const genomeWide = () => {
                     />
                 </div>
 
-                <h1 style={{ width: '100%', padding: '10px', paddingBottom: '20px', fontSize: '20px'}}>
-                Genome-Wide Selection
-                </h1>
+                
                 <select
                     className="Species_Input"
                     onChange={handleSpeciesChange}
@@ -200,6 +220,7 @@ const genomeWide = () => {
                     multiple
                 >
                     {filteredSpecies
+                .filter(speciesName => currentClasses.includes(classTranslator[speciesName.replace(".", "_")]))
                 .filter(speciesName => !species.includes(speciesName)) 
                 .filter((speciesName) => taxoTranslator.hasOwnProperty(speciesName.replace(".", "_")))
                 .map(speciesName => (
@@ -212,6 +233,23 @@ const genomeWide = () => {
                 <div className="input-container">
                     <button onClick={handleNameChange}>Toggle Name</button>
                     <button onClick={clearCurrent}>Clear Graph</button>
+                </div>
+
+                <div>
+                <button onClick={handleSelectAll}>
+                    {currentClasses.length === allClasses.length ? "Deselect All" : "Select All"}
+                </button>
+                {allClasses.map((className) => (
+                    <div key={className}>
+                    <input
+                        type="checkbox"
+                        checked={currentClasses.includes(className)}
+                        onChange={() => handleCheckboxChange(className)}
+                    />
+                    <label>{className}</label>
+                    </div>
+                ))}
+                <p>Selected Classes: {currentClasses.join(", ")}</p>
                 </div>
 
                 <button onClick={downloadGraph} className="Download">Download Graph</button>

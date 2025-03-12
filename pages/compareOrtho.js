@@ -10,6 +10,7 @@ import taxo from '../data/taxoTranslator.json';
 import commonNames from '../data/commonNameTranslator.json';
 import groupDivider from '../data/orthoDivide.json';
 import cladeDict from '../data/cladeJSON.json'
+import classTranslator from "../data/classTranslator.json"
 
 const compareOrtho = () => {
 

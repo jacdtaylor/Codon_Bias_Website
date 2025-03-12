@@ -405,11 +405,11 @@ async function reverseTranslate(taxoTranslator) {
                     <div className="loader"></div>}
             <svg ref={graph}></svg>
           </div>
-          {showDownload && <div>
+         <div>
               <button className='download' onClick={() => {downloadGraph(); }}>
                 Download Graph
               </button>
-            </div>}
+            </div>
         </>
       );
     }

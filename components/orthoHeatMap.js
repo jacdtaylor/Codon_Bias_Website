@@ -154,16 +154,6 @@ const drawChart = (data, svgCurrent, taxoKey) => {
   // ***********************************************
   // Create the first fixed x-axis (attached to the screen)
   // ***********************************************
-  const xAxisHeight = 100;  // Height for the first fixed x-axis area
-  const xAxisSvg = d3.select(svgCurrent.current.parentNode)
-    .append("svg")
-    .attr("class", "x-axis-svg")
-    .attr("width", totalWidth + margin.left + margin.right + 500)
-    .attr("height", xAxisHeight)
-    .style("position", "fixed")
-    .style("bottom", "0px")
-    .style("left", (margin.left + 50) + "px")
-    .style("background-color", gapColor);
 
   const xScaleForAxis = d3.scaleOrdinal()
     .domain(sortedCodons)

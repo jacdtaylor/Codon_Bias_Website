@@ -186,8 +186,11 @@ const compareOrtho = () => {
         if (!response.ok) throw new Error("Failed to fetch data from API");
 
         const data = await response.json();
+        
         let groups = data["orthoGroups"];
+       
         groups = groups.split(",");
+        
         setPossibleGroups(groups);
         setShowGroups(true);
     };
@@ -303,9 +306,11 @@ const compareOrtho = () => {
                     <option disabled value="">
                         -- Select Species --
                     </option>
-                    {allSpecies.map((cat) => (
+                    {allSpecies
+                    .filter((cat) => taxoTranslator.hasOwnProperty(cat))
+                    .map((cat) => (
                         <option key={cat} value={cat}>
-                            {taxoTranslator[cat]}
+                        {taxoTranslator[cat]}
                         </option>
                     ))}
                 </select>

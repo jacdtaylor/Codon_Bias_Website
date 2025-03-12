@@ -19,6 +19,9 @@ const genomeWide = () => {
     const [currentGenes, setCurrentGenes] = useState([]);
     const [taxoTranslator, setTaxoTranslator] = useState({});
     const [allSpeciesData, setAllSpecies] = useState([]);
+    const [filteredSpecies, setFilteredSpecies] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
+
     const [showGroups, setShowGroups] = useState(false);
 
     useEffect(() => {
@@ -47,6 +50,7 @@ const genomeWide = () => {
             const data = await response.json();
             if (data && data.species) {
                 setAllSpecies(data.species); // Update the species list
+                setFilteredSpecies(data.species)
             } else {
                 console.error("No species data found in the response.");
                 alert("Failed to load species list. Please try again later.");
@@ -79,7 +83,11 @@ const genomeWide = () => {
     }
 
     const handleNameChange = () => {
-        setTaxoTranslator(taxoTranslator === taxo ? commonNames : taxo);
+        setTaxoTranslator(prev => {
+            const newTranslator = prev === taxo ? commonNames : taxo;
+            drawChart(currentGenes, currentSVG, newTranslator); // Ensure it uses the updated translator
+            return newTranslator;
+        });
     };
 
     const handleDataChange = async (selectedSpeciesArray) => {
@@ -122,6 +130,21 @@ const genomeWide = () => {
         setSpecies([])
     };
 
+    const handleSearchChange = (e) => {
+        const term = e.target.value;
+        setSearchTerm(term);
+        if (term.length > 0) {
+            const results = allSpeciesData.filter(speciesName => 
+                taxoTranslator[speciesName.replace(".", "_")]
+                ?.toLowerCase()
+                .includes(term.toLowerCase())
+            );
+            setFilteredSpecies(results);
+        } else {
+            setFilteredSpecies(allSpeciesData);
+        }
+    };
+
     const downloadGraph = () => {
         if (currentGenes.length > 0) {
             const svgElement = currentSVG.current;
@@ -156,21 +179,33 @@ const genomeWide = () => {
             </span>
 
             <div className='Left_Column'>
+
+            <div className='input-container'>
+                    <input
+                        type='text'
+                        className='Species_Input'
+                        placeholder='Search for a species...'
+                        value={searchTerm}
+                        onChange={handleSearchChange}
+                    />
+                </div>
+
                 <select
                     className="Species_Input"
                     onChange={handleSpeciesChange}
                     value={species}
                     multiple
                 >
-                    {allSpeciesData
-                .filter(speciesName => !species.includes(speciesName))  // Exclude species in the 'species' array
+                    {filteredSpecies
+                .filter(speciesName => !species.includes(speciesName)) 
+                .filter((speciesName) => taxoTranslator.hasOwnProperty(speciesName.replace(".", "_")))
                 .map(speciesName => (
                 <option key={speciesName} value={speciesName}>
-                {speciesName}
+                {taxoTranslator[speciesName.replace(".", "_")]}
                 </option>
                 ))}
                 </select>
-
+                    
                 <div className="input-container">
                     <button onClick={handleNameChange}>Toggle Name</button>
                     <button onClick={clearCurrent}>Clear Graph</button>

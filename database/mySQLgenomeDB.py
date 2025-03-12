@@ -45,7 +45,7 @@ dataTable=[]
 
 
 
-with open(f".\data\proportions\mammalia_data.json") as f:
+with open(f".\data\proportions\genomeWideJSON.json") as f:
     data = json.load(f)
     for item in data:
         speciesName = item["Species"]

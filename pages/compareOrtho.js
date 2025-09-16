@@ -192,8 +192,10 @@ const compareOrtho = () => {
        
         groups = groups.split(",");
         
+        if (groups[0] == "No_Groups_Found") {alert("No Orthologous Groups Found")}
+        else{
         setPossibleGroups(groups);
-        setShowGroups(true);
+        setShowGroups(true);}
     };
 
     const selectOrthoGroup = async (id) => {

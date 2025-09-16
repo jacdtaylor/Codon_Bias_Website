@@ -192,6 +192,8 @@ const genomeWide = () => {
             <Head></Head>
             <Navbar />
             <div id="info-box"></div>
+            <div id="class-box"></div>
+
             <span className='graphButtons'>
                 <button onClick={() => handleGraphNum(svgRef1)}>Graph 1</button>
                 <button onClick={() => handleGraphNum(svgRef2)}>Graph 2</button>
@@ -230,26 +232,29 @@ const genomeWide = () => {
                 ))}
                 </select>
                     
-                <div className="input-container">
+                <container className="Column_Buttons">
                     <button onClick={handleNameChange}>Toggle Name</button>
                     <button onClick={clearCurrent}>Clear Graph</button>
-                </div>
+                </container>
 
                 <div>
                 <button onClick={handleSelectAll}>
                     {currentClasses.length === allClasses.length ? "Deselect All" : "Select All"}
                 </button>
+                <ul className="classUl">
                 {allClasses.map((className) => (
-                    <div key={className}>
+                    
+                        <li className="classLi" key={className}>
+
                     <input
                         type="checkbox"
                         checked={currentClasses.includes(className)}
                         onChange={() => handleCheckboxChange(className)}
                     />
                     <label>{className}</label>
-                    </div>
+                    </li>
                 ))}
-                <p>Selected Classes: {currentClasses.join(", ")}</p>
+                </ul>
                 </div>
 
                 <button onClick={downloadGraph} className="Download">Download Graph</button>

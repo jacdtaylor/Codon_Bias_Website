@@ -11,16 +11,14 @@ export default function Navbar() {
 
   const pageNames = [
     "Compare Genes",
-    "Genome-Wide Selection",
-    "Genome-Wide Search by Trait",
-    "Search by Ortholog Group",
-    "Search by Gene Function"
+    "Compare Genomes",
+  
+    "Compare Ontology"
   ];
   const links = [
-    "/filter",
-    "/genomewide",
-    "/selectMultiple",
     "/compareOrtho",
+    "/genomewide",
+   
     "/ontology"
   ];
 

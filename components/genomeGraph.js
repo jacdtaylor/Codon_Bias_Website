@@ -2,6 +2,7 @@ import * as d3 from 'd3';
 import codonJSON from "../data/codonJSON.json";
 import sortedNameList from "../data/sortedNameList.json";
 import expected from "../data/expectedProportions.json";
+import classTranslator from "../data/classTranslator.json"
 
 const drawChart = (data, svgCurrent, taxoKey) => {
   d3.select(svgCurrent.current).selectAll("*").remove();
@@ -9,9 +10,11 @@ const drawChart = (data, svgCurrent, taxoKey) => {
     .selectAll("svg.x-axis-svg")
     .remove();
 
-
-  const speciesNames = data.map(d => taxoKey[d.Species.replace(".","_")]);
-
+  const speciesNames = data.map(d => d.Species.replace(".", "_"));
+  
+  // Map species names to species IDs
+  const speciesIDMap = speciesNames.map(species => taxoKey[species] || species);  // If no mapping exists, keep the species name
+  
   const allCodonKeys = Object.keys(codonJSON);
   const codonsByAA = d3.group(allCodonKeys, codon => codonJSON[codon].split("|")[0]);
   const sortedAminoAcids = Array.from(codonsByAA.keys())
@@ -60,8 +63,9 @@ const drawChart = (data, svgCurrent, taxoKey) => {
       .style("fill", gapColor);
   });
 
+  // Update y scale to use species ID instead of species name
   const y = d3.scaleBand()
-    .domain(speciesNames)
+    .domain(speciesIDMap)  // Use species IDs from taxoKey
     .range([0, height])
     .padding(0);
 
@@ -77,7 +81,7 @@ const drawChart = (data, svgCurrent, taxoKey) => {
     .attr("class", "cellGroup")
     .selectAll("rect.cell")
     .data(d => sortedCodons.map(codon => ({
-      Species: d.Species.replace(".","_"),
+      Species: d.Species.replace(".", "_"),
       codon,
       value: +d[codon].split("|")[0],
       count: d[codon].split("|")[1],
@@ -86,7 +90,7 @@ const drawChart = (data, svgCurrent, taxoKey) => {
     .enter().append("rect")
     .attr("class", "cell")
     .attr("x", d => xPositions[d.codon])
-    .attr("y", d => y(taxoKey[d.Species.replace(".","_")]))
+    .attr("y", d => y(taxoKey[d.Species.replace(".", "_")]))  // Use species ID for y-positioning
     .attr("width", codonWidth)
     .attr("height", y.bandwidth())
     .style("fill", d => color((d.value - d.expectedValue) / d.expectedValue))
@@ -94,7 +98,7 @@ const drawChart = (data, svgCurrent, taxoKey) => {
       d3.select(this).style("stroke", "black").style("stroke-width", 2);
       const infoBox = d3.select("#info-box");
       const yOffset = window.scrollY || document.documentElement.scrollTop;
-      infoBox.html(`<p>Species: ${taxoKey[d.Species.replace(".","_")]}</p>
+      infoBox.html(`<p>Species: ${taxoKey[d.Species.replace(".", "_")]}</p>
                     <p>Codon: ${d.codon}</p>
                     <p>Amino Acid: ${codonJSON[d.codon].split("|")[0]}</p>
                     <p>Proportion: ${d.value}</p>
@@ -108,25 +112,22 @@ const drawChart = (data, svgCurrent, taxoKey) => {
       d3.select(this).style("stroke", "none");
       d3.select("#info-box").style("visibility", "hidden");
     });
-    const xAxisHeight = 100;  // Height for the first fixed x-axis area
 
-  
-    const xScaleForAxis = d3.scaleOrdinal()
-      .domain(sortedCodons)
-      .range(sortedCodons.map(codon => xPositions[codon]));
-  
-    const xAxis = d3.axisBottom(xScaleForAxis)
-      .tickValues(sortedCodons);
-  
-  
-    const graphXAxis = d3.axisBottom(xScaleForAxis)
+  const xAxisHeight = 100;
+
+  const xScaleForAxis = d3.scaleOrdinal()
+    .domain(sortedCodons)
+    .range(sortedCodons.map(codon => xPositions[codon]));
+
+  const xAxis = d3.axisBottom(xScaleForAxis)
+    .tickValues(sortedCodons);
+
+  const graphXAxis = d3.axisBottom(xScaleForAxis)
     .tickValues(sortedCodons)
-    // You can change the tick format if desired:
     .tickFormat(d => d);
 
   svg.append("g")
     .attr("class", "graph-bottom-axis")
-    // Position it at y = height so that it aligns with the bottom of the heatmap:
     .attr("transform", `translate(0, ${height})`)
     .call(graphXAxis)
     .selectAll("text")
@@ -134,7 +135,6 @@ const drawChart = (data, svgCurrent, taxoKey) => {
     .attr("dx", "-.8em")
     .attr("dy", ".15em")
     .attr("transform", "rotate(-65)");
-
 
   svg.append("g")
     .attr("class", "axis")
@@ -144,6 +144,35 @@ const drawChart = (data, svgCurrent, taxoKey) => {
     .style("text-anchor", "start")
     .attr("dx", ".8em")
     .attr("dy", ".15em");
+
+  const classColorScale = d3.scaleOrdinal(d3.schemeCategory10);
+
+  svg.selectAll("rect.class-bar")
+  .data(speciesNames)
+  .enter().append("rect")
+  .attr("class", "class-bar")
+    .style("fill", d => classColorScale(classTranslator[d] || "default")) // Use species ID to fetch class color
+
+  .attr("x", -15) // Position to the left
+  .attr("y", d => y(taxoKey[d.replace(".", "_")])) // Use species ID for vertical positioning
+  .attr("width", 15) // Width of the class color bar
+  .attr("height", y.bandwidth()) // Match row height
+  .on("mouseover", function(event, d) {
+    d3.select(this).style("stroke", "black").style("stroke-width", 2);
+    const infoBox = d3.select("#class-box");
+    const yOffset = window.scrollY || document.documentElement.scrollTop;
+    infoBox.html(`<p>${classTranslator[d]}</p>`)
+      .style("left", `${event.pageX - 100}px`)
+      .style("top", `${event.pageY - yOffset}px`)
+      .style("max-width", "100px")
+      .style("visibility", "visible");
+  })
+  .on("mouseout", function(event, d) {
+    d3.select(this).style("stroke", "none");
+    d3.select("#class-box").style("visibility", "hidden");
+  });
+
 };
+
 
 export { drawChart };

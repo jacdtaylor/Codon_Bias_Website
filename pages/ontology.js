@@ -321,18 +321,18 @@ async function reverseTranslate(taxoTranslator) {
   </div>
 
           {/* Button to trigger fetch */}
-          <div style={{paddingLeft: '110px'}}>
-            <button onClick={getData}>
+          <div>
+            <button onClick={getData} style={{width:"300px", height:"25px"}}>
               Fetch Data
             </button>
           </div>
 
   {isVisible &&
     <div>
-    {/* Select Species Section */}
+    {/* Select Species Section
     <h1 style={{ width: '100%', padding: '10px', paddingBottom: '20px', fontSize: '20px', marginTop: '25px'}}>
       Select species
-    </h1>
+    </h1> */}
 
       <div className='GeneNamesUl'>
         {scientific_names.map((name) => (
@@ -355,8 +355,7 @@ async function reverseTranslate(taxoTranslator) {
     {isVisible && 
     <div className='extra-buttons'>
 
-      <div className='Square_Buttons'
-      style={{paddingLeft: '50px'}}>
+      <div className='Square_Buttons'>
 
         <div>
           <button onClick={selectAll}>
@@ -369,25 +368,15 @@ async function reverseTranslate(taxoTranslator) {
             Clear All
           </button>
         </div>
-
-      </div>
-
-      <div  className='Square_Buttons' 
-        style={{paddingLeft: '110px'}}>
-        <div>
-          <button onClick={() => {HandleGraph(); }}>
-            Graph Data
-          </button>
-        </div>
-      </div>
-      <div  className='Square_Buttons' 
-        style={{paddingLeft: '105px'}}>
-        <div>
+       
+          <div>
           <button onClick={() => {handleNameChange(); }}>
             Toggle Name
           </button>
-        </div>
+          </div>
       </div>
+
+      
     </div>}
     </div>
 

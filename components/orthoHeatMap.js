@@ -159,18 +159,7 @@ const drawChart = (data, svgCurrent, taxoKey) => {
     .domain(sortedCodons)
     .range(sortedCodons.map(codon => xPositions[codon]));
 
-  const xAxis = d3.axisBottom(xScaleForAxis)
-    .tickValues(sortedCodons);
-
-  xAxisSvg.append("g")
-    .attr("class", "axis")
-    .attr("transform", `translate(338,0)`)
-    .call(xAxis)
-    .selectAll("text")
-    .style("text-anchor", "end")
-    .attr("dx", "-.8em")
-    .attr("dy", ".15em")
-    .attr("transform", "rotate(-65)");
+ 
 
   // ***********************************************
   // Create the second x-axis (attached to the bottom of the graph)

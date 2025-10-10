@@ -92,6 +92,8 @@ const drawChart = (data, svgCurrent, taxoKey) => {
   // ***********************************************
   // Draw the heatmap cells on top of the gap rectangles
   // ***********************************************
+
+  console.log(data)
   svg.selectAll("g.cellGroup")
     .data(data)
     .enter().append("g")
@@ -101,8 +103,8 @@ const drawChart = (data, svgCurrent, taxoKey) => {
       Species: d.Species,
       Gene: d.Gene,
       codon,
-      value: +d[codon].split("|")[0],       // numeric value
-      count: d[codon].split("|")[1],
+      value: d[codon] == undefined ? 0 : +d[codon].split("|")[0],       // numeric value
+      count:  d[codon] == undefined ? 0 : d[codon].split("|")[1],
       expectedValue: expected[codon] || 0
     })))
     .enter().append("rect")

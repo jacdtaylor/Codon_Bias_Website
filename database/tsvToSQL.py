@@ -30,7 +30,7 @@ except mysql.connector.Error:
     )
     print(f"Connected to database '{configs.get('db.name').data}' successfully.")
 
-TSVfiles = os.listdir('./public/mammalia')
+TSVfiles = os.listdir('./public/vertebrate-other')
 myCursor = mydb.cursor()
 
 FILE_SIZE_LIMIT = 32 * 1024 * 1024  
@@ -45,7 +45,7 @@ for fileName in TSVfiles:
     createTable = f"CREATE TABLE {tableName} (gene BLOB NOT NULL, `data` TEXT NOT NULL, PRIMARY KEY (`gene`(255)))"
     myCursor.execute(createTable)
 
-    file_path = f"./public/mammalia/{fileName}"
+    file_path = f"./public/vertebrate-other/{fileName}"
     file_size = os.path.getsize(file_path)
 
     try:
@@ -60,21 +60,19 @@ for fileName in TSVfiles:
             importData = f"INSERT INTO {tableName} (gene, data) VALUES (%s, %s)"
             
             if file_size > FILE_SIZE_LIMIT:
-                # Split into two batches
-                first_index = len(dataTable) // 3
-                second_index = first_index*2
-                myCursor.executemany(importData, dataTable[:first_index])
-                mydb.commit()
-                print(f"{fileName}: First batch inserted ({first_index} rows).")
+                length = len(dataTable)
+                initialIndex = 0
+                while initialIndex < length:
+                    myCursor.executemany(importData, dataTable[initialIndex: initialIndex + 20000])
+                    mydb.commit()
+                    print(f"{fileName}: First batch inserted (20000 rows).")
+                    initialIndex += 20000
+                # myCursor.executemany(importData, dataTable[initialIndex - 20000:])
+                # mydb.commit()
+                # print(f"{fileName}: First batch inserted (20000 rows).")
 
-                myCursor.executemany(importData, dataTable[first_index:second_index])
-                mydb.commit()
-                print(f"{fileName}: Second batch inserted ({second_index-first_index} rows).")
-
-
-                myCursor.executemany(importData, dataTable[second_index:])
-                mydb.commit()
-                print(f"{fileName}: Third batch inserted ({len(dataTable) - second_index} rows).")
+                
+                
             else:
                 # Insert all at once if below limit
                 myCursor.executemany(importData, dataTable)

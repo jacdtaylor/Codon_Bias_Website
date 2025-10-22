@@ -1,7 +1,7 @@
 {
-  "name": "CUBhub",
+  "name": "cubhub",
   "version": "1.0.0",
-  "description": "Codon Usage Bias Hub: for all your CUB needs!",
+  "description": "Codon Usage Bias Hub: for all your CUB analyses!",
   "private": true,
   "scripts": {
     "dev": "next dev",

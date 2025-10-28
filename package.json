@@ -1,7 +1,7 @@
 {
-  "name": "nextly-template",
-  "version": "0.1.0",
-  "description": "Nextly Landing Page Template",
+  "name": "cubhub",
+  "version": "1.0.0",
+  "description": "Codon Usage Bias Hub: for all your CUB analyses!",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -10,15 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://gituhb.com/web3templates/nextly-template"
+    "url": "https://github.com/ridgelab/CUBHub"
   },
   "keywords": [
-    "nextjs",
-    "tailwindcss",
-    "free"
+    "Codon Usage Bias",
+    "CUB"
   ],
-  "author": "Surjith S M",
-  "license": "ISC",
+  "author": "Jac Taylor, Tessa Tolson, Matthew Cloward",
+  "license": "MIT",
   "dependencies": {
     "@emotion/css": "^11.10.6",
     "@emotion/react": "^11.10.6",
@@ -38,7 +37,7 @@
     "lodash": "^4.17.21",
     "mysql": "^2.18.1",
     "mysql2": "^3.12.0",
-    "next": "^13.3.1",
+    "next": "^15.5.6",
     "next-themes": "^0.2.1",
     "properties-reader": "^2.3.0",
     "rc-slider": "^10.6.2",

@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import humanData from '../data/proportions/humanCodon.json';
 import Navbar from "../components/navbar";
-import DarkSwitch from "../components/DarkSwitch.js"
 import Head from "next/head";
 import { ClusterCodonData } from "../components/cluster.js";
 import { saveAs } from 'file-saver';

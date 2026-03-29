@@ -1,6 +1,6 @@
 import json
 
-go_path = '/Users/tessabass/Desktop/bio494r/fall2024/gene_ontology_terms.txt'
+go_path = './data/gene_ontology_terms.txt'
 
 with open(go_path) as inf:
     go_dict = {}
@@ -45,8 +45,5 @@ for key in go_dict:
 
 print(ref_dict)
 
-# with open('/Users/tessabass/Desktop/bio494r/winter2024/Codon_Bias_Website/Codon_Bias_Website/data/gene_ontology_terms.json', 'w') as outf:
-#     json.dump(go_dict, outf, indent=4)
-
-with open('/Users/tessabass/Desktop/bio494r/winter2024/Codon_Bias_Website/Codon_Bias_Website/data/go_terms_reference.json', 'w') as outf:
+with open('./data/go_terms_reference.json', 'w') as outf:
     json.dump(ref_dict, outf, indent=4)
